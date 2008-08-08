@@ -17,6 +17,7 @@ class ApplicationController < ActionController::Base
   def items_per_page
     50
   end
+  
   helper_method :items_per_page
   
   # do_pagination is used in before_filters by actions that use pagination

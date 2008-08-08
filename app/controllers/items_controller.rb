@@ -24,7 +24,10 @@ class ItemsController < ApplicationController
   # GET /items/1.xml
   def show
     @item = Item.find(params[:id]) rescue Item.find_by_name(params[:id])
+
+    go_404 and return unless @item
     
+    # FIXME remove the else clause, because title is actually required
     if @item.title && @item.title.length > 2
       @title = @item.title
     else
@@ -33,8 +36,6 @@ class ItemsController < ApplicationController
     
     @comment = Comment.new(params[:comment])
     
-    go_404 and return unless @item
-
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @item }
@@ -75,6 +76,7 @@ class ItemsController < ApplicationController
       end
     end
     
+    # FIXME remove this, because title required
     if @item.title.empty?
       @item.title = @item.content.gsub(/\<[^\>]+\>/, '')[0...40] + "..."
     end

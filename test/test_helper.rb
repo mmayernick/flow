@@ -40,5 +40,18 @@ class Test::Unit::TestCase
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
-  include AuthenticatedTestHelper  
+  include AuthenticatedTestHelper
+end
+
+class ActionController::TestCase
+  # def self.should_require_login(method, action)
+  #   context "#{method} to #{action}" do
+  #     setup do
+  #       send(method, action)
+  #     end
+  #     should "redirect to login" do
+  #       should_redirect_to 'login_url'
+  #     end
+  #   end
+  # end
 end
