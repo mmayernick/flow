@@ -12,6 +12,7 @@ class ItemsControllerTest < ActionController::TestCase
 
   should_require_login :put, :update
   should_require_login :get, :edit
+  should_require_login :delete, :destroy
   
   context 'As an anonymous user' do
   
@@ -154,12 +155,19 @@ class ItemsControllerTest < ActionController::TestCase
   end
   
   context 'As an admin user' do
-    # context 'DELETE to destroy' do
-    #   setup do
-    #     @item = Factory(:item)
-    #     delete :destroy, :id => @item.id
-    #   end
-    #   should_redirect_to 'items_path'
-    # end
+    context 'DELETE to destroy' do
+      setup do
+        @user = Factory(:admin)
+        @request.session[:user_id] = @user.to_param
+        
+        @item = Factory(:item)
+        delete :destroy, :id => @item.id
+      end
+      should_redirect_to 'items_path'
+      
+      should 'remove item' do
+        assert_nil Item.find_by_id(@item.id)
+      end
+    end
   end
 end
