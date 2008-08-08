@@ -79,75 +79,87 @@ class ItemsControllerTest < ActionController::TestCase
       should_assign_to :item
     end
     
-    # context 'POST to create'
+    context 'GET to edit' do
+      setup do
+        @item = Factory(:item)
+        get :edit, :id => @item.id
+      end
+      
+      should_redirect_to 'login_url'
+    end
+    
+    context 'POST to create without captcha' do
+      setup do
+        post :create, :item => Factory.attributes_for(:item)
+        @item = Item.last
+      end
+      
+      should_render_template :new
+    end
+    
+    # FIXME need to do something to be able to pass the captcha
+    # context 'POST to create with captcha' do
+    #   setup do
+    #     @captcha_guide = 'WOOOOT'
+    #     @captcha = Digest::SHA1.hexdigest(params[:captcha].upcase.chomp)[0..5]
+    #     post :create, :item => Factory.attributes_for(:item), :captcha => 'WOOOOT', :captcha_guide => 'WOOOOT'
+    #     @item = Item.last
+    #   end
+    #   
+    #   should_redirect_to 'item_path(@item)'
+    # end
   end
   
-  # context 'As a registered user' do
-    # TODO find a way to test being logged in
-    # context 'GET to edit' do
-    #   # FIXME make DRYer between with/without name tests
-    #   context 'of item with name' do
-    #     setup do
-    #       @item = Factory(:item)
-    #       get :edit, :id => @item.to_param
-    #     end
-    #   
-    #     should_respond_with :success
-    #     should_assign_to :item
+  context 'As a registered user' do
+    setup do
+      @user = Factory(:user)
+      @request.session[:user_id] = @user.to_param
+    end
+    
+    context 'GET to edit of one of the users item' do
+      # FIXME make DRYer between with/without name tests
+      context 'with a name' do
+        setup do
+          @item = Factory(:item, :user => @user)
+          get :edit, :id => @item.to_param
+        end
+      
+        should_respond_with :success
+        should_assign_to :item
+      end
+      
+      context 'without a name' do
+        setup do
+          @item = Factory(:item, :name => nil, :user => @user)
+          get :edit, :id => @item.to_param
+        end
+      
+        should_respond_with :success
+        should_assign_to :item
+      end
+    end
+    
+    context 'POST to create' do
+      setup do
+        post :create, :item => Factory.attributes_for(:item)
+        @item = Item.last
+      end
+      
+      should_redirect_to 'item_path(@item)'
+      
+      should 'create item posted by user' do
+        assert_equal @user, @item.user
+      end
+    end
+  end
+  
+  context 'As an admin user' do
+    # context 'DELETE to destroy' do
+    #   setup do
+    #     @item = Factory(:item)
+    #     delete :destroy, :id => @item.id
     #   end
-    #   
-    #   context 'of item without name' do
-    #     setup do
-    #       @item = Factory(:item, :name => nil)
-    #       get :edit, :id => @item.to_param
-    #     end
-    #   
-    #     should_respond_with :success
-    #     should_assign_to :item
-    #   end
+    #   should_redirect_to 'items_path'
     # end
-  #   
-  #   context 'POST to create' do
-  #   end
-  # end
-  
-
-  
-  # context 'POST to create' do
-  #   setup do
-  #     item :create, :item => Factory.attributes_for(:item)
-  #     @item = Item.find(:all).last
-  #   end
-  #   
-  #   should_redirect_to 'item_path(@item)'
-  # end
-  # 
-  # context 'GET to show' do
-  #   setup do
-  #     @item = Factory(:item)
-  #     get :show, :id => @item.id
-  #   end
-  #   should_respond_with :success
-  #   should_render_template :show
-  #   should_assign_to :item
-  # end
-  # 
-  # context 'GET to edit' do
-  #   setup do
-  #     @item = Factory(:item)
-  #     get :edit, :id => @item.id
-  #   end
-  #   should_respond_with :success
-  #   should_render_template :edit
-  #   should_assign_to :item
-  # end
-  # 
-  # 
-  # context 'DELETE to destroy' do
-  #   setup do
-  #     @item = Factory(:item)
-  #     delete :destroy, :id => @item.id
-  #   end
-  #   should_redirect_to 'items_path'
-  # end
+  end
 end

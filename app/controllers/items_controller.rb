@@ -68,7 +68,7 @@ class ItemsController < ApplicationController
       @item.user = current_user
     else
       @item.content = @item.content.gsub(/((<a\s+.*?href.+?\".*?\")([^\>]*?)>)/, '\2 rel="nofollow" \3>')
-      @item.byline = "Anonymous Coward" if @item.byline.empty?
+      @item.byline = "Anonymous Coward" if @item.byline.blank?
       if @item.byline.length > 18
         @item.errors.add("Byline")
         render :action => 'new'
@@ -82,7 +82,8 @@ class ItemsController < ApplicationController
     end
     
     unless logged_in?
-      unless Digest::SHA1.hexdigest(params[:captcha].upcase.chomp)[0..5] == params[:captcha_guide]
+      
+      unless params[:captcha] && Digest::SHA1.hexdigest(params[:captcha].upcase.chomp)[0..5] == params[:captcha_guide]
         @item.errors.add("Word")
         render :action => 'new'
         return
