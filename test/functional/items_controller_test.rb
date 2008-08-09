@@ -144,7 +144,7 @@ class ItemsControllerTest < ActionController::TestCase
     
     context 'POST to create' do
       setup do
-        post :create, :item => Factory.attributes_for(:item)
+        post :create, :item => Factory.attributes_for(:item, :content => '<a href="http://icanhascheezburger.com">invisble link!</a>')
         @item = Item.last
       end
       
@@ -152,6 +152,13 @@ class ItemsControllerTest < ActionController::TestCase
       
       should 'create item posted by user' do
         assert_equal @user, @item.user
+      end
+      
+      # FIXME for some reason, content ends up being <a href=\"http://icanhascheezburger.com\">invisble link!</a>
+      # works from development from script/server, but fails during testing
+      should_eventually 'add nofollow to links in content, because we hate anons' do
+        breakpoint
+        assert_match /nofollow/, @item.content
       end
     end
   end
