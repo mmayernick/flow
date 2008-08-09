@@ -8,6 +8,10 @@ class ApplicationController < ActionController::Base
   # Uncomment the :secret if you're not using the cookie session store
   protect_from_forgery # :secret => '????? you'll need to sort this out yourself!'
   
+  def passes_captcha?
+    params[:captcha] && Digest::SHA1.hexdigest(params[:captcha].upcase.chomp)[0..5] == params[:captcha_guide]
+  end
+  
   include AuthenticatedSystem
   
   def go_404

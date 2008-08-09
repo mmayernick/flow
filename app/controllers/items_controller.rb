@@ -81,13 +81,10 @@ class ItemsController < ApplicationController
       @item.title = @item.content.gsub(/\<[^\>]+\>/, '')[0...40] + "..."
     end
     
-    unless logged_in?
-      
-      unless params[:captcha] && Digest::SHA1.hexdigest(params[:captcha].upcase.chomp)[0..5] == params[:captcha_guide]
-        @item.errors.add("Word")
-        render :action => 'new'
-        return
-      end
+    if ! logged_in? && ! passes_captcha?
+      @item.errors.add("Word")
+      render :action => 'new'
+      return
     end
 
     respond_to do |format|
