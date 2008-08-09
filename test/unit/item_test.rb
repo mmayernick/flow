@@ -66,20 +66,4 @@ class ItemTest < ActiveSupport::TestCase
       assert_equal @item.id, @item.to_param
     end
   end
-  
-  # context 
-  
-  fixtures :users
-
-  # FIXME fails to save
-  # def test_can_add_item_with_no_name
-  #   item = Item.new(:title => "Title", :user => users(:quentin))
-  #   assert item.save
-  # end
-
-  def test_cant_add_item_with_bad_name
-    item = Item.new(:title => "Title", :name => "this is a test", :user => users(:quentin))
-    assert !item.save
-  end
-
 end
