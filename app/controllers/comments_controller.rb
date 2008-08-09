@@ -18,9 +18,9 @@ class CommentsController < ApplicationController
     if logged_in?
       @comment.user = current_user
     else
-      @comment.byline = "Anonymous Coward" if @comment.byline.empty?
+      @comment.byline = "Anonymous Coward" if @comment.byline.blank?
       @comment.content = @comment.content.gsub(/((<a\s+.*?href.+?\".*?\")([^\>]*?)>)/, '\2 rel="nofollow" \3>')
-      unless Digest::SHA1.hexdigest(params[:captcha].upcase.chomp)[0..5] == params[:captcha_guide]
+      unless passes_captcha?
         @item.errors.add("Word")
         flash.now[:notice] = "Your comment could not be posted. Scroll down, correct, and retry. Did you get the CAPTCHA right?"
         render :template => 'items/show'
@@ -49,7 +49,7 @@ class CommentsController < ApplicationController
     respond_to do |format|
       if @comment.update_attributes(params[:comment])
         flash[:notice] = 'Comment was successfully updated.'
-        format.html { redirect_to(@comment) }
+        format.html { redirect_to(@item) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -65,13 +65,13 @@ class CommentsController < ApplicationController
     @comment.destroy
 
     respond_to do |format|
-      format.html { redirect_to(comments_url) }
+      format.html { redirect_to(@item) }
       format.xml  { head :ok }
     end
   end
   
-private
-  def load_item
-    @item = Item.find(params[:item_id])
-  end
+  private
+    def load_item
+      @item = Item.find(params[:item_id])
+    end
 end

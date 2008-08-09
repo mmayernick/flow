@@ -1,15 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class ItemsControllerTest < ActionController::TestCase
-  def self.should_require_login(method, action)
-    context "#{method} to #{action}" do
-      setup do
-        send(method, action)
-      end
-      should_redirect_to 'login_url'
-    end
-  end
-
   should_require_login :put, :update
   should_require_login :get, :edit
   should_require_login :delete, :destroy

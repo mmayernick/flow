@@ -1,45 +1,97 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class CommentsControllerTest < ActionController::TestCase
-  def test_should_get_index
-    get :index
-    assert_response :success
-    assert_not_nil assigns(:comments)
-  end
-
-  def test_should_get_new
-    get :new
-    assert_response :success
-  end
-
-  def test_should_create_comment
-    assert_difference('Comment.count') do
-      post :create, :comment => { }
+  should_require_login :get, :edit
+  should_require_login :put, :update
+  should_require_login :delete, :destroy
+  
+  should_require_admin :get, :edit
+  should_require_admin :put, :update
+  should_require_admin :delete, :destroy
+  
+  context 'As a registered user' do
+    setup do
+      @user = Factory(:user)
+      @request.session[:user_id] = @user.to_param
     end
-
-    assert_redirected_to comment_path(assigns(:comment))
-  end
-
-  def test_should_show_comment
-    get :show, :id => comments(:one).id
-    assert_response :success
-  end
-
-  def test_should_get_edit
-    get :edit, :id => comments(:one).id
-    assert_response :success
-  end
-
-  def test_should_update_comment
-    put :update, :id => comments(:one).id, :comment => { }
-    assert_redirected_to comment_path(assigns(:comment))
-  end
-
-  def test_should_destroy_comment
-    assert_difference('Comment.count', -1) do
-      delete :destroy, :id => comments(:one).id
+    
+    context 'POST to create' do
+      setup do
+        @item = Factory(:item)
+        post :create, :comment => Factory.attributes_for(:comment, :item_id => @item.id), :item_id => @item.id
+        @comment = Comment.last
+      end
+      should_redirect_to 'item_path(@item)'
+      should_set_the_flash_to /success/
+      should 'assign current user to comment' do
+        assert_equal @user, @comment.user
+      end
     end
-
-    assert_redirected_to comments_path
+    
+  end
+  
+  context 'As an anonymous user' do
+    context 'POST to create' do
+      setup do
+        @item = Factory(:item)
+      end
+      context 'with failing captcha' do
+        setup do
+          @controller.stubs(:passes_captcha?).returns(false)
+          post :create, :comment => Factory.attributes_for(:comment), :item_id => @item.id
+          @comment = Comment.last
+        end
+        should_respond_with :success
+        should_set_the_flash_to /CAPTCHA/
+        should_assign_to :item
+        should_assign_to :comment
+        should_render_template 'items/show'
+      end
+      
+      context 'with passing captcha' do
+        setup do
+          @controller.stubs(:passes_captcha?).returns(true)
+          post :create, :comment => Factory.attributes_for(:comment), :item_id => @item.id
+          @comment = Comment.last
+        end
+        should_redirect_to 'item_path(@item)'
+        should_set_the_flash_to /success/
+        should 'assign current user to comment' do
+          assert_equal @user, @comment.user
+        end
+      end
+    end
+  end
+  
+  context 'As an admin user' do
+    setup do
+      @user = Factory(:admin)
+      @request.session[:user_id] = @user.to_param
+    end
+    
+    context 'DELETE to destroy' do
+      setup do
+        @item = Factory(:item)
+        @comment = Factory(:comment, :item => @item)
+        delete :destroy, :id => @comment.id, :item_id => @item.id
+      end
+      should_redirect_to 'item_path(@item)'  
+      should 'remove comment' do
+        assert_nil Comment.find_by_id(@comment.id)
+      end
+    end
+    
+    context 'PUT to update' do
+      setup do
+        @item = Factory(:item)
+        @comment = Factory(:comment, :item => @item)
+        put :update, :id => @comment.id, :item_id => @item.id, :comment => Factory.attributes_for(:comment, :content => 'this is totally new content')
+      end
+      should_redirect_to 'item_path(@item)'  
+      should 'update the comment' do
+        @comment.reload
+        assert_equal 'this is totally new content', @comment.content
+      end
+    end
   end
 end
