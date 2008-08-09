@@ -1,7 +1,7 @@
 class Category < ActiveRecord::Base
   acts_as_tree :order => 'name'
   
-  validates_presence_of     :title, :parent_id
+  validates_presence_of     :title
   validates_length_of       :title, :within => 4..255
   
   validates_uniqueness_of   :name, :if => :name?
