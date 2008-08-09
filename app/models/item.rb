@@ -15,7 +15,7 @@ class Item < ActiveRecord::Base
   validates_format_of       :tags, :with => /^[\s\w\-\_\:]+$/, :if => :tags?, :message => 'are invalid (alphanumerics, hyphens and underscores only)'
   
   def self.find_by_id_or_name(id_or_name)
-    find(id_or_name) rescue find_by_name(params[:id])
+    find(id_or_name) rescue find_by_name(id_or_name)
   end
   
   def to_param

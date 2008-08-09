@@ -89,8 +89,9 @@ class ItemsControllerTest < ActionController::TestCase
       should_redirect_to 'login_url'
     end
     
-    context 'POST to create without captcha' do
+    context 'POST to create with failing captcha' do
       setup do
+        @controller.stubs(:passes_captcha?).returns(false)
         post :create, :item => Factory.attributes_for(:item)
         @item = Item.last
       end
@@ -98,17 +99,18 @@ class ItemsControllerTest < ActionController::TestCase
       should_render_template :new
     end
     
-    # FIXME need to do something to be able to pass the captcha
-    # context 'POST to create with captcha' do
-    #   setup do
-    #     @captcha_guide = 'WOOOOT'
-    #     @captcha = Digest::SHA1.hexdigest(params[:captcha].upcase.chomp)[0..5]
-    #     post :create, :item => Factory.attributes_for(:item), :captcha => 'WOOOOT', :captcha_guide => 'WOOOOT'
-    #     @item = Item.last
-    #   end
-    #   
-    #   should_redirect_to 'item_path(@item)'
-    # end
+    context 'POST to create with passing captcha' do
+      setup do
+        @controller.stubs(:passes_captcha?).returns(true)
+        post :create, :item => Factory.attributes_for(:item, :byline => nil)
+        @item = Item.last
+      end
+      
+      should_redirect_to 'item_path(@item)'
+      should 'set item byline to Anonymous Coward' do
+        assert_equal 'Anonymous Coward', @item.byline
+      end
+    end
   end
   
   context 'As a registered user' do

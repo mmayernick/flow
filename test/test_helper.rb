@@ -6,6 +6,7 @@ require 'factory_girl'
 Dir[File.join(RAILS_ROOT, 'test', 'factories', '*')].each do |file|
   require file
 end
+require 'mocha'
 
 class Test::Unit::TestCase
   # Transactional fixtures accelerate your tests by wrapping each test method
