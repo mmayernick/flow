@@ -23,7 +23,7 @@ class ItemsController < ApplicationController
   # GET /items/1
   # GET /items/1.xml
   def show
-    @item = Item.find(params[:id]) rescue Item.find_by_name(params[:id])
+    @item = Item.find_by_id_or_name(params[:id])
 
     go_404 and return unless @item
     
@@ -105,7 +105,7 @@ class ItemsController < ApplicationController
   # PUT /items/1
   # PUT /items/1.xml
   def update
-    @item ||= Item.find(params[:id]) rescue Item.find_by_name(params[:id])
+    @item ||= Item.find_by_id_or_name(params[:id])
 
     respond_to do |format|
       if @item.update_attributes(params[:item])
@@ -122,7 +122,7 @@ class ItemsController < ApplicationController
   # DELETE /items/1
   # DELETE /items/1.xml
   def destroy
-    @item ||= Item.find(params[:id]) rescue Item.find_by_name(params[:id])
+    @item ||= Item.find_by_id_or_name(params[:id])
     @item.destroy
 
     respond_to do |format|
@@ -153,7 +153,7 @@ class ItemsController < ApplicationController
     respond_to do |format|
       format.html
       format.xml  { render :xml => @items }
-    end    
+    end
   end
   
   def category
@@ -173,7 +173,7 @@ class ItemsController < ApplicationController
   protected
   
   def permission_required
-    @item = Item.find(params[:id]) rescue Item.find_by_name(params[:id])
+    @item = Item.find_by_id_or_name(params[:id])
     render :status => 404, :text => "404 Not Found" and return unless @item
     render :status => 403, :text => "403 Forbidden" and return unless @item.user_id == current_user.id || admin?
   end

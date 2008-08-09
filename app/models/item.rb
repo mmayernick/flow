@@ -14,6 +14,10 @@ class Item < ActiveRecord::Base
   validates_length_of       :content, :within => 25..1200
   validates_format_of       :tags, :with => /^[\s\w\-\_\:]+$/, :if => :tags?, :message => 'are invalid (alphanumerics, hyphens and underscores only)'
   
+  def self.find_by_id_or_name(id_or_name)
+    find(id_or_name) rescue find_by_name(params[:id])
+  end
+  
   def to_param
     self[:name] && self[:name].length > 3 ? self[:name] : self[:id]
   end
