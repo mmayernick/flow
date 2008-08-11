@@ -107,7 +107,7 @@ class ItemsControllerTest < ActionController::TestCase
   context 'As a registered user' do
     setup do
       @user = Factory(:user)
-      @request.session[:user_id] = @user.to_param
+      login_as @user
     end
     
     context 'GET to edit of one of the users item' do
@@ -158,7 +158,7 @@ class ItemsControllerTest < ActionController::TestCase
     context 'DELETE to destroy' do
       setup do
         @user = Factory(:admin)
-        @request.session[:user_id] = @user.to_param
+        login_as @user
         
         @item = Factory(:item)
         delete :destroy, :id => @item.id

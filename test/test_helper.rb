@@ -58,7 +58,7 @@ class ActionController::TestCase
     context "#{method} to #{action} as non-admin user" do
       setup do
         @user = Factory(:user)
-        @request.session[:user_id] = @user.id
+        login_as @user
         
         send(method, action)
       end

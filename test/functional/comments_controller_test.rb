@@ -12,7 +12,7 @@ class CommentsControllerTest < ActionController::TestCase
   context 'As a registered user' do
     setup do
       @user = Factory(:user)
-      @request.session[:user_id] = @user.to_param
+      login_as @user
     end
     
     context 'POST to create' do
@@ -66,7 +66,7 @@ class CommentsControllerTest < ActionController::TestCase
   context 'As an admin user' do
     setup do
       @user = Factory(:admin)
-      @request.session[:user_id] = @user.to_param
+      login_as @user
     end
     
     context 'DELETE to destroy' do
