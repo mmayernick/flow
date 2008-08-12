@@ -60,6 +60,10 @@ class Item < ActiveRecord::Base
 	def is_starred_by_user(user)
 		user.starred_items.include? self
 	end
+	
+	def content_textiled
+		RedCloth.new(self.content).to_html
+	end
 
   # TODO move to a helper
   def starred_class(user)
