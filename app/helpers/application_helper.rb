@@ -39,6 +39,10 @@ module ApplicationHelper
     txt.gsub!(/\&lt;em>/, '<em>')
 
     txt
-  end
+  end  
+
+	def to_textile(contents)
+		RedCloth.new(contents, [:filter_html, :filter_classes, :filter_ids, :lite_mode]).to_html
+	end
   
 end
