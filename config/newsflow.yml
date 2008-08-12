@@ -1,6 +1,6 @@
 app_name: newsflow
 app_title: NewsFlow
-default_title: "News : Community Filtered News"
+default_title: "NewsFlow : Community Filtered News"
 sub_title: "Community-maintained news"
 app_url: http://rubyflow.local/
 rss_url: http://rubyflow.local/items.rss
@@ -19,6 +19,7 @@ uses_javascript: false
 # Set to 0 or omit to always allow editing of items by its owner
 edit_expiration_in_minutes: 60
 
+# use Textile formatting for the sidebar - using h3. for headings.
 sidebar: |-
   <h3>What?</h3><p>RubyFlow is a community driven Ruby links site. Items are not added automatically, but chosen and summarized by the community, resulting in a higher quality of links than <a href="http://ruby.reddit.com/">social bookmarking sites.</a></p>
   <h3>Japanese / Nihongo?</h3><p>There is <a href="http://www.kuwata-lab.com/rubyflow-ja/">a Japanese version of RubyFlow</a> available, thanks to Makoto Kuwata!</p>
