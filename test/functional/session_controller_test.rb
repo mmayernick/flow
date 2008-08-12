@@ -1,77 +1,74 @@
 require File.dirname(__FILE__) + '/../test_helper'
-require 'session_controller'
+# require 'session_controller'
 
-# Re-raise errors caught by the controller.
-class SessionController; def rescue_action(e) raise e end; end
-
-class SessionControllerTest < Test::Unit::TestCase
-  # Be sure to include AuthenticatedTestHelper in test/test_helper.rb instead
-  # Then, you can remove it from this and the units test.
-  include AuthenticatedTestHelper
-
-  fixtures :users
-
-  def setup
-    @controller = SessionController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
-  end
-
-  def test_should_login_and_redirect
-    post :create, :login => 'quentin', :password => 'test'
-    assert session[:user_id]
-    assert_response :redirect
-  end
-
-  def test_should_fail_login_and_not_redirect
-    post :create, :login => 'quentin', :password => 'bad password'
-    assert_nil session[:user_id]
-    assert_response :success
-  end
-
-  def test_should_logout
-    login_as :quentin
-    get :destroy
-    assert_nil session[:user_id]
-    assert_response :redirect
-  end
-
-  def test_should_remember_me
-    post :create, :login => 'quentin', :password => 'test', :remember_me => "1"
-    assert_not_nil @response.cookies["auth_token"]
-  end
-
-  def test_should_not_remember_me
-    post :create, :login => 'quentin', :password => 'test', :remember_me => "0"
-    assert_nil @response.cookies["auth_token"]
+class SessionControllerTest < ActionController::TestCase
+  
+  context 'logging in with proper credentials' do
+    setup do
+      @user = Factory(:user)
+      post :create, :login => @user.login, :password => @user.password
+    end
+    should_redirect_to 'root_url'
+    should 'set user id on session' do
+      assert_equal @user.id, session[:user_id]
+    end
   end
   
-  def test_should_delete_token_on_logout
-    login_as :quentin
-    get :destroy
-    assert_equal @response.cookies["auth_token"], []
+  context 'logging in with proper credentials, and wanting to be remembered' do
+    setup do
+      @user = Factory(:user)
+      post :create, :login => @user.login, :password => @user.password, :remember_me => 1
+    end
+    should_redirect_to 'root_url'
+    should 'set the authentication cookie' do
+      assert_not_nil @response.cookies['auth_token']
+    end
   end
-
-  def test_should_login_with_cookie
-    users(:quentin).remember_me
-    @request.cookies["auth_token"] = cookie_for(:quentin)
-    get :new
-    assert @controller.send(:logged_in?)
+  
+  context 'logging in with proper credentials, and wanting to not be remembered' do
+    setup do
+      @user = Factory(:user)
+      post :create, :login => @user.login, :password => @user.password, :remember_me => 0
+    end
+    should_redirect_to 'root_url'
+    should 'not set the authentication cookie' do
+      assert_nil @response.cookies['auth_token']
+    end
   end
-
-  def test_should_fail_expired_cookie_login
-    users(:quentin).remember_me
-    users(:quentin).update_attribute :remember_token_expires_at, 5.minutes.ago
-    @request.cookies["auth_token"] = cookie_for(:quentin)
-    get :new
-    assert !@controller.send(:logged_in?)
+  
+  context 'logging in with bad credentials' do
+    setup do
+      post :create, :login => 'somelogin', :password => 'some bad password'
+    end
+    should_respond_with :success
+    should 'not set user id on session' do
+      assert_nil session[:user_id]
+    end
   end
-
-  def test_should_fail_cookie_login
-    users(:quentin).remember_me
-    @request.cookies["auth_token"] = auth_token('invalid_auth_token')
-    get :new
-    assert !@controller.send(:logged_in?)
+  
+  context 'logging out' do
+    setup do
+      @user = Factory(:user)
+      login_as @user
+      get :destroy
+    end
+    should_redirect_to 'root_url'
+    should 'unset user id on session' do
+      assert_nil session[:user_id]
+    end
+  end
+  
+  context 'logging out when remembered' do
+    setup do
+      @user = Factory(:user)
+      @request.cookies["auth_token"] = cookie_for(@user)
+      login_as @user
+      get :destroy
+    end
+    
+    should 'unset cookie' do
+      assert_equal [], @response.cookies['auth_token']
+    end
   end
 
   protected
@@ -80,6 +77,6 @@ class SessionControllerTest < Test::Unit::TestCase
     end
     
     def cookie_for(user)
-      auth_token users(user).remember_token
+      auth_token user.remember_token
     end
 end
