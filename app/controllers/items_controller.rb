@@ -4,8 +4,6 @@ class ItemsController < ApplicationController
   before_filter :permission_required, :only => [:edit, :update]  
   before_filter :do_pagination, :only => [:index, :list_for_tag, :list_for_tags, :search, :recently]
   
-  layout 'main'
-  
   # GET /items
   # GET /items.xml
   def index

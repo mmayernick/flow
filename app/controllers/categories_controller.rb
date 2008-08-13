@@ -2,8 +2,6 @@ class CategoriesController < ApplicationController
   # You need to be an admin to play with categories (not actually used in this app yet)
   before_filter :admin_required, :except => [:show, :index]
   
-  layout 'main'
-  
   # GET /categories
   # GET /categories.xml
   def index

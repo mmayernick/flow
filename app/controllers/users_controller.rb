@@ -1,8 +1,6 @@
 class UsersController < ApplicationController
   before_filter :admin_required, :except => [:new, :create]
-  
-  layout 'main'
-    
+
   def new
   end
 
