@@ -1,65 +1,40 @@
 require File.dirname(__FILE__) + '/../test_helper'
-require 'users_controller'
 
-# Re-raise errors caught by the controller.
-class UsersController; def rescue_action(e) raise e end; end
-
-class UsersControllerTest < Test::Unit::TestCase
-  # Be sure to include AuthenticatedTestHelper in test/test_helper.rb instead
-  # Then, you can remove it from this and the units test.
-  include AuthenticatedTestHelper
-
-  fixtures :users
-
-  def setup
-    @controller = UsersController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
-  end
-
-  def test_should_allow_signup
-    assert_difference 'User.count' do
-      create_user
-      assert_response :redirect
+class UsersControllerTest < ActionController::TestCase
+  should_require_admin :get, :index
+  should_require_admin :get, :approve
+  should_require_admin :get, :disapprove
+  should_require_admin :delete, :destroy
+  
+  context 'Creating a user' do
+    setup do
+      @controller.stubs(:passes_captcha?).returns(true)
+      @user_attributes = Factory.attributes_for(:user)
+      post :create, :user => @user_attributes
+      @user = User.find_by_login @user_attributes[:login]
     end
-  end
-
-  def test_should_require_login_on_signup
-    assert_no_difference 'User.count' do
-      create_user(:login => nil)
-      assert assigns(:user).errors.on(:login)
-      assert_response :success
+    
+    should 'delete authorization cookie' do
+       assert_equal [], @response.cookies['auth_token']
     end
-  end
-
-  def test_should_require_password_on_signup
-    assert_no_difference 'User.count' do
-      create_user(:password => nil)
-      assert assigns(:user).errors.on(:password)
-      assert_response :success
-    end
-  end
-
-  def test_should_require_password_confirmation_on_signup
-    assert_no_difference 'User.count' do
-      create_user(:password_confirmation => nil)
-      assert assigns(:user).errors.on(:password_confirmation)
-      assert_response :success
-    end
-  end
-
-  def test_should_require_email_on_signup
-    assert_no_difference 'User.count' do
-      create_user(:email => nil)
-      assert assigns(:user).errors.on(:email)
-      assert_response :success
+    should_redirect_to 'items_url'
+    should 'actually create the user' do
+      assert_not_nil @user
     end
   end
   
-
-  protected
-    def create_user(options = {})
-      post :create, :captcha => 'test', :captcha_guide => 'a94a8f', :user => { :login => 'quire', :email => 'quire@example.com',
-        :password => 'quire', :password_confirmation => 'quire' }.merge(options)
+  context 'Failing to create a user' do
+    setup do
+      @controller.stubs(:passes_captcha?).returns(true)
+      @user_attributes = Factory.attributes_for(:user, :password => nil)
+      post :create, :user => @user_attributes
+      @user = User.find_by_login @user_attributes[:login]
     end
+    
+    should_respond_with :success
+    should_render_template :new
+    should 'not actually create the user' do
+      assert_nil @user
+    end
+  end
 end

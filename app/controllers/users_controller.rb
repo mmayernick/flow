@@ -10,14 +10,13 @@ class UsersController < ApplicationController
     cookies.delete :auth_token
     
     @user = User.new(params[:user])
-    unless Digest::SHA1.hexdigest(params[:captcha].upcase.chomp)[0..5] == params[:captcha_guide]
+    unless passes_captcha?
       @user.errors.add("Word")
       render :action => 'new'
       return
     end    
 
-    @user.save
-    if @user.errors.empty?
+    if @user.save
       self.current_user = @user
       redirect_back_or_default('/')
       flash[:notice] = "Thanks for signing up! You have been logged in automagically!"
