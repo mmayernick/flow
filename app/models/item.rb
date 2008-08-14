@@ -13,6 +13,17 @@ class Item < ActiveRecord::Base
   validates_length_of       :name, :within => 4..255, :if => :name?
   validates_length_of       :content, :within => 25..1200
   validates_format_of       :tags, :with => /^[\s\w\-\_\:]+$/, :if => :tags?, :message => 'are invalid (alphanumerics, hyphens and underscores only)'
+  validates_length_of       :byline, :maximum => 18, :if => :byline?
+  
+  before_save :anonymize_byline, :if => :anonymous?
+  
+  def anonymous?
+    (self.user_id.nil? || self.user.nil?) && (self.byline.nil? || self.byline.blank? || self.byline == 'Anonymous Coward')
+  end
+  
+  def anonymize_byline
+    self.byline = 'Anonymous Coward'
+  end
   
   def self.find_by_id_or_name(id_or_name)
     find(id_or_name) rescue find_by_name(id_or_name)
@@ -64,7 +75,6 @@ class Item < ActiveRecord::Base
 	def is_starred_by_user(user)
 		user.starred_items.include? self
 	end
-	
 
   # TODO move to a helper
   def starred_class(user)

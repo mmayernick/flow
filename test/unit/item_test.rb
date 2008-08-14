@@ -8,6 +8,7 @@ class ItemTest < ActiveSupport::TestCase
   should_ensure_length_in_range :title, (4..255)
   should_ensure_length_in_range :name, (4..255)
   should_ensure_length_in_range :content, (25..1200)
+  should_ensure_length_in_range :byline, (0..18)
   
   # TODO test tagging stuff
   
@@ -53,6 +54,30 @@ class ItemTest < ActiveSupport::TestCase
       
       should 'generate empty css class' do
         assert_equal '', @item.starred_class(@user)
+      end
+    end
+  end
+  
+  context 'An Item with a nil byline and user_id' do
+    setup do 
+      @item = Factory.build(:item, :byline => nil, :user => nil)
+    end
+    
+    should 'be anonymous' do
+      assert @item.anonymous?
+    end
+    
+    context 'when saved' do
+      setup do
+        @item.save
+      end
+      
+      should 'have byline of Anonymous Coward' do
+        assert_equal 'Anonymous Coward', @item.byline
+      end
+      
+      should 'still be anonymous' do
+        assert @item.anonymous?
       end
     end
   end

@@ -25,12 +25,7 @@ class ItemsController < ApplicationController
 
     go_404 and return unless @item
     
-    # FIXME remove the else clause, because title is actually required
-    if @item.title && @item.title.length > 2
-      @title = @item.title
-    else
-      @title = @item.content.gsub(/\<.+?\>/, '')[0..40] + "..."
-    end
+    @title = @item.title
     
     @comment = Comment.new(params[:comment])
     
@@ -66,12 +61,6 @@ class ItemsController < ApplicationController
       @item.user = current_user
     else
       @item.content = @item.content.gsub(/((<a\s+.*?href.+?\".*?\")([^\>]*?)>)/, '\2 rel="nofollow" \3>')
-      @item.byline = "Anonymous Coward" if @item.byline.blank?
-      if @item.byline.length > 18
-        @item.errors.add("Byline")
-        render :action => 'new'
-        return
-      end
     end
     
     # FIXME remove this, because title required
