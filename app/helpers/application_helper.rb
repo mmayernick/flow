@@ -15,5 +15,9 @@ module ApplicationHelper
   def safe(txt)
     sanitize(txt, :tags => %w(a p code b strong i em blockquote), :attributes => %w(href)).split("\n").join("\n<br />")
   end
+
+	def to_textile(contents)
+		RedCloth.new(contents, [:filter_html, :filter_classes, :filter_ids, :lite_mode]).to_html
+	end
   
 end

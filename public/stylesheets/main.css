@@ -44,6 +44,15 @@ caption, th, td {
 
 /* @group Main */
 
+.formatting-help td.code {
+  font-family: Monaco, "Courier New", monospace;
+  font-size: 10pt;
+}  
+
+.formatting-help td {
+  padding: 5px;
+}
+
 body {
   margin: 0px 0px 20px 0px;
   text-align: left;
@@ -397,19 +406,14 @@ H1 A { color: #c00; }
 
 /* @group Sites */
 
-BODY.rubyflow #header { border-bottom-color: #c00; }
-BODY.pythonflow #header { border-bottom-color: #490; }
-BODY.rubyflow #header H1 A { color: #c00; }
-BODY.pythonflow #header H1 A { color: #490; }
-BODY.rubyflow .rubyred { color: #c00; }
-BODY.pythonflow .rubyred { color: #490; }
+BODY.newsflow #header { border-bottom-color: #0066B3; }
+BODY.newsflow #header H1 A { color: #0066B3; }
+BODY.newsflow .rubyred { color: #00487D; }
 
-BODY.rubyflow A { color: #2266bb; }
-BODY.rubyflow A:hover { color: #ff0000; }
-BODY.rubyflow .entry A:visited { text-decoration: none; }
-BODY.pythonflow A { color: #2266bb; }
-BODY.pythonflow A:hover { color: #009900; }
-BODY.pythonflow .entry A:visited { text-decoration: none; }
+BODY.newsflow A { color: #2266bb; }
+BODY.newsflow A:hover { color: #ff0000; }
+BODY.newsflow .entry A:visited { text-decoration: none; }
+
 
 
 /* @end */      

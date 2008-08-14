@@ -1,4 +1,4 @@
-app_name = "rubyflow"
+app_name = "newsflow"
 
 # Be sure to restart your server when you modify this file
 
@@ -60,6 +60,8 @@ Rails::Initializer.run do |config|
   # Make Active Record use UTC-base instead of local time
   # config.active_record.default_timezone = :utc
   config.gem 'thoughtbot-factory_girl', :lib => 'factory_girl', :source => 'http://gems.github.com'
+  config.gem 'RedCloth'
 end
 
 APP_CONFIG = YAML::load(File.open("#{RAILS_ROOT}/config/#{app_name}.yml")).symbolize_keys
+APP_CONFIG[:sidebar] = RedCloth.new(APP_CONFIG[:sidebar]).to_html

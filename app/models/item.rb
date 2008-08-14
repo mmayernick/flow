@@ -64,6 +64,7 @@ class Item < ActiveRecord::Base
 	def is_starred_by_user(user)
 		user.starred_items.include? self
 	end
+	
 
   # TODO move to a helper
   def starred_class(user)

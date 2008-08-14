@@ -9,4 +9,5 @@ coverage
 doc/plugins/*
 doc/*
 #db/sphinx/development/*
-Capfile
+Capfile          
+tmp/restart.txt

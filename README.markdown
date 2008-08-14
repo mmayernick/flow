@@ -1,4 +1,4 @@
-RUBYFLOW
+NewsFlow
 ========
 _Developed by Peter Cooper - 2008_
 
@@ -18,16 +18,8 @@ configuration changes.
 
 2. Run rake db:migrate to set up your database.
  
-3. Configure your site-specific settings (see "Multiple Sites", below).
+3. Set up your site configuration, a default configuration file is found in config/newsflow.yml
 
-Multiple Sites
---------------
-
-The RubyFlow code is designed to deal with multiple sites from one codebase (although not one installation).
-The settings for a particular site are in config/[sitename].yml
-The site name for the current installation is set on the first line of config/environment.rb
-Current the setting is for "rubyflow", so config/rubyflow.yml is used.
-Change the chosen site in config/environment.rb and create your own YML file.
-
-Note that the chosen site name is added as a class to the BODY tag. This makes it easy to use the same
-CSS file for multiple sites but apply site specific tweaks with BODY.sitename prefixes in the CSS!
+Advanced Multi-Site Usage
+-------------------------
+It is possible to create multiple configuration .yml files and then change the first line of config/environment.rb to switch between them.
