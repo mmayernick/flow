@@ -23,7 +23,7 @@ class ItemsController < ApplicationController
   def show
     @item = Item.find_by_id_or_name(params[:id])
 
-    go_404 and return unless @item
+    render_404 and return unless @item
     
     @title = @item.title
     
@@ -119,7 +119,7 @@ class ItemsController < ApplicationController
   def list_for_tags
     @tag_array = [*params[:id]].collect { |a| a.split(/\s+|\++/) }.flatten
     @items_count = Item.count_all_for_all_tags(@tag_array)
-    go_404 and return if @items_count == 0
+    render_404 and return if @items_count == 0
     @items = Item.find_all_for_all_tags(@tag_array, { :order => 'created_at DESC' }.merge(@pagination_options))
     @noindex = true
 
@@ -142,7 +142,7 @@ class ItemsController < ApplicationController
   
   def category
     @category = Category.find_by_name(params[:id])
-    go_404 and return unless @category
+    render_404 and return unless @category
     @items = Item.find_all_for_all_tags(@category.query.split(/\s/))
   end
   
@@ -158,8 +158,8 @@ class ItemsController < ApplicationController
   
   def permission_required
     @item = Item.find_by_id_or_name(params[:id])
-    render :status => 404, :text => "404 Not Found" and return unless @item
-    render :status => 403, :text => "403 Forbidden" and return unless @item.user_id == current_user.id || admin?
+    (render_404 and return) unless @item
+    (render_403 and return) unless @item.user_id == current_user.id || admin?
   end
   
 end

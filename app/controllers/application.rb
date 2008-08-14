@@ -14,8 +14,12 @@ class ApplicationController < ActionController::Base
   
   include AuthenticatedSystem
   
-  def go_404
-    render :text => '404 Not Found', :status => 404
+  def render_404
+    render :status => 404, :text => '404 Not Found'
+  end
+  
+  def render_403
+    render :status => 403, :text => '403 Forbidden'
   end
   
   def items_per_page
