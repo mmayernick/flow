@@ -4,5 +4,6 @@ class RemoveTags < ActiveRecord::Migration
   end
 
   def self.down
+    add_column :items, :tags, :text, :limit => 255
   end
 end
