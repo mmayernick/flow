@@ -1,10 +1,10 @@
 ActionController::Routing::Routes.draw do |map|
   map.root :controller => 'items'
 
-  map.resources :items, :collection => {:recently => :get} do |items|
+  map.resources :items,
+                :collection => {:recently => :get},
+                :member => {:star => :get, :unstar => :get} do |items|
     items.resources :comments
-    items.add_star    '/star/add', :controller => "stars", :action => "add"
-    items.remove_star '/star/remove', :controller => "stars", :action => "remove"
   end
 
   map.resources :categories

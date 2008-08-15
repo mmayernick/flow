@@ -11,7 +11,7 @@ module ItemsHelper
   
   def star_link(item)
     if item.is_starred_by_user(current_user)
-      return " &ndash; " + content_tag(:span, link_to("unstar this post", item_remove_star_path(item), :class => item.starred_class(current_user)), :class => "star")
+      return " &ndash; " + content_tag(:span, link_to("unstar this post", unstar_item_path(item), :class => item.starred_class(current_user)), :class => "star")
     end
   end
   

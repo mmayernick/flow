@@ -4,6 +4,8 @@ class ItemsControllerTest < ActionController::TestCase
   should_require_login :put, :update
   should_require_login :get, :edit
   should_require_login :delete, :destroy
+  should_require_login :get, :star
+  should_require_login :get, :unstar
   
   context 'As an anonymous user' do
   
@@ -151,6 +153,42 @@ class ItemsControllerTest < ActionController::TestCase
         breakpoint
         assert_match /nofollow/, @item.content
       end
+    end
+    
+    context 'GET to star' do
+      setup do
+        @item = Factory(:item)
+        @request.env['HTTP_REFERER'] = item_url(@item)
+        
+        get :star, :id => @item.to_param
+        
+        @item.reload
+      end
+      
+      should "add item to user's list of starred items" do
+        assert @item.is_starred_by_user(@user)
+      end
+      
+      should_redirect_to 'item_url(@item)'
+    end
+    
+    context 'GET to unstar' do
+      setup do
+        @item = Factory(:item)
+        @star = Star.create(:item => @item, :user => @user)
+        
+        @request.env['HTTP_REFERER'] = item_url(@item)
+
+        get :unstar, :id => @item.to_param
+
+        @item.reload
+      end
+
+      should "add item to user's list of starred items" do
+        assert ! @item.is_starred_by_user(@user)
+      end
+
+      should_redirect_to 'item_url(@item)'
     end
   end
   
