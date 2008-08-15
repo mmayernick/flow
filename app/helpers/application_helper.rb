@@ -17,7 +17,7 @@ module ApplicationHelper
   end
 
 	def to_textile(contents)
-		RedCloth.new(contents, [:filter_html, :filter_classes, :filter_ids, :lite_mode]).to_html
+		RedCloth.new(contents, [:filter_classes, :filter_ids, :lite_mode]).to_html
 	end
   
 end
