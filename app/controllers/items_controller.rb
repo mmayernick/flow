@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-  before_filter :login_required, :except => [:show, :list_for_tag, :index, :search, :category, :new, :create]
+  before_filter :login_required, :except => [:show, :index, :search, :category, :new, :create]
   before_filter :admin_required, :only => [:destroy]
   before_filter :permission_required, :only => [:edit, :update]
   
@@ -113,19 +113,6 @@ class ItemsController < ApplicationController
       format.xml  { head :ok }
       format.json { head :ok }
     end
-  end
-  
-  def list_for_tags
-    @tag_array = [*params[:id]].collect { |a| a.split(/\s+|\++/) }.flatten
-    @items_count = Item.count_all_for_all_tags(@tag_array)
-    render_404 and return if @items_count == 0
-    @items = Item.paginate_all_for_all_tags(@tag_array, { :order => 'created_at DESC' })
-    @noindex = true
-
-    respond_to do |format|
-      format.html
-      format.xml  { render :xml => @items }
-    end    
   end
   
   def search

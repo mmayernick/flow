@@ -22,8 +22,6 @@ class ItemTest < ActiveSupport::TestCase
     should_allow_values_for :name, 'name-1', 'name_1'
     should_not_allow_values_for :name, 'name 1'
     
-    should_allow_values_for :tags, ':foo :bar'
-    
     should 'use name for #to_param' do
       assert_equal @item.name, @item.to_param
     end
