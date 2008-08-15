@@ -21,6 +21,22 @@ class User < ActiveRecord::Base
   # anything else you want your user to change should be added here.
   attr_accessible :login, :email, :password, :password_confirmation, :identity_url, :url, :fullname
 
+  def unstar(item)
+    star = self.stars.find_by_item_id(item.id)
+    if star
+      star.destroy
+    end
+  end
+  
+  def star(item)
+    star = self.stars.find_by_item_id(item.id)
+    unless star
+      self.stars.create(:item => item)
+    else
+      false
+    end
+  end
+  
   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
   def self.authenticate(login, password)
     u = find_by_login(login) # need to get the salt
