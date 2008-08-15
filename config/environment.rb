@@ -61,7 +61,15 @@ Rails::Initializer.run do |config|
   # config.active_record.default_timezone = :utc
   config.gem 'thoughtbot-factory_girl', :lib => 'factory_girl', :source => 'http://gems.github.com'
   config.gem 'RedCloth'
+  
+  config.gem 'mislav-will_paginate', :version => '>=2.2.0', :lib => 'will_paginate', :source => 'http://gems.github.com'
 end
 
 APP_CONFIG = YAML::load(File.open("#{RAILS_ROOT}/config/#{app_name}.yml")).symbolize_keys
 APP_CONFIG[:sidebar] = RedCloth.new(APP_CONFIG[:sidebar]).to_html
+
+require 'will_paginate'
+WillPaginate::enable_named_scope
+WillPaginate::ViewHelpers.pagination_options[:next_label] = 'Older &raquo;'
+WillPaginate::ViewHelpers.pagination_options[:previous_label] = '&laquo; Newer'
+WillPaginate::ViewHelpers.pagination_options[:page_links] = false

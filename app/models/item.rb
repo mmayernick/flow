@@ -15,6 +15,8 @@ class Item < ActiveRecord::Base
   validates_format_of       :tags, :with => /^[\s\w\-\_\:]+$/, :if => :tags?, :message => 'are invalid (alphanumerics, hyphens and underscores only)'
   validates_length_of       :byline, :maximum => 18, :if => :byline?
   
+  named_scope :all, :order => 'created_at DESC', :include => :user
+  
   before_save :anonymize_byline, :if => :anonymous?
   
   def anonymous?
@@ -75,6 +77,10 @@ class Item < ActiveRecord::Base
 	def is_starred_by_user(user)
 		user.starred_items.include? self
 	end
+	
+	def self.per_page
+    50
+  end
 
   # TODO move to a helper
   def starred_class(user)

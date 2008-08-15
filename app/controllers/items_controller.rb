@@ -1,15 +1,14 @@
 class ItemsController < ApplicationController
   before_filter :login_required, :except => [:show, :list_for_tag, :index, :search, :category, :new, :create]
   before_filter :admin_required, :only => [:destroy]
-  before_filter :permission_required, :only => [:edit, :update]  
-  before_filter :do_pagination, :only => [:index, :list_for_tag, :list_for_tags, :search, :recently]
+  before_filter :permission_required, :only => [:edit, :update]
   
   # GET /items
   # GET /items.xml
   def index
     @front_page = true
     @items_count = Item.count
-    @items = Item.find(:all, { :order => 'items.created_at DESC', :include => :user }.merge(@pagination_options))
+    @items = Item.all.paginate :page => params[:page]
 
     respond_to do |format|
       format.html # index.html.erb
@@ -120,7 +119,7 @@ class ItemsController < ApplicationController
     @tag_array = [*params[:id]].collect { |a| a.split(/\s+|\++/) }.flatten
     @items_count = Item.count_all_for_all_tags(@tag_array)
     render_404 and return if @items_count == 0
-    @items = Item.find_all_for_all_tags(@tag_array, { :order => 'created_at DESC' }.merge(@pagination_options))
+    @items = Item.paginate_all_for_all_tags(@tag_array, { :order => 'created_at DESC' })
     @noindex = true
 
     respond_to do |format|
@@ -131,7 +130,7 @@ class ItemsController < ApplicationController
   
   def search
     @items_count = Item.count(:conditions => ['title LIKE ? OR tags LIKE ?', "%#{params[:id]}%", "%#{params[:id]}%"])
-    @items = Item.find(:all, {:conditions => ['title LIKE ? OR tags LIKE ?', "%#{params[:id]}%", "%#{params[:id]}%"]}.merge(@pagination_options))
+    @items = Item.paginate(:all, {:conditions => ['title LIKE ? OR tags LIKE ?', "%#{params[:id]}%", "%#{params[:id]}%"]})
     @noindex = true
 
     respond_to do |format|
@@ -150,7 +149,7 @@ class ItemsController < ApplicationController
     @last_checked_at = current_user.last_checked_at
     conditions   = ['items.updated_at > ? or comments.created_at > ?', @last_checked_at, @last_checked_at]
     @items_count = current_user.starred_items.count(:conditions => conditions, :include => :comments)
-    @items       = current_user.starred_items.find(:all, :conditions => conditions, :include => :comments)
+    @items       = current_user.starred_items.paginate(:all, :conditions => conditions, :include => :comments, :page => params[:page])
     current_user.update_attribute :last_checked_at, Time.now
   end
   

@@ -1,4 +1,4 @@
-<%= render :partial => 'items/paginator' if @page_number > 1 %>
+<%= will_paginate @items %>
 
 <h2>Recently in your Flow</h2>
 
@@ -15,4 +15,4 @@
   </div>
 <% end %>
 
-<%= render :partial => 'items/paginator' %>
+<%= will_paginate @items %>

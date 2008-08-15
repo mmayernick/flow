@@ -212,22 +212,26 @@ BODY.inner .date {
   color: #999;
 }
 
-.leftright {
+.pagination {
 	height: 24px;
 }
 
-.leftright .left {
+.pagination .prev_page {
 	float: left;
 }
 
-.leftright .right {
+.pagination .next_page {
 	float: right;
 }
 
-.leftright A {
+.pagination A {
   color: #888;
   font-family: verdana;
   font-size: 12px;
+}
+
+.pagination .disabled {
+  display: none;
 }
 
 blockquote span.a, blockquote span.b { 
