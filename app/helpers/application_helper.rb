@@ -11,13 +11,10 @@ module ApplicationHelper
       APP_CONFIG[:default_title]
     end
   end
-  
-  def safe(txt)
-    sanitize(txt, :tags => %w(a p code b strong i em blockquote), :attributes => %w(href)).split("\n").join("\n<br />")
-  end
 
 	def to_textile(contents)
-		RedCloth.new(contents, [:filter_classes, :filter_ids, :lite_mode]).to_html
+	  html = RedCloth.new(contents, [:filter_styles, :filter_classes, :filter_ids]).to_html()
+    sanitize(html, :tags => %w(a p code b strong i em blockquote ol ul li), :attributes => %w(href))
 	end
   
 end
