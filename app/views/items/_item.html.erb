@@ -11,18 +11,21 @@
 	    <%= link_to 'Remove', item, :confirm => 'Are you sure?', :method => :delete %>
 	  <% end %>
     
-    <% time_left = edit_time_left(item) %>
-	  <% if admin? || (item.user == current_user && (time_left.nil? || time_left > 0))  %> 
-      <%= link_to 'Edit', edit_item_path(item), 
+	  <% if can_edit?(item) %>
+      <% time_left = edit_time_left(item) %>
+      <%= link_to 'Edit', edit_item_path(item),
                   :title => "Last chance of editing ends #{time_left.nil? ? 'never' : ('in ' + time_left.to_s + ' minutes')}." %>
 	  <% end %>
 	<% end %>
 	
 	<div class="metadata">
 	  Posted by <%= user_link(item) %> 
-	  at <%= item.created_at.strftime("%R") %> &mdash; 
-	  <%= link_to pluralize(item.comments.size, 'comment'), "#{item_path(item)}/#comments", :class => 'comments_link', :title => "Read or write comments" %> | 
-	  <%= link_to pluralize(item.stars.size, 'star'), star_item_path(item), :title => 'Star this post', :id => "item_#{item.id}-star-count", :class => 'star' %>
-	  <% if logged_in? %> <%= star_link(item) %> <% end %>
+	  at <%= item.created_at.strftime("%R") %> &mdash;
+	  
+	  <%= link_to pluralize(item.comments.size, 'comment'), "#{item_path(item)}/#comments", :class => 'comments_link', :title => "Read or write comments" %> |
+	  <%- if logged_in? -%>
+  	  <%= link_to pluralize(item.stars.size, 'star'), star_item_path(item), :title => 'Star this post', :id => "item_#{item.id}-star-count", :class => 'star' %>
+  	  <%= star_link(item) %>
+	  <%- end -%>
   </div>
 </div>

@@ -10,6 +10,12 @@ module ItemsHelper
     end
   end
   
+  def can_edit?(item)
+    time_left = edit_time_left(item)
+    
+    admin? || (item.user == current_user && (time_left.nil? || time_left > 0))
+  end
+  
   def user_link(item)
     if item.user
       breakpoint

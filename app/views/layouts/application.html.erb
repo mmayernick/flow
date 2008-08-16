@@ -33,8 +33,11 @@
   	
   	<div id="page">
   		<div id="content">
-      <% if flash[:notice] %><p class="message"><%= flash[:notice] %></p><% end %>
-	    <%= yield %>
+        <% if flash[:notice] %>
+          <p class="message"><%= flash[:notice] %></p>
+        <% end %>
+        
+  	    <%= yield %>
 		  </div>
 		  
 		  <div id="sidebar">
