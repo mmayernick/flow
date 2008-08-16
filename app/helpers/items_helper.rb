@@ -1,4 +1,15 @@
 module ItemsHelper
+    
+  def should_display_date?(last_date, item)
+    if last_date.nil?
+      true
+    elsif ! (last_date.day == item.created_at.day && last_date.month == item.created_at.month && last_date.year == item.created_at.year)
+      true
+    else
+      false
+    end
+  end
+  
   def user_link(item)
     if item.user
       breakpoint
