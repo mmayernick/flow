@@ -138,6 +138,16 @@ A.home {
   font-weight: bold;
 }
 
+.post .title {
+    margin-bottom: 10px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.post .entry {
+  margin-left: 1em;
+}
+
 /* Commented for annoyance-factor (gray gets annoying / ruins the look imho)
 .even {
 	background-color: #ffffff;
