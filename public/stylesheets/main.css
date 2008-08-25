@@ -18,23 +18,28 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 	font-family: inherit;
 	vertical-align: baseline;
 }
+
 /* remember to define focus styles! */
 :focus {
 	outline: 0;
 }
+
 body {
 	line-height: 1;
 	color: black;
 	background: white;
 }
+
 ol, ul {
 	list-style: none;
 }
+
 /* tables still need 'cellspacing="0"' in the markup */
 table {
 	border-collapse: separate;
 	border-spacing: 0;
 }
+
 caption, th, td {
 	text-align: left;
 	font-weight: normal;
@@ -62,59 +67,59 @@ body {
   background-color: #fff;
 }
 
-H1, H2, H3, H4 {
+h1, h2, h3, h4 {
   font-family: Helvetica, Arial, sans-serif;
   font-weight: bold;
   margin: 8px 0px 14px 0px;
 }
 
-H1 { font-size: 2.2em; }
-H2 { font-size: 1.9em; line-height: 1.35em; margin-top: 20px; margin-bottom: 0px;}
-H3 { font-size: 1.2em; }
-H4 { font-size: 1.0em; }
+h1 { font-size: 2.2em; }
+h2 { font-size: 1.9em; line-height: 1.35em; margin-top: 20px; margin-bottom: 0px;}
+h3 { font-size: 1.2em; }
+h4 { font-size: 1.0em; }
 
-BODY.homepage .post H2 {
+body.homepage .post h2 {
   margin-bottom: 0px;
   font-size: 1.6em;
 }
 
-A {
+a {
   color: #2266bb;
 }
 
-A:hover {
+a:hover {
   color: #ff0000;
 }
 
-P {
+p {
   margin: 16px 0px;
 }
 
-UL, OL {
+ul, ol {
   padding-left: 1.9em;
 }
 
-UL {
-    list-style-type: disc;
+ul {
+  list-style-type: disc;
 }
 
-OL {
-    list-style-type: decimal;
+ul {
+  list-style-type: decimal;
 }
 
-LI {
+li {
   list-style-position: outside;
 }
 
-STRONG { font-weight: bold; }
+strong { font-weight: bold; }
 
-SMALL {
+small {
    font-size: 0.8em;
 }
 
-EM { font-style: italic; }
+em { font-style: italic; }
 
-A.home {
+a.home {
   text-decoration: none;
 }
 
@@ -126,7 +131,6 @@ A.home {
   padding-left: 0px;
   padding-right: 220px;
   margin-top: 18px;
-  /* float: left; */
 }
 
 .post {
@@ -134,7 +138,7 @@ A.home {
 	margin-bottom: 1.4em;
 }
 
-.post A {
+.post a {
   font-weight: bold;
 }
 
@@ -148,7 +152,7 @@ A.home {
   margin-left: 1em;
 }
 
-BODY.inner .entry {
+body.inner .entry {
   line-height: 1.6em;
 }
 
@@ -190,14 +194,14 @@ BODY.inner .entry {
   margin: 0px 20px;
 }
 
-BLOCKQUOTE {
+blockquote {
   background-color: #def;
   padding: 10px;
   margin: 2em 1em;
   position: relative;  
 }
 
-CODE {
+code {
 	font-family: "Liberation Mono", Monaco, "Courier New", monospace;
 	font-size: 13px;
 }
@@ -208,7 +212,7 @@ CODE {
   font-size: 16px;
 }
 
-BODY.inner .date {
+body.inner .date {
   font-size: 14px;
   color: #999;
 }
@@ -292,7 +296,7 @@ blockquote cite {
   padding: 0;
 }
 
-#content .metadata, BLOCKQUOTE CITE, #content .item-changes P {
+#content .metadata, blockquote cit, #content .item-changes P {
   font-size: 11px;
   font-family: verdana, arial, sans-serif; 
 }
@@ -302,7 +306,6 @@ blockquote cite {
 }
 
 #comments {
-  /* border-top: 4px solid #ccc; */
   margin-top: 18px;
   padding-left: 2em;
 }
@@ -316,7 +319,7 @@ blockquote cite {
   color: #ff0000;
 }
 
-#content .metadata A, BLOCKQUOTE CITE A {
+#content .metadata a, blockquote cite a {
   color: #888;
 }
 
@@ -344,7 +347,7 @@ blockquote cite {
 
 /* @group Misc */
 
-P.message {
+p.message {
   background-color: #eee;
   padding: 8px;
   border: 1px solid #999;
@@ -356,11 +359,11 @@ P.message {
   color: #c00;
 }
 
-#comments TEXTAREA {
+#comments textarea {
 width: 500px; height: 220px;
 }
 
-#captcha_display SUP {
+#captcha_display sup {
    display: none;
 }
 
@@ -382,7 +385,7 @@ width: 500px; height: 220px;
   letter-spacing: 5px;
 }
 
-H1 A { color: #c00; }
+h1 a { color: #c00; }
 
 .title {
 	font-weight: bold;
@@ -411,16 +414,6 @@ H1 A { color: #c00; }
 
 /* @group Sites */
 
-BODY.newsflow #header { border-bottom-color: #0066B3; }
-BODY.newsflow #header H1 A { color: #0066B3; }
-BODY.newsflow .rubyred { color: #00487D; }
-
-BODY.newsflow A { color: #2266bb; }
-BODY.newsflow A:hover { color: #ff0000; }
-BODY.newsflow .entry A:visited { text-decoration: none; }
-
-
-
 /* @end */      
 
 /* @group Star */
@@ -434,4 +427,5 @@ BODY.newsflow .entry A:visited { text-decoration: none; }
 	color: #9F392C !important;
 	text-decoration: none !important;
 }
+
 /* @end */

@@ -10,12 +10,12 @@
      <meta name="keywords" content="<%= APP_CONFIG[:meta_keywords] %>" /> <% end %>
 	  <meta name="author" content="<%= APP_CONFIG[:meta_author] %>" />
 	  <% if @noindex %><meta name="robots" content="noindex, nofollow" /><% end -%>
-	  <link rel="alternate" type="application/rss+xml" title="<%= APP_CONFIG[:app_title] %>" href="<%= APP_CONFIG[:rss_url] %>" />	    
-		<%= stylesheet_link_tag "main" %>
+	  <link rel="alternate" type="application/rss+xml" title="<%= APP_CONFIG[:app_title] %>" href="<%= APP_CONFIG[:rss_url] %>" />
+		<%= stylesheet_link_tag "main", APP_CONFIG[:app_name] %>
 		<%= javascript_include_tag :defaults, :cache => true if APP_CONFIG[:uses_javascript] %>
 	</head>
 
-	<body class="<%= @body_class %> <%= APP_CONFIG[:body_class] %>">
+	<body class="<%= @body_class %>">
 	
   	<div id="header">
   		<h1><a href="/" class="home"><%= APP_CONFIG[:app_title] %></a></h1>
