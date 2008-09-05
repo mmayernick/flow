@@ -1,6 +1,3 @@
-# Be sure to restart your server when you modify this file
-app_name = "newsflow"
-
 # Uncomment below to force Rails into production mode when
 # you don't control web/app server and can't set it the proper way
 # ENV['RAILS_ENV'] ||= 'production'
@@ -11,6 +8,7 @@ RAILS_GEM_VERSION = '2.1.0' unless defined? RAILS_GEM_VERSION
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
 
+load File.join(File.dirname(__FILE__), 'initializers', 'configure_site_name.rb')
 
 Rails::Initializer.run do |config|
   # Settings in config/environments/* take precedence over those specified here.
@@ -39,7 +37,7 @@ Rails::Initializer.run do |config|
   # Make sure the secret is at least 30 characters and all random, 
   # no regular words or you'll be exposed to dictionary attacks.
   config.action_controller.session = {
-    :session_key => "_#{app_name}_session",
+    :session_key => "_#{$SITE_NAME}_session",
     :secret      => 'youneedtochangethistosomethingelsethankyouverymuch'
   }
 
@@ -62,7 +60,5 @@ Rails::Initializer.run do |config|
   config.gem 'RedCloth', :lib => 'redcloth', :version => '>=4.0.2'
   
   config.gem 'mislav-will_paginate', :version => '>=2.2.0', :lib => 'will_paginate', :source => 'http://gems.github.com'
+  config.gem 'configatron'
 end
-
-APP_CONFIG = YAML::load(File.open("#{RAILS_ROOT}/config/#{app_name}.yml")).symbolize_keys
-APP_CONFIG[:sidebar] = RedCloth.new(APP_CONFIG[:sidebar]).to_html
