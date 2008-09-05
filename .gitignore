@@ -1,9 +1,10 @@
 #config/development.sphinx.conf
 #db/sphinx/development/*
 .DS_Store
-Capfile          
+Capfile
 config/database.yml
 coverage
+coverage.data
 db/*.sqlite3
 db/schema.rb
 doc/*
