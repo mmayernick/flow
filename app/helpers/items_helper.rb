@@ -1,4 +1,21 @@
 module ItemsHelper
+    
+  def should_display_date?(last_date, item)
+    if last_date.nil?
+      true
+    elsif ! (last_date.day == item.created_at.day && last_date.month == item.created_at.month && last_date.year == item.created_at.year)
+      true
+    else
+      false
+    end
+  end
+  
+  def can_edit?(item)
+    time_left = edit_time_left(item)
+    
+    admin? || (item.user == current_user && (time_left.nil? || time_left > 0))
+  end
+  
   def user_link(item)
     if item.user
       breakpoint

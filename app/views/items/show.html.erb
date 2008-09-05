@@ -1,16 +1,24 @@
 <%= render :partial => @item %>
-  
+
 <div id="comments">
   
   <% unless @item.stars.blank? %>
-  <h3>Starred by:</h3>
-  <p><%= @item.stars.map { |star|  link_to star.user.login, star.user.url }.to_sentence -%></p>
+    <h3>Starred by:</h3>
+    <p><%= @item.stars.map { |star|  link_to star.user.login, star.user.url }.to_sentence -%></p>
   <% end %>
   
   <h3><%= pluralize @item.comments.count, 'comment' %></h3>
+  
   <% @item.comments.each do |comment| %>
-    <blockquote class="comment"><span class="a">&#147;</span><span class="b">&#148;</span><%= to_textile(comment.content) %><cite><%= comment.user ? %Q{<a href="#{comment.user.url}">#{comment.user.login}</a>} : comment.byline %> - <%= comment.created_at.strftime("%B %d, %Y %R") %></cite></blockquote>
+    <blockquote class="comment">
+      <span class="a">&#147;</span>
+      <span class="b">&#148;</span>
+      <%= to_textile(comment.content) %>
+      <cite>
+        <%= comment.user ? link_to(comment.user.login, comment.user.url) : comment.byline %> - <%= comment.created_at.strftime("%B %d, %Y %R") %>
+      </cite>
+    </blockquote>
   <% end %>
   
-<%= render :partial => 'comments/edit_comment', :locals => {:comment => @comment, :item => @item} %>
+  <%= render :partial => 'comments/edit_comment', :locals => {:comment => @comment, :item => @item} %>
 </div>

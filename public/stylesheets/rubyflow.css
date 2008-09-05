@@ -1,0 +1,7 @@
+#header { border-bottom-color: #c00; }
+#header h1 a { color: #c00; }
+.rubyred { color: #c00; }
+
+a { color: #2266bb; }
+a:hover { color: #ff0000; }
+.entry a:visited { text-decoration: none; }
