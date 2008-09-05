@@ -418,9 +418,17 @@ BODY.newsflow A { color: #2266bb; }
 BODY.newsflow A:hover { color: #ff0000; }
 BODY.newsflow .entry A:visited { text-decoration: none; }
 
+/* For backwards compatibility to RubyFlow original theme */
+BODY.rubyflow #header { border-bottom-color: #c00; }
+BODY.rubyflow #header H1 A { color: #c00; }
+BODY.rubyflow .rubyred { color: #c00; }
 
+BODY.rubyflow A { color: #2266bb; }
+BODY.rubyflow A:hover { color: #ff0000; }
+BODY.rubyflow .entry A:visited { text-decoration: none; }
 
 /* @end */      
+
 
 /* @group Star */
 
