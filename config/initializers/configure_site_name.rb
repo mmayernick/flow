@@ -1,1 +1,1 @@
-$SITE_NAME = 'newsflow'
+$SITE_NAME = 'rubyflow'
