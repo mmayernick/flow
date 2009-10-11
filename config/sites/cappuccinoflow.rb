@@ -1,10 +1,10 @@
-configatron.site_title     = 'NewsFlow'
-configatron.default_title  = 'NewsFlow : Community Filtered News'
+configatron.site_title     = 'CappuccinoFlow'
+configatron.default_title  = 'CappuccinoFlow : Cappuccino Community Links'
 
-configatron.sub_title = 'Community-maintained news'
+configatron.sub_title = 'Cappuccino Community Link Blog'
 
-configatron.meta.keywords = 'news, news site'
-configatron.meta.author = 'NewsFlow'
+configatron.meta.keywords = 'cappuccino, objective-j, news, links'
+configatron.meta.author = 'CappuccinoFlow'
 
 configatron.language = 'en-us'
 
@@ -22,7 +22,7 @@ configatron.edit_expiration_in_minutes = 60
 configatron.sidebar_redcloth = <<END
 h3. What?
 
-This site is intended for news gathering, with links chosen and summarised by the community.
+CappuccinoFlow is a community driven Cappuccino links site. Posts are by members of the community — like you! Enjoy the links and leave comments.
 
 h3. How?
 
@@ -32,7 +32,7 @@ _Note: If you're not signed in, your byline is unlinked and your links are made 
 
 h3. Who?
 
-RubyFlow was built by "Peter Cooper":http://peterc.org/ of "Ruby Inside":http://rubyinside.com, but is ultimately a community site.
+CappuccinoFlow is a fork of RubyFlow (built by "Peter Cooper":http://peterc.org/), but is ultimately a community site.
 END
 
 configatron.sidebar = RedCloth.new(configatron.sidebar_redcloth).to_html
