@@ -2,11 +2,6 @@
 
 <div id="comments">
   
-  <% unless @item.stars.blank? %>
-    <h3>Starred by:</h3>
-    <p><%= @item.stars.map { |star|  link_to star.user.login, star.user.url }.to_sentence -%></p>
-  <% end %>
-  
   <h3><%= pluralize @item.comments.count, 'comment' %></h3>
   
   <% @item.comments.each do |comment| %>

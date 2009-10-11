@@ -23,9 +23,5 @@
 	  at <%= item.created_at.strftime("%R") %> &mdash;
 	  
 	  <%= link_to pluralize(item.comments.size, 'comment'), "#{item_path(item)}/#comments", :class => 'comments_link', :title => "Read or write comments" %>
-	  <%- if logged_in? -%>
-  	  | <%= link_to pluralize(item.stars.size, 'star'), star_item_path(item), :title => 'Star this post', :id => "item_#{item.id}-star-count", :class => 'star' %>
-  	  <%= star_link(item) %>
-	  <%- end -%>
   </div>
 </div>
