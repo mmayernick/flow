@@ -1,7 +1,7 @@
 configatron.site_title     = 'CappuccinoFlow'
 configatron.default_title  = 'CappuccinoFlow : Cappuccino Community Links'
 
-configatron.sub_title = 'Cappuccino Community Link Blog'
+configatron.sub_title = 'cappuccino community link blog'
 
 configatron.meta.keywords = 'cappuccino, objective-j, news, links'
 configatron.meta.author = 'CappuccinoFlow'
@@ -15,7 +15,7 @@ configatron.google_analytics.enabled = false
 configatron.google_analytics.account = 'UA-2237791-8'
 
 # Set this to true for a more fancy interface, but for the cost of page load time
-configatron.javascript.enabled = false
+configatron.javascript.enabled = true
 
 configatron.edit_expiration_in_minutes = 60
 
