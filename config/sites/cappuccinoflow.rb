@@ -32,7 +32,7 @@ _Note: If you're not signed in, your byline is unlinked and your links are made 
 
 h3. Who?
 
-CappuccinoFlow is a fork of RubyFlow (built by "Peter Cooper":http://peterc.org/), but is ultimately a community site.
+CappuccinoFlow is a fork of RubyFlow (built by "Peter Cooper":http://peterc.org/). It is maintained by "Jerod Santo":http://jerodsanto.net , but is ultimately a community site.
 END
 
 configatron.sidebar = RedCloth.new(configatron.sidebar_redcloth).to_html
