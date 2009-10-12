@@ -79,7 +79,7 @@ class ItemsControllerTest < ActionController::TestCase
         get :edit, :id => @item.id
       end
       
-      should_redirect_to 'login_url'
+      should_redirect_to('login') { login_path }
     end
     
     context 'POST to create with failing captcha' do
@@ -99,7 +99,7 @@ class ItemsControllerTest < ActionController::TestCase
         @item = Item.last
       end
       
-      should_redirect_to 'item_path(@item)'
+      should_redirect_to('item path') { item_path(@item) }
       should 'set item byline to Anonymous Coward' do
         assert_equal 'Anonymous Coward', @item.byline
       end
@@ -141,7 +141,7 @@ class ItemsControllerTest < ActionController::TestCase
         @item = Item.last
       end
       
-      should_redirect_to 'item_path(@item)'
+      should_redirect_to('item path') { item_path(@item) }
       
       should 'create item posted by user' do
         assert_equal @user, @item.user
@@ -169,7 +169,7 @@ class ItemsControllerTest < ActionController::TestCase
         assert @item.is_starred_by_user(@user)
       end
       
-      should_redirect_to 'item_url(@item)'
+      should_redirect_to('item path') { item_path(@item) }
     end
     
     context 'GET to unstar' do
@@ -188,7 +188,7 @@ class ItemsControllerTest < ActionController::TestCase
         assert ! @item.is_starred_by_user(@user)
       end
 
-      should_redirect_to 'item_url(@item)'
+      should_redirect_to('item path') { item_path(@item) }
     end
   end
   
@@ -201,7 +201,7 @@ class ItemsControllerTest < ActionController::TestCase
         @item = Factory(:item)
         delete :destroy, :id => @item.id
       end
-      should_redirect_to 'items_path'
+      should_redirect_to('items path') { items_path }
       
       should 'remove item' do
         assert_nil Item.find_by_id(@item.id)

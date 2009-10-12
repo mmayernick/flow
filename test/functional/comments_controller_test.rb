@@ -21,7 +21,7 @@ class CommentsControllerTest < ActionController::TestCase
         post :create, :comment => Factory.attributes_for(:comment, :item_id => @item.id), :item_id => @item.id
         @comment = Comment.last
       end
-      should_redirect_to 'item_path(@item)'
+      should_redirect_to('item path') { item_path(@item) }
       should_set_the_flash_to /success/
       should 'assign current user to comment' do
         assert_equal @user, @comment.user
@@ -54,7 +54,7 @@ class CommentsControllerTest < ActionController::TestCase
           post :create, :comment => Factory.attributes_for(:comment), :item_id => @item.id
           @comment = Comment.last
         end
-        should_redirect_to 'item_path(@item)'
+        should_redirect_to('item path') { item_path(@item) }
         should_set_the_flash_to /success/
         should 'assign current user to comment' do
           assert_equal @user, @comment.user
@@ -75,7 +75,7 @@ class CommentsControllerTest < ActionController::TestCase
         @comment = Factory(:comment, :item => @item)
         delete :destroy, :id => @comment.id, :item_id => @item.id
       end
-      should_redirect_to 'item_path(@item)'  
+      should_redirect_to('item path') { item_path(@item) }
       should 'remove comment' do
         assert_nil Comment.find_by_id(@comment.id)
       end
@@ -87,7 +87,7 @@ class CommentsControllerTest < ActionController::TestCase
         @comment = Factory(:comment, :item => @item)
         put :update, :id => @comment.id, :item_id => @item.id, :comment => Factory.attributes_for(:comment, :content => 'this is totally new content')
       end
-      should_redirect_to 'item_path(@item)'  
+      should_redirect_to('item path') { item_path(@item) }
       should 'update the comment' do
         @comment.reload
         assert_equal 'this is totally new content', @comment.content

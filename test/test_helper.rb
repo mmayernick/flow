@@ -12,7 +12,7 @@ class ActionController::TestCase
       setup do
         send(method, action)
       end
-      should_redirect_to 'login_url'
+      should_redirect_to('login') { login_path }
     end
   end
   
@@ -24,7 +24,7 @@ class ActionController::TestCase
         
         send(method, action)
       end
-      should_redirect_to 'login_url'
+      should_redirect_to('login') { login_path }
     end
   end
 end

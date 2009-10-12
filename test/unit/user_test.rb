@@ -1,14 +1,16 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class UserTest < Test::Unit::TestCase
+class UserTest < ActiveSupport::TestCase
   should_have_many :stars
   should_have_many :starred_items
   
-  should_validate_presence_of :login, :password, :password_confirmation #, :email
-  should_ensure_length_in_range :password, (4..40)
-  should_ensure_length_in_range :login, (3..40)
-  
-  # TODO test that only some fields are accessible
+    should_validate_presence_of :login, :password, :password_confirmation #, :email
+    should_ensure_length_in_range :password, (4..40)
+    should_ensure_length_in_range :login, (3..40)
+    should_allow_values_for :login, 'mylogin', 'woooooo123'
+    should_not_allow_values_for :login, 'my login'
+    should_allow_values_for :url, 'http://example.com'
+    should_not_allow_values_for :url, 'example.com'
   
   context 'A user' do
     setup do
@@ -18,11 +20,6 @@ class UserTest < Test::Unit::TestCase
     subject { @user }
     
     should_validate_uniqueness_of :login
-    should_allow_values_for :login, 'mylogin', 'woooooo123'
-    should_not_allow_values_for :login, 'my login'
-    
-    should_allow_values_for :url, 'http://example.com'
-    should_not_allow_values_for :url, 'example.com'
     
     should 'be able to authenticate with correct password' do
       assert_equal @user, User.authenticate(@user.login, 'password')

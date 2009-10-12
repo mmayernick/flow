@@ -7,7 +7,7 @@ class SessionControllerTest < ActionController::TestCase
       @user = Factory(:user)
       post :create, :login => @user.login, :password => @user.password
     end
-    should_redirect_to 'root_url'
+    should_redirect_to('root') { root_path }
     should 'set user id on session' do
       assert_equal @user.id, session[:user_id]
     end
@@ -18,7 +18,7 @@ class SessionControllerTest < ActionController::TestCase
       @user = Factory(:user)
       post :create, :login => @user.login, :password => @user.password, :remember_me => 1
     end
-    should_redirect_to 'root_url'
+    should_redirect_to('root') { root_path }
     should 'set the authentication cookie' do
       assert_not_nil @response.cookies['auth_token']
     end
@@ -29,7 +29,7 @@ class SessionControllerTest < ActionController::TestCase
       @user = Factory(:user)
       post :create, :login => @user.login, :password => @user.password, :remember_me => 0
     end
-    should_redirect_to 'root_url'
+    should_redirect_to('root') { root_path }
     should 'not set the authentication cookie' do
       assert_nil @response.cookies['auth_token']
     end
@@ -51,7 +51,7 @@ class SessionControllerTest < ActionController::TestCase
       login_as @user
       get :destroy
     end
-    should_redirect_to 'root_url'
+    should_redirect_to('root') { root_path }
     should 'unset user id on session' do
       assert_nil session[:user_id]
     end
