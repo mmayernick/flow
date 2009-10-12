@@ -4,7 +4,7 @@ class UserTest < Test::Unit::TestCase
   should_have_many :stars
   should_have_many :starred_items
   
-  should_require_attributes :login, :password, :password_confirmation #, :email
+  should_validate_presence_of :login, :password, :password_confirmation #, :email
   should_ensure_length_in_range :password, (4..40)
   should_ensure_length_in_range :login, (3..40)
   
@@ -15,7 +15,9 @@ class UserTest < Test::Unit::TestCase
       @user = Factory(:user, :password => 'password', :password_confirmation => 'password')
     end
     
-    should_require_unique_attributes :login
+    subject { @user }
+    
+    should_validate_uniqueness_of :login
     should_allow_values_for :login, 'mylogin', 'woooooo123'
     should_not_allow_values_for :login, 'my login'
     
@@ -44,6 +46,8 @@ class UserTest < Test::Unit::TestCase
       setup do
         @user.update_attributes(:login => 'newlogin')
       end
+      
+      subject { @user }
       
       should_eventually 'not rehash password' do
         assert_equal @user, User.authenticate('newlogin', 'password')

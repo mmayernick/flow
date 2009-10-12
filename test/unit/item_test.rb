@@ -16,8 +16,10 @@ class ItemTest < ActiveSupport::TestCase
     setup do
       @item = Factory(:item, :name => 'ihasname')
     end
+    
+    subject { @item }
 
-    should_require_unique_attributes :name
+    should_validate_uniqueness_of :name
 
     should_allow_values_for :name, 'name-1', 'name_1'
     should_not_allow_values_for :name, 'name 1'
@@ -56,6 +58,8 @@ class ItemTest < ActiveSupport::TestCase
     setup do 
       @item = Factory.build(:item, :byline => nil, :user => nil)
     end
+    
+    subject { @item }
 
     should 'be anonymous' do
       assert @item.anonymous?
