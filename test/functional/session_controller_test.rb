@@ -66,7 +66,7 @@ class SessionControllerTest < ActionController::TestCase
     end
     
     should 'unset cookie' do
-      assert_equal [], @response.cookies['auth_token']
+      assert_nil @response.cookies['auth_token']
     end
   end
 

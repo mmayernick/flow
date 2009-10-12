@@ -30,10 +30,6 @@ class Item < ActiveRecord::Base
     find(id_or_name) rescue find_by_name(id_or_name)
   end
   
-  def to_param
-    self[:name] && self[:name].length > 3 ? self[:name] : self[:id]
-  end
-
 	def is_starred_by_user(user)
 		user.starred_items.include? self
 	end

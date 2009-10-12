@@ -48,7 +48,7 @@ class ItemsController < ApplicationController
 
   # GET /items/1/edit
   def edit
-    @item ||= Item.find(params[:id]) rescue Item.find_by_name(params[:id])
+    @item = Item.find_by_id_or_name(params[:id])
   end
 
   # POST /items

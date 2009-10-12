@@ -1,45 +1,43 @@
-<% form_for(item) do |f| %>
-  <%= error_messages_for :item %>
+<%= error_messages_for :item %>
 
-  <blockquote class="comment">
-    <span class="a">&#147;</span><span class="b">&#148;</span>
+<blockquote class="comment">
+  <span class="a">&#147;</span><span class="b">&#148;</span>
 
-  
-    <% if logged_in? %>
-      <p>Posting as <strong><%= current_user.login %></strong></p>
-    <% else %>
-      <p class="description">
-        Note: If you are a registered user, <%= link_to 'log in', login_url %> to populate these fields automatically.
-      </p>
-      <p>
-        <%= f.text_field :byline %>
-        <label for="byline" class="title">Name / Byline <span class="hint">(required)</span></label>
-      </p>
-    <% end %>
-  
-    <p>
-      <%= f.text_field :title %>
-      <label for="title" class="title">Title <span class="hint">(used for archive pages, etc.)</span></label>
-    </p>
- 
-      <table class="formatting-help">
-      <tr><th colspan="3"><strong>If you wish, you may use <%= link_to "Textile", "http://hobix.com/textile/quick.html" %> to format your post:</strong></th></tr>
-      <tr><td class="code">_emphasis_</td><td> &rarr; </td><td><em>emphasis</em></td></tr>
-      <tr><td class="code">*strong*</td><td> &rarr; </td><td><em>strong</em></td></tr>
-      <tr><td class="code">"Cappuccino Web Site":http://www.cappuccino.org</td><td> &rarr; </td><td><a href="http://www.rubyonrails.org">Cappuccino Web Site</a></td></tr>
-      <tr><td class="code">* an item<br/>* and another</td><td valign="middle"> &rarr; </td><td><ul><li>an item</li><li>and another</li></ul></td></tr>
-      <tr><td class="code"># one<br /># two</td><td valign="middle">&rarr;</td><td><ol><li>one</li><li>two</li></ol></td></tr>
-      </table>
 
+  <% if logged_in? %>
+    <p>Posting as <strong><%= current_user.login %></strong></p>
+  <% else %>
     <p class="description">
-      Be sure to include a link to the item you are posting about. Otherwise, nobody will click through!
+      Note: If you are a registered user, <%= link_to 'log in', login_url %> to populate these fields automatically.
     </p>
-    
-    
-    <p><%= f.text_area :content, :cols => 60, :rows => 8 %></p>
-    
-    <%= render :partial => 'home/signup_captcha' unless logged_in? %>
-    
-    <p><%= f.submit "#{method == 'post' ? 'Post' : 'Update'} Item" %></p>
+    <p>
+      <%= f.text_field :byline %>
+      <label for="byline" class="title">Name / Byline <span class="hint">(required)</span></label>
+    </p>
+  <% end %>
+
+  <p>
+    <%= f.text_field :title %>
+    <label for="title" class="title">Title <span class="hint">(used for archive pages, etc.)</span></label>
+  </p>
+
+    <table class="formatting-help">
+    <tr><th colspan="3"><strong>If you wish, you may use <%= link_to "Textile", "http://hobix.com/textile/quick.html" %> to format your post:</strong></th></tr>
+    <tr><td class="code">_emphasis_</td><td> &rarr; </td><td><em>emphasis</em></td></tr>
+    <tr><td class="code">*strong*</td><td> &rarr; </td><td><em>strong</em></td></tr>
+    <tr><td class="code">"Cappuccino Web Site":http://www.cappuccino.org</td><td> &rarr; </td><td><a href="http://www.rubyonrails.org">Cappuccino Web Site</a></td></tr>
+    <tr><td class="code">* an item<br/>* and another</td><td valign="middle"> &rarr; </td><td><ul><li>an item</li><li>and another</li></ul></td></tr>
+    <tr><td class="code"># one<br /># two</td><td valign="middle">&rarr;</td><td><ol><li>one</li><li>two</li></ol></td></tr>
+    </table>
+
+  <p class="description">
+    Be sure to include a link to the item you are posting about. Otherwise, nobody will click through!
+  </p>
+  
+  
+  <p><%= f.text_area :content, :cols => 60, :rows => 8 %></p>
+  
+  <%= render :partial => 'home/signup_captcha' unless logged_in? %>
+  
+  <p><%= f.submit "#{method == 'post' ? 'Post' : 'Update'} Item" %></p>
 </blockquote>
-<% end %>
