@@ -32,7 +32,7 @@ _Note: Only posts by registered members with 1 previously good post make it into
 
 h3. Who?
 
-CappuccinoFlow is a fork of RubyFlow (built by "Peter Cooper":http://peterc.org/). It is maintained by "Jerod Santo":http://jerodsanto.net , but is ultimately a community site. "Contributions are welcome":http://github.com/sant0sk1/cappuccinoflow/
+CappuccinoFlow is a fork of RubyFlow (built by "Peter Cooper":http://peterc.org/). It is maintained by "Jerod Santo":http://jerodsanto.net/, but is ultimately a community site. "Contributions are welcome":http://github.com/sant0sk1/cappuccinoflow/
 END
 
 configatron.sidebar = RedCloth.new(configatron.sidebar_redcloth).to_html
