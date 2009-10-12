@@ -1,6 +1,7 @@
 #header { border-bottom-color: #97BED9; }
 #header h1 a { color: #5271A8; }
 #header h1 span { color: #333; font-size: 60%; margin-left: 15px;}
+#sidebar h3 { border-bottom: 8px solid #97BED9; }
 .rubyred { color: #232529; }
 
 a { color: #2266bb; }
