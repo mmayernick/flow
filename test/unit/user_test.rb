@@ -12,7 +12,7 @@ class UserTest < Test::Unit::TestCase
   
   context 'A user' do
     setup do
-      @user = Factory(:user, :login => 'login', :password => 'password', :password_confirmation => 'password')
+      @user = Factory(:user, :password => 'password', :password_confirmation => 'password')
     end
     
     should_require_unique_attributes :login
@@ -23,11 +23,11 @@ class UserTest < Test::Unit::TestCase
     should_not_allow_values_for :url, 'example.com'
     
     should 'be able to authenticate with correct password' do
-      assert_equal @user, User.authenticate('login', 'password')
+      assert_equal @user, User.authenticate(@user.login, 'password')
     end
     
     should 'not be able to authenticate with incorrect password' do
-      assert_nil User.authenticate('login', 'notpassword')
+      assert_nil User.authenticate(@user.login, 'notpassword')
     end
     
     context 'updating their password' do
@@ -36,7 +36,7 @@ class UserTest < Test::Unit::TestCase
       end
       
       should 'be able to login with new password' do
-        assert_equal @user, User.authenticate('login', 'new password')
+        assert_equal @user, User.authenticate(@user.login, 'new password')
       end
     end
     
