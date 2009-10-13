@@ -28,7 +28,7 @@ h3. How?
 
 Enjoy the links, comment, or "make a post":/items/new of your own. You don't need to be signed in!
 
-_Note: Only posts by registered members with 1 previously good post make it into the RSS feed._
+_Note: Only posts by registered members with 1 previously good post make it into the "RSS":http://feeds.feedburner.com/cappuccinoflow and "Twitter":http://twitter.com/cappuccinoflow feeds._
 
 h3. Who?
 
