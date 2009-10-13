@@ -18,4 +18,5 @@ Rails::Initializer.run do |config|
   config.gem 'RedCloth',      :version => '4.2.2',  :lib => 'redcloth'
   config.gem 'will_paginate', :version => '2.2.0'
   config.gem 'configatron',   :version => '2.5.1'
+  config.gem 'bitly',         :version => '0.3.1'
 end

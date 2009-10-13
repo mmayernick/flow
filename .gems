@@ -1,3 +1,4 @@
 RedCloth -v=4.2.2
 will_paginate -v=2.2.0
 configatron -v=2.5.1
+bitly -v=0.3.1
