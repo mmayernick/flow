@@ -26,24 +26,33 @@ class Item < ActiveRecord::Base
     self.byline = 'Anonymous Coward'
   end
   
+  def tweet
+    bitly  = Bitly.new(ENV['BITLY_USER'],ENV['BITLY_KEY'])
+    url    = bitly.shorten("http://cappuccinoflow.com/items/#{item.id}", :history => 1)
+    auth   = Twitter::HTTPAuth.new(ENV['TWITTER_USER'], ENV['TWITTER_PASS'])
+    client = Twitter::Base.new(auth)
+    
+    client.update("#{item.title} #{url.short_url}")
+  end
+  
   def self.find_by_id_or_name(id_or_name)
     find(id_or_name) rescue find_by_name(id_or_name)
   end
   
-	def is_starred_by_user(user)
-		user.starred_items.include? self
-	end
-	
-	def self.per_page
+  def is_starred_by_user(user)
+    user.starred_items.include? self
+  end
+
+  def self.per_page
     50
   end
 
   # TODO move to a helper
   def starred_class(user)
-		if self.is_starred_by_user(user)
-			return "starred"
-		else
-			return ""
-		end
-	end
+    if self.is_starred_by_user(user)
+      return "starred"
+    else
+      return ""
+    end
+  end
 end
