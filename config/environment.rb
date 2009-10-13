@@ -20,4 +20,6 @@ Rails::Initializer.run do |config|
   config.gem 'configatron',   :version => '2.5.1'
   config.gem 'bitly',         :version => '0.3.1'
   config.gem 'twitter',       :version => '0.6.15'
+  
+  config.active_record.observers = :item_observer
 end
