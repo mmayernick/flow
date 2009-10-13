@@ -8,10 +8,12 @@ namespace :tweet do
     item  = Item.find_by_id(ENV['ITEM_ID'])
     
     if item
-      bitly = Bitly.new(ENV['BITLY_USER'],ENV['BITLY_KEY'])
-      url   = bitly.shorten("http://cappuccinoflow.com/items/#{item.id}}", :history => 1)
-      puts url.short_url
-      puts url.long_url
+      bitly  = Bitly.new(ENV['BITLY_USER'],ENV['BITLY_KEY'])
+      url    = bitly.shorten("http://cappuccinoflow.com/items/#{item.id}", :history => 1)
+      auth   = Twitter::HTTPAuth.new(ENV['TWITTER_USER'], ENV['TWITTER_PASS'])
+      client = Twitter::Base.new(httpauth)
+      
+      client.update("#{item.title} #{url.short_url}")
     end
   end
 end
