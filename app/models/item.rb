@@ -28,11 +28,11 @@ class Item < ActiveRecord::Base
   
   def tweet
     bitly  = Bitly.new(ENV['BITLY_USER'],ENV['BITLY_KEY'])
-    url    = bitly.shorten("http://cappuccinoflow.com/items/#{item.id}", :history => 1)
+    url    = bitly.shorten("http://cappuccinoflow.com/items/#{id}", :history => 1)
     auth   = Twitter::HTTPAuth.new(ENV['TWITTER_USER'], ENV['TWITTER_PASS'])
     client = Twitter::Base.new(auth)
     
-    client.update("#{item.title} #{url.short_url}")
+    client.update("#{title} #{url.short_url}")
   end
   
   def self.find_by_id_or_name(id_or_name)
