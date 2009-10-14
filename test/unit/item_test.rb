@@ -23,7 +23,17 @@ class ItemTest < ActiveSupport::TestCase
 
     should_allow_values_for :name, 'name-1', 'name_1'
     should_not_allow_values_for :name, 'name 1'
-
+    
+    should 'provide tweetable title' do
+      short_title = "".rjust(100,"words")
+      long_title  = "".rjust(140,"words")
+      
+      @item.title = short_title
+      assert_equal 100, @item.tweetable_title.size
+      @item.title = long_title
+      assert_equal 119, @item.tweetable_title.size
+    end
+    
     context 'that has been starred by a user' do
       setup do
         @user = Factory(:user)

@@ -26,13 +26,18 @@ class Item < ActiveRecord::Base
     self.byline = 'Anonymous Coward'
   end
   
+  # 119 characters, a space, and a 20 character bitly url is max
+  def tweetable_title
+    title.size > 119 ? title[0,116] + "..." : title
+  end
+  
   def tweet
     bitly  = Bitly.new(ENV['BITLY_USER'],ENV['BITLY_KEY'])
     url    = bitly.shorten("http://cappuccinoflow.com/items/#{id}", :history => 1)
     auth   = Twitter::HTTPAuth.new(ENV['TWITTER_USER'], ENV['TWITTER_PASS'])
     client = Twitter::Base.new(auth)
     
-    client.update("#{title} #{url.short_url}")
+    client.update("#{tweetable_title} #{url.short_url}")
   end
   
   def self.find_by_id_or_name(id_or_name)
