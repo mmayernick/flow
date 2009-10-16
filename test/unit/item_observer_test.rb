@@ -16,7 +16,7 @@ class ItemObserverTest < ActiveSupport::TestCase
       end
 
       should "send a tweet" do
-        @observer.expects(:call_rake).with(:tweet, :item_id => @item.id).returns(true)
+        @observer.expects(:call_rake).with("tweet:item", :item_id => @item.id).returns(true)
         @observer.after_create(@item)
       end
     end
@@ -28,7 +28,7 @@ class ItemObserverTest < ActiveSupport::TestCase
       end
       
       should "not send a tweet" do
-        @observer.expects(:call_rake).with(:tweet, :item_id => @item.id).never
+        @observer.expects(:call_rake).with("tweet:item", :item_id => @item.id).never
         @observer.after_create(@item)
       end
     end
@@ -39,7 +39,7 @@ class ItemObserverTest < ActiveSupport::TestCase
       end
       
       should "not send a tweet" do
-        @observer.expects(:call_rake).with(:tweet, :item_id => @item.id).never
+        @observer.expects(:call_rake).with("tweet:item", :item_id => @item.id).never
         @observer.after_create(@item)
       end
     end

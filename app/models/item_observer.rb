@@ -3,7 +3,7 @@ class ItemObserver < ActiveRecord::Observer
   
   def after_create(item)
     if item.user && item.user.approved_for_feed == 1
-      call_rake(:tweet, :item_id => item.id)
+      call_rake("tweet:item", :item_id => item.id)
     end
   end
   
