@@ -14,7 +14,7 @@ configatron.rss_url = 'http://feeds.feedburner.com/cappuccinoflow'
 configatron.google_analytics.enabled = true
 configatron.google_analytics.account = 'UA-3287978-14'
 
-# Set this to true for a more fancy interface, but for the cost of page load time
-configatron.javascript.enabled = false
+# Set this to true for live post previews and other fanciness
+configatron.javascript.enabled = true
 
 configatron.edit_expiration_in_minutes = 60
