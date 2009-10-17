@@ -1,5 +1,18 @@
 $(function() {
   
+  // item stuffs
+  updatePreviewTitle();
+  updatePreviewContent();
+  
+  $('#item_title').keyup(function(){
+    updatePreviewTitle();
+  });
+  
+  $("form[class$='item'] textarea").keyup(function(){
+    updatePreviewContent();
+  });
+  
+  // admin stuffs
   $(".admin-actions").each(function(){
     var current = $(this);
     var parent  = current.parent();
@@ -13,6 +26,12 @@ $(function() {
   
 });
 
+function updatePreviewTitle() {
+  $('#preview > h2').text($('#item_title').val());
+}
+function updatePreviewContent() {
+  $('#preview > div.entry').html(textilize($("form[class$='item'] textarea").val()));
+}
 
 /*
  * This function originally from Stuart Langridge at http://www.kryogenix.org/
