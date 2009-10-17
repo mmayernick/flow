@@ -70,6 +70,7 @@ h1, h2, h3, h4 {
 }
 
 h1 { font-size: 2.2em; }
+h1 a { color: #c00; }
 h2 { font-size: 1.9em; line-height: 1.35em; margin-top: 20px; margin-bottom: 0px; }
 h2.title { margin-top: 5px; }
 h2.title a { 
@@ -236,16 +237,6 @@ blockquote.comment span.a, blockquote.comment span.b { color: #ddd; }
 blockquote.usercomment { background-color: #def; }
 blockquote.usercomment span.a, blockquote.usercomment span.b { color: #8ac; }
 
-.formatting-help {
-  font-size: 13px; 
-  font-family: verdana; 
-  line-height: 15px; 
-  letter-spacing: 0px;
-  background-color: #ffc; 
-  padding: 4px 16px; 
-  border-left: 3px solid #999; 
-}
-
 blockquote cite {
   display: block;
   text-align: right;
@@ -313,6 +304,15 @@ blockquote cite {
 
 * html #content { height: 1%; }
 
+#preview {
+  background: #FFF;
+  border: 1px solid #ccc;
+}
+
+#preview .entry {
+  margin-top: 18px;
+  padding-left: 2em;
+}
 /* @end */
 
 /* @group Misc */
@@ -350,8 +350,6 @@ p.message {
   text-align: center;
   letter-spacing: 5px;
 }
-
-h1 a { color: #c00; }
 
 .title { font-weight: bold; }
 

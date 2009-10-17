@@ -1,15 +1,20 @@
 $(function() {
   
   // item stuffs
-  updatePreviewTitle();
-  updatePreviewContent();
+  updateItemPreviewTitle();
+  updateItemPreviewContent();
   
   $('#item_title').keyup(function(){
-    updatePreviewTitle();
+    updateItemPreviewTitle();
   });
   
   $("form[class$='item'] textarea").keyup(function(){
-    updatePreviewContent();
+    updateItemPreviewContent();
+  });
+  
+  // comment stuffs
+  $('form.new_comment textarea').keyup(function(){
+    updateCommentPreviewContent();
   });
   
   // admin stuffs
@@ -26,11 +31,21 @@ $(function() {
   
 });
 
-function updatePreviewTitle() {
-  $('#preview > h2').text($('#item_title').val());
+function updateItemPreviewTitle() {
+  var title = $('#item_title').val();
+  if (typeof title != "undefined")
+    $('#preview > h2').text(title);
 }
-function updatePreviewContent() {
-  $('#preview > div.entry').html(textilize($("form[class$='item'] textarea").val()));
+
+function updateItemPreviewContent() {
+  var content = $("form[class$='item'] textarea").val();
+  if (typeof content != "undefined")
+    $('#preview > div.entry').html(textilize(content));
+}
+function updateCommentPreviewContent() {
+  var content = $("form.new_comment textarea").val();
+  if (typeof content != "undefined")
+    $('#preview > div.entry').html(textilize(content));
 }
 
 /*
