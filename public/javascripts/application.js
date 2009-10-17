@@ -34,7 +34,7 @@ $(function() {
 function updateItemPreviewTitle() {
   var title = $('#item_title').val();
   if (typeof title != "undefined")
-    $('#preview > h2').text(title);
+    $('#preview > h2 a').text(title);
 }
 
 function updateItemPreviewContent() {
