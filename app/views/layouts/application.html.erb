@@ -24,7 +24,7 @@
       title="<%= config.site_title %>" href="<%= config.rss_url %>" />
 
     <%= stylesheet_link_tag "main", config.site_name %>
-    <%= javascript_include_tag :defaults, :cache => true if config.javascript.enabled %>
+    <%= javascript_include_tag "jquery", "application", :cache => true if config.javascript.enabled %>
   </head>
 
   <body class="<%= @body_class %>">
