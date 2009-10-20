@@ -192,9 +192,9 @@ code {
 }
 
 .date {
+  color: #666666;
   margin-bottom: 10px;
-  font-weight: bold;
-  font-size: 16px;
+  font-size: 14px;
 }
 
 body.inner .date {
@@ -348,7 +348,7 @@ p.message {
 .title { 
   margin-bottom: 10px;
   font-weight: bold;
-  font-size: 14px;
+  font-size: 16px;
 }
 
 .description {
