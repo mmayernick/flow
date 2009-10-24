@@ -30,7 +30,16 @@
   <body class="<%= @body_class %>">
 
     <div id="header">
-      <h1><a href="/" class="home"><%= config.site_title %></a> <span><%= config.sub_title %></span></h1>
+      <h1>
+        <% if Rails.env == "development" %>
+          <a href="/" class="home" style="color: red;">
+        <% else %>
+          <a href="/" class="home">
+        <% end %>
+        <%= config.site_title %>
+        </a>
+        <span><%= config.sub_title %></span>
+      </h1>
 
       <div id="stuff">
         <%= link_to 'Post Item', new_item_path, :class => 'rubyred' %> |
