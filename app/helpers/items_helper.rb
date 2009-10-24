@@ -19,7 +19,7 @@ module ItemsHelper
   def user_link(item)
     if item.user
       options = item.user.approved_for_feed == 1 ? {} : {:rel => 'nofollow'} 
-      link_to(item.user.login, item.user.url, options)
+      link_to(item.user.login, item.user.url, options) + " (#{item.user.items.count})"
     else
       item.byline
     end
