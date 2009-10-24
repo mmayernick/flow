@@ -1,6 +1,8 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class UserTest < ActiveSupport::TestCase
+  should_have_many :items
+  should_have_many :comments
   should_have_many :stars
   should_have_many :starred_items
   
