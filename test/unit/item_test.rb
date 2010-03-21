@@ -8,7 +8,7 @@ class ItemTest < ActiveSupport::TestCase
   should_ensure_length_in_range :title, (4..255)
   should_ensure_length_in_range :name, (4..255)
   should_ensure_length_in_range :content, (25..1200)
-  should_ensure_length_in_range :byline, (0..18)
+  should_ensure_length_in_range :byline, (0..50)
 
   # TODO test tagging stuff
 
@@ -16,24 +16,24 @@ class ItemTest < ActiveSupport::TestCase
     setup do
       @item = Factory(:item, :name => 'ihasname')
     end
-    
+
     subject { @item }
 
     should_validate_uniqueness_of :name
 
     should_allow_values_for :name, 'name-1', 'name_1'
     should_not_allow_values_for :name, 'name 1'
-    
+
     should 'provide tweetable title' do
       short_title = "".rjust(100,"words")
       long_title  = "".rjust(140,"words")
-      
+
       @item.title = short_title
       assert_equal 100, @item.tweetable_title.size
       @item.title = long_title
       assert_equal 119, @item.tweetable_title.size
     end
-    
+
     context 'that has been starred by a user' do
       setup do
         @user = Factory(:user)
@@ -65,10 +65,10 @@ class ItemTest < ActiveSupport::TestCase
   end
 
   context 'An Item with a nil byline and user_id' do
-    setup do 
+    setup do
       @item = Factory.build(:item, :byline => nil, :user => nil)
     end
-    
+
     subject { @item }
 
     should 'be anonymous' do
