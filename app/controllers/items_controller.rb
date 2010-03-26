@@ -2,7 +2,7 @@ class ItemsController < ApplicationController
   before_filter :login_required, :except => [:show, :index, :search, :category, :new, :create]
   before_filter :admin_required, :only => [:destroy]
   before_filter :permission_required, :only => [:edit, :update]
-  
+
   # GET /items
   # GET /items.xml
   def index
@@ -23,11 +23,11 @@ class ItemsController < ApplicationController
     @item = Item.find_by_id_or_name(params[:id])
 
     render_404 and return unless @item
-    
+
     @title = @item.title
-    
+
     @comment = Comment.new(params[:comment])
-    
+
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @item }
@@ -55,18 +55,18 @@ class ItemsController < ApplicationController
   # POST /items.xml
   def create
     @item = Item.new(params[:item])
-    
+
     if logged_in?
       @item.user = current_user
     else
       @item.content = @item.content.gsub(/((<a\s+.*?href.+?\".*?\")([^\>]*?)>)/, '\2 rel="nofollow" \3>')
     end
-    
+
     # FIXME remove this, because title required
     if @item.title.empty?
       @item.title = @item.content.gsub(/\<[^\>]+\>/, '')[0...40] + "..."
     end
-    
+
     if ! logged_in? && ! passes_captcha?
       @item.errors.add("Word")
       render :action => 'new'
@@ -114,11 +114,11 @@ class ItemsController < ApplicationController
       format.json { head :ok }
     end
   end
-  
+
   def star
     @item = Item.find_by_id_or_name(params[:id])
     was_starred = current_user.star(@item)
-    
+
     respond_to do |wants|
       wants.html { redirect_to :back }
       wants.js do
@@ -131,11 +131,11 @@ class ItemsController < ApplicationController
       end
     end
   end
-  
+
   def unstar
     @item     = Item.find_by_id_or_name(params[:id])
     was_unstarred = @star = current_user.unstar(@item)
-    
+
     respond_to do |wants|
       wants.html { redirect_to :back }
       wants.js do
@@ -148,7 +148,7 @@ class ItemsController < ApplicationController
       end
     end
   end
-  
+
   def search
     @items_count = Item.count(:conditions => ['title LIKE ? OR tags LIKE ?', "%#{params[:id]}%", "%#{params[:id]}%"])
     @items = Item.paginate(:all, {:conditions => ['title LIKE ? OR tags LIKE ?', "%#{params[:id]}%", "%#{params[:id]}%"]})
@@ -159,13 +159,13 @@ class ItemsController < ApplicationController
       format.xml  { render :xml => @items }
     end
   end
-  
+
   def category
     @category = Category.find_by_name(params[:id])
     render_404 and return unless @category
     @items = Item.find_all_for_all_tags(@category.query.split(/\s/))
   end
-  
+
   def recently
     @last_checked_at = current_user.last_checked_at
     conditions   = ['items.updated_at > ? or comments.created_at > ?', @last_checked_at, @last_checked_at]
@@ -173,13 +173,13 @@ class ItemsController < ApplicationController
     @items       = current_user.starred_items.paginate(:all, :conditions => conditions, :include => :comments, :page => params[:page])
     current_user.update_attribute :last_checked_at, Time.now
   end
-  
+
   protected
-  
+
   def permission_required
     @item = Item.find_by_id_or_name(params[:id])
     (render_404 and return) unless @item
     (render_403 and return) unless @item.user_id == current_user.id || admin?
   end
-  
+
 end

@@ -49,7 +49,7 @@ class Item < ActiveRecord::Base
   end
 
   def self.per_page
-    50
+    25
   end
 
   # TODO move to a helper
