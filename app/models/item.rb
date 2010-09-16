@@ -34,9 +34,11 @@ class Item < ActiveRecord::Base
   def tweet
     bitly  = Bitly.new(ENV['BITLY_USER'],ENV['BITLY_KEY'])
     url    = bitly.shorten("http://cappuccinoflow.com/items/#{id}", :history => 1)
-    auth   = Twitter::HTTPAuth.new(ENV['TWITTER_USER'], ENV['TWITTER_PASS'])
-    client = Twitter::Base.new(auth)
+    auth   = Twitter::OAuth.new(ENV['TWITTER_CONSUMER_KEY'], ENV['TWITTER_CONSUMER_SECRET'])
 
+    auth.authorize_from_access(ENV['TWITTER_ACCESS_TOKEN'], ENV['TWITTER_ACCESS_SECRET'])
+
+    client = Twitter::Base.new(auth)
     client.update("#{tweetable_title} #{url.short_url}")
   end
 
