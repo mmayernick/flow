@@ -10,3 +10,9 @@ gem 'twitter', '~>0.9.8'
 group :development do
   gem 'sqlite3', '~>1.3.4'
 end
+
+group :test do
+  gem 'factory_girl', '=1.2.2'
+  gem 'shoulda', '=2.10.2'
+  gem 'mocha', '=0.9.8'
+end
