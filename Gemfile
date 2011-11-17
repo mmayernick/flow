@@ -7,6 +7,7 @@ gem 'configatron', '~>2.5.1'
 gem 'bitly', '~>0.3.1'
 gem 'twitter', '~>0.9.8'
 gem "acts_as_state_machine", "~> 2.1.3"
+gem "acts_as_tree", "~> 0.1.1"
 
 group :development do
   gem 'sqlite3', '~>1.3.4'
