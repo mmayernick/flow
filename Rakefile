@@ -8,3 +8,9 @@ require 'rake/testtask'
 require 'rake/rdoctask'
 
 require 'tasks/rails'
+
+begin
+  Gem::Specification.find_by_name('metric_fu')
+  require 'metric_fu'
+rescue Gem::LoadError
+end

@@ -11,6 +11,11 @@ gem "acts_as_tree", "~> 0.1.1"
 
 group :development do
   gem 'sqlite3', '~>1.3.4'
+  
+  # metric_fu stuff
+  gem "metric_fu", "~> 1.2.0"
+  gem 'reek', '=1.2.6'
+  gem "roodi", "~> 2.1.0"
 end
 
 group :test do
