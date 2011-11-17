@@ -15,11 +15,5 @@ Rails::Initializer.run do |config|
 
   config.active_record.default_timezone = :utc
 
-  config.gem 'RedCloth',      :version => '4.2.2',  :lib => 'redcloth'
-  config.gem 'will_paginate', :version => '2.2.0'
-  config.gem 'configatron',   :version => '2.5.1'
-  config.gem 'bitly',         :version => '0.3.1'
-  config.gem 'twitter',       :version => '0.9.8'
-
   config.active_record.observers = :item_observer
 end
