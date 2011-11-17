@@ -39,6 +39,8 @@ GEM
     mocha (0.9.8)
       rake
     multi_json (0.0.5)
+    no_peeping_toms (1.0.1)
+      activerecord (>= 1.1)
     oauth (0.4.5)
     rack (1.1.2)
     rails (2.3.14)
@@ -84,6 +86,7 @@ DEPENDENCIES
   factory_girl (= 1.2.2)
   metric_fu (~> 1.2.0)
   mocha (= 0.9.8)
+  no_peeping_toms (~> 1.0.1)
   rails (~> 2.3.4)
   reek (= 1.2.6)
   roodi (~> 2.1.0)

@@ -22,4 +22,5 @@ group :test do
   gem 'factory_girl', '=1.2.2'
   gem 'shoulda', '=2.10.2'
   gem 'mocha', '=0.9.8'
+  gem "no_peeping_toms", "~> 1.0.1"
 end
