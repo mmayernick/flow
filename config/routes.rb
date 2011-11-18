@@ -13,7 +13,7 @@ Cappuccinoflow::Application.routes.draw do
     resources :comments
   end
   
-  resources :comments, :only => [:delete]
+  resources :comments
 
   resources :categories
   resources :users

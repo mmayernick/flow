@@ -1,16 +1,31 @@
-require File.dirname(__FILE__) + '/../test_helper'
+require 'test_helper'
 
 class CommentsControllerTest < ActionController::TestCase
-  should_require_login do
-    get edit, {:id => '1'}
+  context "as an anonymous user" do
+    context "GET edit" do
+      setup { get(:edit, :id => '1') }
+      should redirect_to '/login'
+    end
+    
+    context "put update" do
+      setup { put(:update, :id => '1') }
+      should redirect_to '/login'
+    end
+    
+    context "delete destroy" do
+      setup { delete(:destroy, :id => '1') }
+      should redirect_to '/login'
+    end
+    
+    context "delete destroy" do
+      setup { delete(:destroy, :id => '1') }
+      should redirect_to '/login'
+    end
   end
-  should_require_login :get, :edit, 1
-  should_require_login :put, :update, 1
-  should_require_login :delete, :destroy, 1
-  
-  should_require_admin :get, :edit, 1
-  should_require_admin :put, :update, 1
-  should_require_admin :delete, :destroy, 1
+
+  # should_require_admin :get, :edit, 1
+  # should_require_admin :put, :update, 1
+  # should_require_admin :delete, :destroy, 1
   
   context 'As a registered user' do
     setup do
