@@ -35,7 +35,6 @@ end
 
 group :test do
   gem 'factory_girl', '=1.3.3'
-  #gem 'shoulda', '=2.11.3'
   gem "shoulda-matchers", "~> 1.0.0"
   gem 'mocha', '=0.10.0'
   gem "no_peeping_toms", "~> 2.1.2"
