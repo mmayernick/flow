@@ -5,8 +5,8 @@
   <div class="entry">
     <%= to_textile item.content %>
   </div>
-
-  <% div_for(item, :class => "admin-actions") do %>
+  
+  <div id=item_"<%= item.id %>" class="item admin-actions">
     <% if admin? %>
       <%= link_to 'Remove', item_url(item), :confirm => 'Are you sure?', :method => :delete %>
     <% end %>
@@ -16,7 +16,7 @@
       <%= link_to 'Edit', edit_item_path(item),
                   :title => "Last chance of editing ends #{time_left.nil? ? 'never' : ('in ' + time_left.to_s + ' minutes')}." %>
     <% end %>
-  <% end %>
+  </div>
 
   <div class="metadata">
     Posted by <%= user_link(item) %>

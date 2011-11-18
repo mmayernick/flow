@@ -78,9 +78,8 @@ class ItemsControllerTest < ActionController::TestCase
         @item = Factory(:item)
         get :edit, :id => @item.id
       end
-            
-      should redirect_to(root_path)
-      #should redirect_to login_url #todo: WTF.
+      
+      should redirect_to login_path
     end
     
     context 'POST to create with failing captcha' do
