@@ -24,7 +24,7 @@ class UsersController < ApplicationController
   end
   
   def index
-    @users = User.find(:all, :order => 'id DESC', :limit => 100)
+    @users = User.order('id DESC').limit(100)
   end
 
   def approve
