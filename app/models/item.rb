@@ -14,7 +14,7 @@ class Item < ActiveRecord::Base
   validates_length_of       :content, :within => 25..1200
   validates_length_of       :byline, :maximum => 50, :if => :byline?
 
-  named_scope :all, :order => 'created_at DESC', :include => :user
+  scope :all, order('created_at DESC').includes(:user)
 
   before_save :anonymize_byline, :if => :anonymous?
 
