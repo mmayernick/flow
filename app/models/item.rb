@@ -19,11 +19,11 @@ class Item < ActiveRecord::Base
   before_save :anonymize_byline, :if => :anonymous?
 
   def anonymous?
-    (self.user_id.nil? || self.user.nil?) && (self.byline.nil? || self.byline.blank? || self.byline == 'Anonymous Coward')
+    (self.user_id.nil? || self.user.nil?) && (self.byline.nil? || self.byline.blank? || self.byline == 'Anonymous')
   end
 
   def anonymize_byline
-    self.byline = 'Anonymous Coward'
+    self.byline = 'Anonymous'
   end
 
   # 119 characters, a space, and a 20 character bitly url is max

@@ -80,8 +80,8 @@ describe Item do
         @item.save
       end
 
-      it 'should have byline of Anonymous Coward' do
-        @item.byline.should == 'Anonymous Coward'
+      it 'should have byline of Anonymous' do
+        @item.byline.should == 'Anonymous'
       end
 
       it 'should still be anonymous' do

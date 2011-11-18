@@ -16,10 +16,10 @@ class CommentsController < ApplicationController
     if logged_in?
       @comment.user = current_user
     else
-      @comment.byline = "Anonymous Coward" if @comment.byline.blank?
+      @comment.byline = "Anonymous" if @comment.byline.blank?
       @comment.content = @comment.content.gsub(/((<a\s+.*?href.+?\".*?\")([^\>]*?)>)/, '\2 rel="nofollow" \3>')
       unless passes_captcha?
-        flash.now[:notice] = "Your comment could not be posted. Scroll down, correct, and retry. Did you get the CAPTCHA right?"
+        flash[:notice] = "Your comment could not be posted. Scroll down, correct, and retry. Did you get the CAPTCHA right?"
         render :template => 'items/show'
         return
       end

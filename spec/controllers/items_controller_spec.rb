@@ -104,8 +104,8 @@ describe ItemsController do
       
       it { should redirect_to(item_path(@item)) }
 
-      it 'should set item byline to Anonymous Coward' do
-        @item.byline.should == 'Anonymous Coward'
+      it 'should set item byline to Anonymous' do
+        @item.byline.should == 'Anonymous'
       end
     end
   end
