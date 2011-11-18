@@ -11,6 +11,18 @@ gem "acts_as_state_machine", "~>2.2.0"
 gem "acts_as_tree_rails3", "~> 0.1.0"
 gem "recaptcha", "~> 0.3.1", :require => "recaptcha/rails"
 
+group :assets do
+  gem 'sass-rails',   '~> 3.1.5.rc.2'
+  gem 'coffee-rails', '~> 3.1.1'
+  gem 'uglifier', '>= 1.0.3'
+end
+  
+gem 'jquery-rails'
+ 
+# To use ActiveModel has_secure_password
+# gem 'bcrypt-ruby', '~> 3.0.0'
+
+
 group :development do
   gem "metric_fu", "~>2.1.1"
 end
@@ -26,4 +38,5 @@ group :test do
   gem 'shoulda', '=2.11.3'
   gem 'mocha', '=0.10.0'
   gem "no_peeping_toms", "~> 2.1.2"
+  gem 'turn', '0.8.2', :require => false
 end

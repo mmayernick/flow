@@ -1,4 +1,4 @@
-Cappuccinoflow::Application.routes.draw do
+Flow::Application.routes.draw do
 
   resources :items do
     collection do
