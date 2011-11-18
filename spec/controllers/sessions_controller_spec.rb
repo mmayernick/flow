@@ -25,7 +25,7 @@ describe SessionsController do
     it { should redirect_to(root_path) }
         
     it 'should set the authentication cookie' do
-      @response.cookies['auth_token'].should_not be_nil
+      cookies[:auth_token].should_not be_nil
     end
   end
   
@@ -38,7 +38,7 @@ describe SessionsController do
     it { should redirect_to(root_path) }
     
     it 'should not set the authentication cookie' do
-      @response.cookies['auth_token'].should be_nil
+      cookies[:auth_token].should be_nil
     end
   end
   
@@ -70,13 +70,13 @@ describe SessionsController do
   describe 'logging out when remembered' do
     before(:each) do
       @user = Factory(:user)
-      @request.cookies["auth_token"] = CGI::Cookie.new('name' => 'auth_token', 'value' => @user.remember_token)
+      cookies[:auth_token] = CGI::Cookie.new('name' => 'auth_token', 'value' => @user.remember_token)
       login_as @user
       get :destroy
     end
     
     it 'should unset cookie' do
-      @response.cookies['auth_token'].should be_nil
+      cookies[:auth_token].should be_nil
     end
   end
 end

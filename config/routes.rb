@@ -20,8 +20,8 @@ Cappuccinoflow::Application.routes.draw do
   resource :session
   
   match '/signup' => 'users#new', :as => :signup
-  match '/login' => 'session#new', :as => :login
-  match '/logout' => 'session#destroy', :as => :logout
+  match '/login' => 'sessions#new', :as => :login
+  match '/logout' => 'sessions#destroy', :as => :logout
   match '/tag/:id' => 'items#list_for_tags', :as => :tag
   match '/tags/:id' => 'items#list_for_tags', :as => :tags
   match '/tags/*id' => 'items#list_for_tags', :as => :tags_by_folders
