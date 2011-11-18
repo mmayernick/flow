@@ -5,6 +5,7 @@ describe ItemObserver do
     @observer = ItemObserver.instance
   end
   # todo: fixme.
+  # # happily swiped from http://return42.blogspot.com/2009/09/testing-rails-obsevers-with-shoulda.html
   # it {should_be_an_observer}
   # it {should_observe Item}
 
