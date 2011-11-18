@@ -8,7 +8,7 @@ describe ItemsController do
       it "should #{verb} #{action}" do
         send(verb, action, {:id => '1'})
       end
-    end    
+    end
   end
   
   describe 'anonymous users' do
