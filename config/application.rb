@@ -6,6 +6,9 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(:default, Rails.env) if defined?(Bundler)
 
+# TODO: better place for this?
+load File.join(File.dirname(__FILE__), 'initializers', 'configure_site_name.rb')
+
 module Cappuccinoflow
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
