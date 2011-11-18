@@ -8,12 +8,18 @@ class ItemsController < ApplicationController
   def index
     @front_page = true
     @items_count = Item.count
-    @items = Item.all.paginate :page => params[:page]
+
+    if params[:q]
+      @items = Item.search(params[:q]).paginate :page => params[:page]
+    else
+      @items = Item.front_page.paginate :page => params[:page]
+    end
 
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @items }
       format.rss { render :layout => false }
+      format.json { render :json => @items }
     end
   end
 
@@ -61,6 +67,8 @@ class ItemsController < ApplicationController
     else
       @item.content = @item.content.gsub(/((<a\s+.*?href.+?\".*?\")([^\>]*?)>)/, '\2 rel="nofollow" \3>')
     end
+
+    @item.url = URI::extract(@item.content).try(:first) if @item.url.blank?
 
     # FIXME remove this, because title required
     if @item.title.empty?
