@@ -1,14 +1,87 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>Cappuccinoflow</title>
-  <%= stylesheet_link_tag :all %>
-  <%= javascript_include_tag :defaults %>
-  <%= csrf_meta_tag %>
-</head>
-<body>
 
-<%= yield %>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title><%= title %></title>
 
-</body>
+    <meta http-equiv="content-type" content="application/xhtml+xml; charset=utf-8" />
+    <meta name="google-site-verification" content="CnxoYbKd1J2H-mAq_sWGLQCc8Q8H5lTT30RePD-61u8" />
+
+    <meta name="robots" content="index, follow" />
+
+    <% if @front_page %>
+      <meta name="description" content="<%= site_config.sub_title %>" />
+      <meta name="keywords" content="<%= site_config.meta.keywords %>" />
+    <% end %>
+    
+    <meta name="author" content="<%= site_config.meta.author %>" />
+
+    <% if @noindex %>
+      <meta name="robots" content="noindex, nofollow" />
+    <% end -%>
+    
+    <link rel="alternate" type="application/rss+xml"
+      title="<%= site_config.site_title %>" href="<%= site_config.rss_url %>" />
+
+    <%= stylesheet_link_tag "main" %>
+    <%= javascript_include_tag "jquery", "application", :cache => true if site_config.javascript.enabled %>
+    <%= csrf_meta_tag %>
+  </head>
+
+  <body class="<%= @body_class %>">
+
+    <div id="header">
+      <h1>
+        <% if Rails.env == "development" %>
+          <a href="/" class="home" style="color: red;">
+        <% else %>
+          <a href="/" class="home">
+        <% end %>
+        <%= site_config.site_title %>
+        </a>
+        <span><%= site_config.sub_title %></span>
+      </h1>
+
+      <div id="stuff">
+        <%= link_to 'Post Item', new_item_path, :class => 'rubyred' %> |
+
+        <% if logged_in? %>
+          <%= link_to 'Log Out', logout_url %>
+        <% else %>
+          <%= link_to 'Sign Up', signup_url %> | <%= link_to 'Log In', login_url %>
+        <% end %>
+
+      </div>
+    </div>
+
+    <div id="page">
+      <div id="content">
+        <% if flash[:notice] %>
+          <p class="message"><%= flash[:notice] %></p>
+        <% end %>
+        
+        <%= yield %>
+      </div>
+
+      <div id="sidebar">
+        <%= render 'layouts/sidebar'%>
+      </div>
+
+      <div class="float"></div><div class="floatcontainer"><div class="float"></div></div>
+
+    </div>    
+
+    <% if site_config.google_analytics.enabled && Rails.env.production? %>
+      <script type="text/javascript">
+        var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+        document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+      </script>
+      
+      <script type="text/javascript">
+        var pageTracker = _gat._getTracker("<%= site_config.google_analytics.account %>");
+        pageTracker._initData();
+        pageTracker._trackPageview();
+      </script>             
+    <% end %>
+	</body>
 </html>

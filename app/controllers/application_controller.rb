@@ -17,9 +17,9 @@ class ApplicationController < ActionController::Base
     render :status => 403, :text => '403 Forbidden'
   end
   
-  def config
+  def site_config
     configatron
   end
   
-  helper_method :config
+  helper_method :site_config
 end

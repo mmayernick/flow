@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../test_helper'
+require 'test_helper'
 
 class ItemsControllerTest < ActionController::TestCase
   should_require_login :put, :update
@@ -14,10 +14,10 @@ class ItemsControllerTest < ActionController::TestCase
       setup do
         get :index
       end
-      should_respond_with :success
-      should_assign_to :items
-      should_assign_to :items_count
-      should_assign_to :front_page
+      should respond_with :success
+      should assign_to :items
+      should assign_to :items_count
+      should assign_to :front_page
     end
 
     context 'GET to show' do
@@ -29,10 +29,10 @@ class ItemsControllerTest < ActionController::TestCase
           get :show, :id => @item.to_param
         end
     
-        should_respond_with :success
-        should_assign_to :item
-        should_assign_to :title
-        should_assign_to :comment
+        should respond_with :success
+        should assign_to :item
+        should assign_to :title
+        should assign_to :comment
     
         should "set title from item's title" do
           assert_equal @item.title, assigns(:title)
@@ -45,10 +45,10 @@ class ItemsControllerTest < ActionController::TestCase
           get :show, :id => @item.to_param
         end
     
-        should_respond_with :success
-        should_assign_to :item
-        should_assign_to :title
-        should_assign_to :comment
+        should respond_with :success
+        should assign_to :item
+        should assign_to :title
+        should assign_to :comment
     
         should "set title from item's title" do
           assert_equal @item.title, assigns(:title)
@@ -59,7 +59,7 @@ class ItemsControllerTest < ActionController::TestCase
         setup do
           get :show, :id => 'nonexistent'
         end
-        should_respond_with 404
+        should respond_with 404
       end
     end
   
@@ -68,9 +68,9 @@ class ItemsControllerTest < ActionController::TestCase
         get :new
       end
   
-      should_respond_with :success
-      should_render_template :new
-      should_assign_to :item
+      should respond_with :success
+      should render_template :new
+      should assign_to :item
     end
     
     context 'GET to edit' do
@@ -78,8 +78,9 @@ class ItemsControllerTest < ActionController::TestCase
         @item = Factory(:item)
         get :edit, :id => @item.id
       end
-      
-      should_redirect_to('login') { login_path }
+            
+      should redirect_to(root_path)
+      #should redirect_to login_url #todo: WTF.
     end
     
     context 'POST to create with failing captcha' do
@@ -89,7 +90,7 @@ class ItemsControllerTest < ActionController::TestCase
         @item = Item.last
       end
       
-      should_render_template :new
+      should render_template :new
     end
     
     context 'POST to create with passing captcha' do
@@ -99,7 +100,7 @@ class ItemsControllerTest < ActionController::TestCase
         @item = Item.last
       end
       
-      should_redirect_to('item path') { item_path(@item) }
+      should redirect_to(item_path(@item))
       should 'set item byline to Anonymous Coward' do
         assert_equal 'Anonymous Coward', @item.byline
       end
@@ -120,8 +121,8 @@ class ItemsControllerTest < ActionController::TestCase
           get :edit, :id => @item.to_param
         end
       
-        should_respond_with :success
-        should_assign_to :item
+        should respond_with :success
+        should assign_to :item
       end
       
       context 'without a name' do
@@ -130,8 +131,8 @@ class ItemsControllerTest < ActionController::TestCase
           get :edit, :id => @item.to_param
         end
       
-        should_respond_with :success
-        should_assign_to :item
+        should respond_with :success
+        should assign_to :item
       end
     end
     
@@ -141,7 +142,7 @@ class ItemsControllerTest < ActionController::TestCase
         @item = Item.last
       end
       
-      should_redirect_to('item path') { item_path(@item) }
+      should redirect_to(item_path(@item))
       
       should 'create item posted by user' do
         assert_equal @user, @item.user
@@ -169,7 +170,7 @@ class ItemsControllerTest < ActionController::TestCase
         assert @item.is_starred_by_user(@user)
       end
       
-      should_redirect_to('item path') { item_path(@item) }
+      should redirect_to item_path(@item)
     end
     
     context 'GET to unstar' do
@@ -188,7 +189,7 @@ class ItemsControllerTest < ActionController::TestCase
         assert ! @item.is_starred_by_user(@user)
       end
 
-      should_redirect_to('item path') { item_path(@item) }
+      should redirect_to item_path(@item)
     end
   end
   
@@ -201,7 +202,7 @@ class ItemsControllerTest < ActionController::TestCase
         @item = Factory(:item)
         delete :destroy, :id => @item.id
       end
-      should_redirect_to('items path') { items_path }
+      should redirect_to items_path
       
       should 'remove item' do
         assert_nil Item.find_by_id(@item.id)

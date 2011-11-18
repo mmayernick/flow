@@ -26,7 +26,6 @@ Cappuccinoflow::Application.routes.draw do
   match '/search/:id' => 'items#search', :as => :search
   match '/category/:id' => 'items#category', :as => :category
   match '/page/:page' => 'items#index'
-  match '/:controller(/:action(/:id))'
 
   root :to => 'items#index'
 end

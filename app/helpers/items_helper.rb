@@ -34,7 +34,7 @@ module ItemsHelper
   # Shows the time left to edit the current item, or nil if it's always allowed
   def edit_time_left(item)
     diff = Time.now - item.updated_at
-    expire_rate = config.edit_expiration_in_minutes
+    expire_rate = site_config.edit_expiration_in_minutes
     return expire_rate > 0 ? expire_rate - (diff.to_i / 60) : nil
   end
   

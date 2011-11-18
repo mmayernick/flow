@@ -1,13 +1,13 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class CommentsControllerTest < ActionController::TestCase
-  should require_login :get, :edit
-  should require_login :put, :update
-  should require_login :delete, :destroy
+  should_require_login :get, :edit
+  should_require_login :put, :update
+  should_require_login :delete, :destroy
   
-  should require_admin :get, :edit
-  should require_admin :put, :update
-  should require_admin :delete, :destroy
+  should_require_admin :get, :edit
+  should_require_admin :put, :update
+  should_require_admin :delete, :destroy
   
   context 'As a registered user' do
     setup do
@@ -21,8 +21,8 @@ class CommentsControllerTest < ActionController::TestCase
         post :create, :comment => Factory.attributes_for(:comment, :item_id => @item.id), :item_id => @item.id
         @comment = Comment.last
       end
-      should_redirect_to('item path') { item_path(@item) }
-      should_set_the_flash_to /success/
+      should redirect_to('item path') { item_path(@item) }
+      should set_the_flash.to(/success/)
       should 'assign current user to comment' do
         assert_equal @user, @comment.user
       end
@@ -41,11 +41,11 @@ class CommentsControllerTest < ActionController::TestCase
           post :create, :comment => Factory.attributes_for(:comment), :item_id => @item.id
           @comment = Comment.last
         end
-        should_respond_with :success
-        should_set_the_flash_to /CAPTCHA/
-        should_assign_to :item
-        should_assign_to :comment
-        should_render_template 'items/show'
+        should respond_with :success
+        should set_the_flash.to /CAPTCHA/
+        should assign_to :item
+        should assign_to :comment
+        should render_template 'items/show'
       end
       
       context 'with passing captcha' do
@@ -54,8 +54,8 @@ class CommentsControllerTest < ActionController::TestCase
           post :create, :comment => Factory.attributes_for(:comment), :item_id => @item.id
           @comment = Comment.last
         end
-        should_redirect_to('item path') { item_path(@item) }
-        should_set_the_flash_to /success/
+        should redirect_to('item path') { item_path(@item) }
+        should set_the_flash.to /success/
         should 'assign current user to comment' do
           assert_equal @user, @comment.user
         end
@@ -75,7 +75,7 @@ class CommentsControllerTest < ActionController::TestCase
         @comment = Factory(:comment, :item => @item)
         delete :destroy, :id => @comment.id, :item_id => @item.id
       end
-      should_redirect_to('item path') { item_path(@item) }
+      should redirect_to('item path') { item_path(@item) }
       should 'remove comment' do
         assert_nil Comment.find_by_id(@comment.id)
       end
@@ -87,7 +87,7 @@ class CommentsControllerTest < ActionController::TestCase
         @comment = Factory(:comment, :item => @item)
         put :update, :id => @comment.id, :item_id => @item.id, :comment => Factory.attributes_for(:comment, :content => 'this is totally new content')
       end
-      should_redirect_to('item path') { item_path(@item) }
+      should redirect_to('item path') { item_path(@item) }
       should 'update the comment' do
         @comment.reload
         assert_equal 'this is totally new content', @comment.content
