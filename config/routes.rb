@@ -16,7 +16,12 @@ Cappuccinoflow::Application.routes.draw do
   resources :comments
 
   resources :categories
-  resources :users
+  resources :users do
+    member do
+      get :approve
+      get :disapprove
+    end
+  end
   resource :session
   
   match '/signup' => 'users#new', :as => :signup
