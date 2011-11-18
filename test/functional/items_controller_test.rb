@@ -99,9 +99,7 @@ class ItemsControllerTest < ActionController::TestCase
         post :create, :item => Factory.attributes_for(:item, :byline => nil)
         @item = Item.last
       end
-      should "redirect to item" do
-        assert_redirect_to item_path(@item)
-      end
+      should redirect_to(item_path(@item))
 
       should 'set item byline to Anonymous Coward' do
         assert_equal 'Anonymous Coward', @item.byline
@@ -144,9 +142,7 @@ class ItemsControllerTest < ActionController::TestCase
         @item = Item.last
       end
 
-      should "redirect to item" do
-        assert_redirect_to item_path(@item)
-      end
+      should redirect_to(item_path(@item))
 
       should 'create item posted by user' do
         assert_equal @user, @item.user
@@ -174,9 +170,7 @@ class ItemsControllerTest < ActionController::TestCase
         assert @item.is_starred_by_user(@user)
       end
 
-      should "redirect to item" do
-        assert_redirect_to item_path(@item)
-      end
+      should redirect_to(item_path(@item))
     end
 
     context 'GET to unstar' do
@@ -195,9 +189,7 @@ class ItemsControllerTest < ActionController::TestCase
         assert ! @item.is_starred_by_user(@user)
       end
 
-      should "redirect to item" do
-        assert_redirect_to item_path(@item)
-      end
+      should redirect_to(item_path(@item))
     end
   end
 
@@ -211,9 +203,7 @@ class ItemsControllerTest < ActionController::TestCase
         delete :destroy, :id => @item.id
       end
 
-      should "redirect to item" do
-        assert_redirect_to item_path(@item)
-      end
+      should redirect_to(item_path(@item))
 
       should 'remove item' do
         assert_nil Item.find_by_id(@item.id)
