@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.10'
+gem 'rails', '=3.1.2'
 
 gem 'RedCloth', '~>4.2.2', :require => 'redcloth'
 gem 'will_paginate', '~>3.0.2'
