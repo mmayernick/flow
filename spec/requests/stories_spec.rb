@@ -20,7 +20,7 @@ describe "Stories Integration" do
     get edit_item_url(@item.id)
     response.should be_redirect
     
-    post login_url, :login => @user.login, :password => @user.password
+    post session_url, :login => @user.login, :password => @user.password
     response.should be_redirect
     
     get edit_item_url(@item.id)
