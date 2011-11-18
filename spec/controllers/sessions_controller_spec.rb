@@ -25,7 +25,7 @@ describe SessionsController do
     it { should redirect_to(root_path) }
         
     it 'should set the authentication cookie' do
-      cookies[:auth_token].should_not be_nil
+      cookies['auth_token'].should_not be_nil
     end
   end
   

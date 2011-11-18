@@ -53,7 +53,7 @@ class SessionsController < ApplicationController
   end
 
   def successful_login
-    if params[:remember_me] == "1"
+    if params[:remember_me].try(:to_i) == 1
       self.current_user.remember_me
       cookies[:auth_token] = { :value => self.current_user.remember_token , :expires => 1.year.from_now }
     end
