@@ -9,7 +9,7 @@ class UsersController < ApplicationController
     
     @user = User.new(params[:user])
     unless passes_captcha?
-      @user.errors.add("Word")
+      flash.now[:notice] = "Please check the captcha and try again."
       render :action => 'new'
       return
     end    
