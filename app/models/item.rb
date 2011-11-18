@@ -14,16 +14,31 @@ class Item < ActiveRecord::Base
   validates_length_of       :content, :within => 25..1200
   validates_length_of       :byline, :maximum => 50, :if => :byline?
 
-  scope :all, order('created_at DESC').includes(:user)
+  scope :front_page, order('created_at DESC').includes(:user)
+  scope :search, lambda {|t|
+    where(["LOWER(title) LIKE ? OR LOWER(name) LIKE ? OR LOWER(url) LIKE ?", t.downcase, t.downcase, t.downcase])
+  }
 
   before_save :anonymize_byline, :if => :anonymous?
 
+  def as_json(opts = {})
+    {
+      :id => id,
+      :url => url,
+      :title => title,
+      :name => name,
+      :byline => byline,
+      :comments_count => comments_count,
+      :stars_count => stars_count
+    }
+  end
+
   def anonymous?
-    (self.user_id.nil? || self.user.nil?) && (self.byline.nil? || self.byline.blank? || self.byline == 'Anonymous Coward')
+    (self.user_id.nil? || self.user.nil?) && (self.byline.nil? || self.byline.blank? || self.byline == 'Anonymous')
   end
 
   def anonymize_byline
-    self.byline = 'Anonymous Coward'
+    self.byline = 'Anonymous'
   end
 
   # 119 characters, a space, and a 20 character bitly url is max

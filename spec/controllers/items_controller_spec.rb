@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe ItemsController do
   render_views
-  
+
   describe "requires login" do
     [[:put, :update], [:get, :edit], [:delete, :destroy], [:get, :star], [:get, :unstar]].each do |verb, action|
       it "should #{verb} #{action}" do
@@ -10,52 +10,54 @@ describe ItemsController do
       end
     end
   end
-  
+
+  describe "searching"
+
   describe 'anonymous users' do
     describe 'GET index' do
       before(:each) do
         get :index
       end
-      
+
       it { should respond_with :success }
       it { should assign_to :items }
       it { should assign_to :items_count }
       it { should assign_to :front_page }
     end
-    
+
     describe 'GET show' do
       describe 'of item with name' do
         before(:each) do
           @item = Factory.create(:item)
           get :show, :id => @item.to_param
         end
-        
+
         it { should respond_with :success }
         it { should assign_to :item }
         it { should assign_to :title }
         it { should assign_to :comment }
-        
+
         it "should set title from item's name" do
           @item.title.should == assigns[:title]
         end
       end
-      
+
       describe "of item without name" do
         before(:each) do
           @item = Factory(:item, :name => nil)
           get :show, :id => @item.to_param
         end
-        
+
         it { should respond_with :success }
         it { should assign_to :item }
         it { should assign_to :title }
         it { should assign_to :comment }
-        
+
         it "should set title from item's title" do
           @item.title.should == assigns[:title]
         end
       end
-      
+
       describe 'with non-existent item' do
         before(:each) do
           get :show, :id => 'nonexistent'
@@ -63,7 +65,7 @@ describe ItemsController do
         it { should respond_with 404 }
       end
     end
-  
+
     describe 'GET to new' do
       before(:each) do
         get :new
@@ -79,7 +81,7 @@ describe ItemsController do
         @item = Factory(:item)
         get :edit, :id => @item.id
       end
-      
+
       it "should redirect to login" do
         response.should redirect_to login_path
       end
@@ -101,11 +103,11 @@ describe ItemsController do
         post :create, :item => Factory.attributes_for(:item, :byline => nil)
         @item = Item.last
       end
-      
+
       it { should redirect_to(item_path(@item)) }
 
-      it 'should set item byline to Anonymous Coward' do
-        @item.byline.should == 'Anonymous Coward'
+      it 'should set item byline to Anonymous' do
+        @item.byline.should == 'Anonymous'
       end
     end
   end

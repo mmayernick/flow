@@ -23,8 +23,14 @@
     <link rel="alternate" type="application/rss+xml"
       title="<%= site_config.site_title %>" href="<%= site_config.rss_url %>" />
 
-    <%= stylesheet_link_tag "main" %>
-    <%= javascript_include_tag "jquery", "application", :cache => true if site_config.javascript.enabled %>
+    <!-- 
+      < % = stylesheet_link_tag "main" %>
+      < % = javascript_include_tag "jquery", "application", :cache => true if site_config.javascript.enabled %>
+    -->
+    
+    <%= stylesheet_link_tag    "application" %>
+    <%= javascript_include_tag "application" %>
+    
     <%= csrf_meta_tag %>
   </head>
 

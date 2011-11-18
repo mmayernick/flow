@@ -10,6 +10,10 @@ describe Item do
   it { should ensure_length_of(:content).is_at_least(25).is_at_most(1200) }
   it { should ensure_length_of(:byline).is_at_least(0).is_at_most(50) }
 
+  describe "URL extraction from .content"
+  describe "search scope"
+  describe "as_json"
+
   # TODO test tagging stuff
 
   describe 'An Item' do
@@ -29,7 +33,7 @@ describe Item do
       long_title  = "".rjust(140,"words")
 
       @item.title = short_title
-      @item.tweetable_title.size.should == 100 
+      @item.tweetable_title.size.should == 100
       @item.title = long_title
       @item.tweetable_title.size.should == 119
     end
@@ -80,8 +84,8 @@ describe Item do
         @item.save
       end
 
-      it 'should have byline of Anonymous Coward' do
-        @item.byline.should == 'Anonymous Coward'
+      it 'should have byline of Anonymous' do
+        @item.byline.should == 'Anonymous'
       end
 
       it 'should still be anonymous' do
