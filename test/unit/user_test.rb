@@ -1,18 +1,26 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class UserTest < ActiveSupport::TestCase
-  should_have_many :items
-  should_have_many :comments
-  should_have_many :stars
-  should_have_many :starred_items
+  should have_many :items
+  should have_many :comments
+  should have_many :stars
+  should have_many :starred_items
   
-    should_validate_presence_of :login, :password, :password_confirmation #, :email
-    should_ensure_length_in_range :password, (4..40)
-    should_ensure_length_in_range :login, (3..40)
-    should_allow_values_for :login, 'mylogin', 'woooooo123'
-    should_not_allow_values_for :login, 'my login'
-    should_allow_values_for :url, 'http://example.com'
-    should_not_allow_values_for :url, 'example.com'
+  should validate_presence_of :login
+  should validate_presence_of :password
+  should validate_presence_of :password_confirmation
+  should validate_presence_of :email
+  
+  should ensure_length_of(:password).is_at_least(4).is_at_most(40)
+
+  should ensure_length_of(:login).is_at_least(3).is_at_most(40)
+  should allow_value('mylogin').for(:login)
+  should allow_value('woooooo123').for(:login)
+  
+  should_not allow_value('my login').for(:login)
+  
+  should allow_value('http://example.com').for(:url)
+  should_not allow_value('example.com').for(:url)
   
   context 'A user' do
     setup do
@@ -21,7 +29,7 @@ class UserTest < ActiveSupport::TestCase
     
     subject { @user }
     
-    should_validate_uniqueness_of :login
+    should validate_uniqueness_of :login
     
     should 'be able to authenticate with correct password' do
       assert_equal @user, User.authenticate(@user.login, 'password')

@@ -1,5 +1,5 @@
 # happily swiped from http://return42.blogspot.com/2009/09/testing-rails-obsevers-with-shoulda.html
-class Test::Unit::TestCase
+class ActiveSupport::TestCase
   def self.should_be_an_observer
     symbol = self.name.gsub(/Test$/, '').underscore.to_sym
   

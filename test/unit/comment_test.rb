@@ -1,8 +1,7 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class CommentTest < ActiveSupport::TestCase
-  should_belong_to :user
-  should_belong_to :item
-  
-  should_ensure_length_in_range :content, (1..10000)
+  should belong_to :user
+  should belong_to :item
+  should ensure_length_of(:content).is_at_least(1).is_at_most(10000)
 end

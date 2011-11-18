@@ -1,14 +1,14 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class ItemTest < ActiveSupport::TestCase
-  should_belong_to :user
-  should_have_many :comments
-  should_have_many :stars
+  should belong_to :user
+  should have_many :comments
+  should have_many :stars
 
-  should_ensure_length_in_range :title, (4..255)
-  should_ensure_length_in_range :name, (4..255)
-  should_ensure_length_in_range :content, (25..1200)
-  should_ensure_length_in_range :byline, (0..50)
+  should ensure_length_of(:title).is_at_least(4).is_at_most(255)
+  should ensure_length_of(:name).is_at_least(4).is_at_most(255)
+  should ensure_length_of(:content).is_at_least(25).is_at_most(1200)
+  should ensure_length_of(:byline).is_at_least(0).is_at_most(50)
 
   # TODO test tagging stuff
 
@@ -19,10 +19,11 @@ class ItemTest < ActiveSupport::TestCase
 
     subject { @item }
 
-    should_validate_uniqueness_of :name
+    should validate_uniqueness_of :name
 
-    should_allow_values_for :name, 'name-1', 'name_1'
-    should_not_allow_values_for :name, 'name 1'
+    should allow_value('name_1').for(:name)
+    should allow_value('name-1').for(:name)
+    should_not allow_value('name 1').for(:name)
 
     should 'provide tweetable title' do
       short_title = "".rjust(100,"words")
