@@ -3,7 +3,9 @@
 
 <% post_words = %w{in ox et by rat tar al s ty ax ak an at de er ers} %>
 
-<div id="captcha_display"><% random_word = words[rand(words.size)] + post_words[rand(post_words.size)]; random_word.each_byte do |char| %><%= char.chr.upcase %><%= %Q{<sup>#{char.chr.upcase}</sup>} if rand(3) == 0 %><!-- <%= Time.now.to_i %> --><% end %></div>
+<div id="captcha_display">
+  <% random_word = words[rand(words.size)] + post_words[rand(post_words.size)]; random_word.each_byte do |char| %><%= char.chr.upcase %><%= %Q{<sup>#{char.chr.upcase}</sup>} if rand(3) == 0 %><!-- <%= Time.now.to_i %> --><% end %>
+</div>
 <br />
 
 <label for="captcha">Enter The Word Displayed In <span style="background-color: #5271A8; color: #fff">WHITE ON BLUE</span> Above</label><br />
