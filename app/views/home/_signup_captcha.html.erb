@@ -1,15 +1,1 @@
-<p>
-
-<div id="captcha_display">
-<%= captcha %>
-</div>
-<br />
-
-<label for="captcha">Enter The Word Displayed In <span style="background-color: #5271A8; color: #fff">WHITE ON BLUE</span> Above</label><br />
-
-<%= text_field_tag "captcha" %>
-<%= hidden_field_tag "captcha_guide", captcha_guide %>
-
-</p>
-
-<h1><%= random_word %></h1>
+<%= recaptcha_tags %>

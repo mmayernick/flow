@@ -9,6 +9,7 @@ gem 'bitly', '~>0.6.2'
 gem "twitter", "~> 1.7.2"
 gem "acts_as_state_machine", "~>2.2.0"
 gem "acts_as_tree_rails3", "~> 0.1.0"
+gem "recaptcha", "~> 0.3.1", :require => "recaptcha/rails"
 
 group :development do
   gem "metric_fu", "~>2.1.1"

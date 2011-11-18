@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   
   def passes_captcha?
-    params[:captcha] && Digest::SHA1.hexdigest(params[:captcha].upcase.chomp)[0..5] == params[:captcha_guide]
+    verify_recaptcha
   end
   
   include AuthenticatedSystem
