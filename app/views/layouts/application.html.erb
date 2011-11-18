@@ -1,5 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
@@ -11,21 +10,22 @@
     <meta name="robots" content="index, follow" />
 
     <% if @front_page %>
-      <meta name="description" content="<%= config.sub_title %>" />
-      <meta name="keywords" content="<%= config.meta.keywords %>" />
+      <meta name="description" content="<%= site_config.sub_title %>" />
+      <meta name="keywords" content="<%= site_config.meta.keywords %>" />
     <% end %>
     
-    <meta name="author" content="<%= config.meta.author %>" />
+    <meta name="author" content="<%= site_config.meta.author %>" />
 
     <% if @noindex %>
       <meta name="robots" content="noindex, nofollow" />
     <% end -%>
     
     <link rel="alternate" type="application/rss+xml"
-      title="<%= config.site_title %>" href="<%= config.rss_url %>" />
+      title="<%= site_config.site_title %>" href="<%= site_config.rss_url %>" />
 
     <%= stylesheet_link_tag "main" %>
-    <%= javascript_include_tag "jquery", "application", :cache => true if config.javascript.enabled %>
+    <%= javascript_include_tag "jquery", "application", :cache => true if site_config.javascript.enabled %>
+    <%= csrf_meta_tag %>
   </head>
 
   <body class="<%= @body_class %>">
@@ -37,9 +37,9 @@
         <% else %>
           <a href="/" class="home">
         <% end %>
-        <%= config.site_title %>
+        <%= site_config.site_title %>
         </a>
-        <span><%= config.sub_title %></span>
+        <span><%= site_config.sub_title %></span>
       </h1>
 
       <div id="stuff">
@@ -71,14 +71,14 @@
 
     </div>    
 
-    <% if config.google_analytics.enabled && Rails.env == "production" %>
+    <% if site_config.google_analytics.enabled && Rails.env.production? %>
       <script type="text/javascript">
         var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
         document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
       </script>
       
       <script type="text/javascript">
-        var pageTracker = _gat._getTracker("<%= config.google_analytics.account %>");
+        var pageTracker = _gat._getTracker("<%= site_config.google_analytics.account %>");
         pageTracker._initData();
         pageTracker._trackPageview();
       </script>             

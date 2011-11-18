@@ -9,7 +9,7 @@ class UsersController < ApplicationController
     
     @user = User.new(params[:user])
     unless passes_captcha?
-      @user.errors.add("Word")
+      flash.now[:notice] = "Please check the captcha and try again."
       render :action => 'new'
       return
     end    
@@ -24,7 +24,7 @@ class UsersController < ApplicationController
   end
   
   def index
-    @users = User.find(:all, :order => 'id DESC', :limit => 100)
+    @users = User.order('id DESC').limit(100)
   end
 
   def approve

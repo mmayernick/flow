@@ -1,15 +1,10 @@
-# Filters added to this controller apply to all controllers in the application.
-# Likewise, all the methods added will be available for all controllers.
+require File.join(Rails.root, 'lib', 'authenticated_system')
 
 class ApplicationController < ActionController::Base
-  helper :all # include all helpers, all the time
-
-  # See ActionController::RequestForgeryProtection for details
-  # Uncomment the :secret if you're not using the cookie session store
-  protect_from_forgery # :secret => '????? you'll need to sort this out yourself!'
+  protect_from_forgery
   
   def passes_captcha?
-    params[:captcha] && Digest::SHA1.hexdigest(params[:captcha].upcase.chomp)[0..5] == params[:captcha_guide]
+    verify_recaptcha
   end
   
   include AuthenticatedSystem
@@ -22,10 +17,9 @@ class ApplicationController < ActionController::Base
     render :status => 403, :text => '403 Forbidden'
   end
   
-  def config
+  def site_config
     configatron
   end
   
-  helper_method :config
-  
+  helper_method :site_config
 end

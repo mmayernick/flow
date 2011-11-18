@@ -1,5 +1,5 @@
 <h1>Post An Item to the Flow</h1>
 
-<% form_for(@item) do |form| %>
+<%= form_for(@item) do |form| %>
   <%= render :partial => 'edit_item', :locals => { :f => form, :method => 'post'} %>
 <% end %>

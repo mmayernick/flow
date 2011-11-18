@@ -68,7 +68,7 @@ class ItemsController < ApplicationController
     end
 
     if ! logged_in? && ! passes_captcha?
-      @item.errors.add("Word")
+      flash.now[:notice] = "Your item could not be posted. Did you get the CAPTCHA right?"
       render :action => 'new'
       return
     end
