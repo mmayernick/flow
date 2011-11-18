@@ -14,23 +14,23 @@ class ActiveSupport::TestCase
 end
 
 class ActionController::TestCase
-  def self.should_require_login(method, action)
+  def self.should_require_login(method, action, id = nil)
     context "#{method} to #{action} as anonymous" do
       setup do
-        send(method, action)
+        id ? send(method, action, {:id => id}) : send(method, action)
       end
       # TODO: this is nasty, fix it.
       should redirect_to('/login')
     end
   end
   
-  def self.should_require_admin(method, action)
+  def self.should_require_admin(method, action, id = nil)
     context "#{method} to #{action} as non-admin user" do
       setup do
         @user = Factory(:user)
         login_as @user
         
-        send(method, action)
+        id ? send(method, action, {:id => id}) : send(method, action)
       end
       # TODO: this is nasty, fix it.
       should redirect_to('/login')
