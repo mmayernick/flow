@@ -17,7 +17,11 @@ class UsersControllerTest < ActionController::TestCase
     should 'delete authorization cookie' do
        assert_nil @response.cookies['auth_token']
     end
-    should_redirect_to('root') { root_path }
+    
+    should "redirect to root" do
+      assert_redirect_to root_path
+    end
+    
     should 'actually create the user' do
       assert_not_nil @user
     end
@@ -31,8 +35,8 @@ class UsersControllerTest < ActionController::TestCase
       @user = User.find_by_login @user_attributes[:login]
     end
     
-    should_respond_with :success
-    should_render_template :new
+    should respond_with :success
+    should render_template :new
     should 'not actually create the user' do
       assert_nil @user
     end
