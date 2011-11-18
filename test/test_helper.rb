@@ -19,7 +19,8 @@ class ActionController::TestCase
       setup do
         send(method, action)
       end
-      should redirect_to(login_path)
+      # TODO: this is nasty, fix it.
+      should redirect_to('/login')
     end
   end
   
@@ -31,7 +32,8 @@ class ActionController::TestCase
         
         send(method, action)
       end
-      should redirect_to(login_path)
+      # TODO: this is nasty, fix it.
+      should redirect_to('/login')
     end
   end
 end

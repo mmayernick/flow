@@ -1,13 +1,13 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class CommentsControllerTest < ActionController::TestCase
-  should_require_login :get, :edit
-  should_require_login :put, :update
-  should_require_login :delete, :destroy
+  should require_login :get, :edit
+  should require_login :put, :update
+  should require_login :delete, :destroy
   
-  should_require_admin :get, :edit
-  should_require_admin :put, :update
-  should_require_admin :delete, :destroy
+  should require_admin :get, :edit
+  should require_admin :put, :update
+  should require_admin :delete, :destroy
   
   context 'As a registered user' do
     setup do
