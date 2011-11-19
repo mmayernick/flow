@@ -1,0 +1,13 @@
+
+.hero-unit
+  %h2 hello, world.
+  %p Thanks for stopping by iOSFlow. 
+
+.items
+  - @items.each do |item|
+    - if should_display_date? @last_date, item
+      %h2= item.created_at.strftime("%B %d, %Y")
+      - @last_date = item.created_at
+    = render :partial => "items/item", :locals => {:item => item}
+
+= will_paginate @items

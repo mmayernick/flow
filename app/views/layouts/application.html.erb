@@ -13,79 +13,99 @@
       <meta name="description" content="<%= site_config.sub_title %>" />
       <meta name="keywords" content="<%= site_config.meta.keywords %>" />
     <% end %>
-    
+
     <meta name="author" content="<%= site_config.meta.author %>" />
 
     <% if @noindex %>
       <meta name="robots" content="noindex, nofollow" />
     <% end -%>
-    
+
     <link rel="alternate" type="application/rss+xml"
       title="<%= site_config.site_title %>" href="<%= site_config.rss_url %>" />
 
-    <%= stylesheet_link_tag    "application" %>
-
+    <%= stylesheet_link_tag "application" %>
+    <link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css">
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+      }
+      .container-fluid > .sidebar {
+        left: auto;
+        right: 20px;
+      }
+      .container-fluid > .content {
+        margin-left: 0;
+        margin-right: 240px;
+      }
+    </style>
     <% if site_config.javascript.enabled %>
     <%= javascript_include_tag "application" %>
     <% end %>
-    
+
     <%= csrf_meta_tag %>
   </head>
 
   <body class="<%= @body_class %>">
-
-    <div id="header">
-      <h1>
-        <% if Rails.env == "development" %>
-          <a href="/" class="home" style="color: red;">
-        <% else %>
-          <a href="/" class="home">
-        <% end %>
-        <%= site_config.site_title %>
-        </a>
-        <span><%= site_config.sub_title %></span>
-      </h1>
-
-      <div id="stuff">
-        <%= link_to 'Post Item', new_item_path, :class => 'rubyred' %> |
-
-        <% if logged_in? %>
-          <%= link_to 'Log Out', logout_url %>
-        <% else %>
-          <%= link_to 'Sign Up', signup_url %> | <%= link_to 'Log In', login_url %>
-        <% end %>
-
+    <div class="topbar">
+      <div class="topbar-inner">
+        <div class="container-fluid">
+          <a class="brand" href="/"><%= site_config.site_title%></a>
+          <ul class="nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+          <ul class='secondary-nav'>
+            <li><%= link_to 'Post Item', new_item_path %></li>
+            <% if logged_in? %>
+              <li><%= link_to 'Log Out', logout_url %></li>
+            <% else %>
+              <li><%= link_to 'Sign Up', signup_url %></li>
+              <li><%= link_to 'Log In', login_url %></li>
+            <% end %>
+          </ul>
+        </div>
       </div>
     </div>
 
-    <div id="page">
-      <div id="content">
+    <div class="container-fluid">
+      <div class="content">
         <% if flash[:notice] %>
           <p class="message"><%= flash[:notice] %></p>
         <% end %>
-        
+
         <%= yield %>
+
+        <!-- Example row of columns -->
+        <div class="row">
+          <div class="span6">
+            <h2>Heading</h2>
+            <p>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.</p>
+            <p><a class="btn" href="#">View details &raquo;</a></p>
+          </div>
+          <div class="span5">
+            <h2>Heading</h2>
+             <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+            <p><a class="btn" href="#">View details &raquo;</a></p>
+         </div>
+          <div class="span5">
+            <h2>Heading</h2>
+            <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+            <p><a class="btn" href="#">View details &raquo;</a></p>
+          </div>
+        </div>
+
+        <footer>
+          <p>&copy; 2011</p>
+        </footer>
       </div>
-
-      <div id="sidebar">
-        <%= render 'layouts/sidebar'%>
+      <div class="sidebar">
+        <div class="well">
+          <%= render 'layouts/sidebar' %>
+        </div>
       </div>
+    </div>
 
-      <div class="float"></div><div class="floatcontainer"><div class="float"></div></div>
-
-    </div>    
-
-    <% if site_config.google_analytics.enabled && Rails.env.production? %>
-      <script type="text/javascript">
-        var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-        document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-      </script>
-      
-      <script type="text/javascript">
-        var pageTracker = _gat._getTracker("<%= site_config.google_analytics.account %>");
-        pageTracker._initData();
-        pageTracker._trackPageview();
-      </script>             
-    <% end %>
+    <%= render :partial => 'layouts/analytics' %>
 	</body>
 </html>

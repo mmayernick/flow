@@ -2,6 +2,8 @@ source 'http://rubygems.org'
 
 gem 'rails', '=3.1.2'
 
+gem 'haml', '~>3.1.3'
+
 gem 'RedCloth', '~>4.2.2', :require => 'redcloth'
 gem 'will_paginate', '~>3.0.2'
 gem 'configatron', '~>2.8.4'
