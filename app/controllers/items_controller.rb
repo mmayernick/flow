@@ -45,7 +45,8 @@ class ItemsController < ApplicationController
   # GET /items/new.xml
   def new
     @item = Item.new
-
+    @item.content = 'So I *just* released "this cool thing":http://cappuccinoflow.com and blah blah blah...'
+    
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @item }

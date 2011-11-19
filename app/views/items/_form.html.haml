@@ -1,0 +1,49 @@
+%fieldset
+  - if logged_in?
+    .clearfix
+      %label &nbsp;
+      .input
+        %p
+          Posting as
+          %strong= current_user.login
+  - else
+    .clearfix
+      %label &nbsp;
+      .input
+        %p Registered users should #{link_to 'log in', login_url} to populate these fields automatically. Unregistered? #{link_to 'Sign up', signup_url} so we can publish your post to the RSS &amp; Twitter feeds!
+
+    .clearfix
+      = f.label :byline, "Your name:"
+      .input
+        = f.text_field :byline
+  
+  .clearfix
+    = f.label :title, "Title:"
+    .input
+      = f.text_field :title, class: 'xlarge', autofocus: true
+  .clearfix
+    %label &nbsp;
+    .input
+      %p Be sure to include a link to the item you are posting about. Otherwise, nobody will click through!
+  .clearfix
+    = f.label :content, "Post content:"
+    .input
+      = f.text_area :content, class: 'xxlarge', rows: 5
+      %span.help-block
+        (#{link_to('Textile Formatting', 'http://www.textism.com/tools/textile', target: '_blank')})
+  .clearfix
+    %label Preview:
+    .input
+      #preview
+        %h2.title= link_to '', '#'
+        .entry
+          %p &nbsp;
+  
+  - unless logged_in?
+    .clearfix
+      %label &nbsp;
+      .input
+        = render :partial => 'home/signup_captcha'
+  
+  .actions
+    = f.submit @item.new_record? ? "Post Item" : "Update Item", class: 'btn primary'
