@@ -1,0 +1,15 @@
+.topbar
+  .topbar-inner
+    .container-fluid
+      = link_to site_config.site_title, root_path, class: 'brand'
+      %ul.nav
+        %li.active= link_to 'Home', root_path
+        %li= link_to 'About'
+        %li= link_to 'Contact'
+      %ul.secondary-nav
+        %li= link_to 'Post Item', new_item_path
+        - if logged_in?
+          %li= link_to 'Log Out', logout_url
+        - else
+          %li= link_to 'Sign Up', signup_url
+          %li= link_to 'Log In', login_url

@@ -1,0 +1,53 @@
+!!! 5
+
+%html
+  %head
+    %title= title
+    %meta{name: "google-site-verification", content: "CnxoYbKd1J2H-mAq_sWGLQCc8Q8H5lTT30RePD-61u8"}
+    %meta{name: 'robots', content: "index, follow"}
+    
+    - if @front_page
+      %meta{name: "description", content: site_config.sub_title}
+      %meta{name: "keywords", content: site_config.meta.keywords}
+    
+    %meta{name: 'author', content: site_config.meta.author}
+    
+    - if @noindex
+      %meta{name: 'robots', content: 'noindex, nofollow'}
+    
+    %link{rel: 'alternate', type: 'application/rss+xml', title: site_config.site_title, href: site_config.rss_url}
+    
+    = stylesheet_link_tag "application"
+    = stylesheet_link_tag "http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css"
+    
+    :css
+      body {
+        padding-top: 60px;
+      }
+      .container-fluid > .sidebar {
+        left: auto;
+        right: 20px;
+      }
+      .container-fluid > .content {
+        margin-left: 0;
+        margin-right: 240px;
+      }
+
+    - if site_config.javascript.enabled
+      = javascript_include_tag "application"
+    
+    = csrf_meta_tag
+  %body{class: @body_class}
+    = render partial: 'common/top_bar'
+    
+    .container-fluid
+      .content
+        - if flash[:notice]
+          %p.message= flash[:notice]
+        
+        = yield
+        %footer
+          %p &copy; 2011.
+      .sidebar
+        .well= render 'layouts/sidebar'
+    = render :partial => 'layouts/analytics'
