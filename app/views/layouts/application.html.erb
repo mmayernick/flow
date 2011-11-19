@@ -29,6 +29,14 @@
       body {
         padding-top: 60px;
       }
+      .container-fluid > .sidebar {
+        left: auto;
+        right: 20px;
+      }
+      .container-fluid > .content {
+        margin-left: 0;
+        margin-right: 240px;
+      }
     </style>
     <% if site_config.javascript.enabled %>
     <%= javascript_include_tag "application" %>
@@ -61,11 +69,6 @@
     </div>
 
     <div class="container-fluid">
-      <div class="sidebar">
-        <div class="well">
-          <%= render 'layouts/sidebar' %>
-        </div>
-      </div>
       <div class="content">
         <% if flash[:notice] %>
           <p class="message"><%= flash[:notice] %></p>
@@ -101,6 +104,11 @@
         <footer>
           <p>&copy; 2011</p>
         </footer>
+      </div>
+      <div class="sidebar">
+        <div class="well">
+          <%= render 'layouts/sidebar' %>
+        </div>
       </div>
     </div>
 
