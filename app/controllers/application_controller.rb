@@ -3,6 +3,12 @@ require File.join(Rails.root, 'lib', 'authenticated_system')
 class ApplicationController < ActionController::Base
   protect_from_forgery
   
+  rescue_from Recaptcha::RecaptchaError, :with => :recaptcha_error
+  
+  def recaptcha_error
+    render text: "Please see the instructions on https://github.com/ambethia/recaptcha for setting up your recaptcha public and private keys."
+  end
+  
   def passes_captcha?
     verify_recaptcha
   end
