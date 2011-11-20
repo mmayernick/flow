@@ -43,3 +43,7 @@ group :test do
   gem "no_peeping_toms", "~> 2.1.2"
   gem 'turn', '0.8.2', :require => false
 end
+
+group :production do
+  gem 'pg', '~>0.11.0'
+end
