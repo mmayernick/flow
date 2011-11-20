@@ -22,6 +22,24 @@ describe User do
   it { should allow_value('http://example.com').for(:url) }
   it { should_not allow_value('example.com').for(:url) }
   
+  describe "api keys" do
+    before(:each) do
+      @user = Factory.create(:user)
+    end
+    
+    it "should have one on creation" do
+      @user.api_key.should_not be_blank
+    end
+    
+    it "should allow the api key to be recreated" do
+      old_key = @user.api_key
+      @user.reset_api_key
+      @user.reload
+      @user.api_key.should_not be_blank
+      @user.api_key.should_not == old_key
+    end
+  end
+  
   describe 'A user' do
     before(:each) do
       @user = Factory(:user, :password => 'password', :password_confirmation => 'password')

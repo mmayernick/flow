@@ -20,9 +20,7 @@ class User < ActiveRecord::Base
   validates_format_of       :url, :with => /^(|http\:\/\/.*)$/
   before_save :encrypt_password
   
-  before_validation(:on => :save) do
-    ensure_api_key
-  end
+  before_validation :ensure_api_key
   
   # prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.
@@ -42,6 +40,11 @@ class User < ActiveRecord::Base
     else
       false
     end
+  end
+  
+  def reset_api_key
+    self.api_key = nil
+    self.save
   end
   
   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
