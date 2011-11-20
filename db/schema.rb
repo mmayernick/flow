@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20080905200947) do
+ActiveRecord::Schema.define(:version => 20111120015051) do
 
   create_table "comments", :force => true do |t|
     t.text     "content"
@@ -75,6 +75,9 @@ ActiveRecord::Schema.define(:version => 20080905200947) do
     t.string   "identity_url"
     t.integer  "approved_for_feed",                       :default => 0
     t.datetime "last_checked_at"
+    t.string   "api_key"
   end
+
+  add_index "users", ["api_key"], :name => "index_users_on_api_key", :unique => true
 
 end

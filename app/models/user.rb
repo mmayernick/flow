@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
   validates_presence_of     :login #, :email
   validates_presence_of     :password,                   :if => :password_required?
   validates_presence_of     :password_confirmation,      :if => :password_required?
+  validates_presence_of     :api_key
   validates_length_of       :password, :within => 4..40, :if => :password_required?
   validates_confirmation_of :password,                   :if => :password_required?
   validates_length_of       :login,    :within => 3..40
@@ -18,6 +19,10 @@ class User < ActiveRecord::Base
   validates_format_of       :login, :with => /^\w+$/
   validates_format_of       :url, :with => /^(|http\:\/\/.*)$/
   before_save :encrypt_password
+  
+  before_validation(:on => :save) do
+    ensure_api_key
+  end
   
   # prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.
@@ -96,5 +101,7 @@ class User < ActiveRecord::Base
       crypted_password.blank? || !password.blank?
     end
     
-    
+    def ensure_api_key
+      self.api_key = UUID.new.generate(:compact) if self.api_key.blank?
+    end
 end
