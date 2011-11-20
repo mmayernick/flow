@@ -13,7 +13,7 @@ module AuthenticatedSystem
     # Accesses the current user from the session.  Set it to :false if login fails
     # so that future calls do not hit the database.
     def current_user
-      @current_user ||= (login_from_session || login_from_basic_auth || login_from_cookie || :false)
+      @current_user ||= (login_from_api_key || login_from_session || login_from_basic_auth || login_from_cookie || :false)
     end
 
     # Store the given user id in the session.
@@ -98,6 +98,10 @@ module AuthenticatedSystem
     # available as ActionView helper methods.
     def self.included(base)
       base.send :helper_method, :current_user, :logged_in?, :admin?
+    end
+    
+    def login_from_api_key
+      self.current_user = User.find_by_api_key(request.headers['X-FLOW-API-KEY']) unless request.headers['X-FLOW-API-KEY'].blank?
     end
 
     # Called from #current_user.  First attempt to login by the user id stored in the session.
