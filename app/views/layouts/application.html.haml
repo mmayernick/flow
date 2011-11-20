@@ -20,19 +20,6 @@
     = stylesheet_link_tag "application"
     = stylesheet_link_tag "http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css"
     
-    :css
-      body {
-        padding-top: 60px;
-      }
-      .container-fluid > .sidebar {
-        left: auto;
-        right: 20px;
-      }
-      .container-fluid > .content {
-        margin-left: 0;
-        margin-right: 240px;
-      }
-
     - if site_config.javascript.enabled
       = javascript_include_tag "application"
     
@@ -40,14 +27,19 @@
   %body{class: @body_class}
     = render partial: 'common/top_bar'
     
-    .container-fluid
+    .container
       .content
-        - if flash[:notice]
-          %p.message= flash[:notice]
+        .page-header
+          %h1 lorem ipsum
+        .row
+          .span11
+            - if flash[:notice]
+              %p.message= flash[:notice]
+            = yield
+          .span5
+            .well= render 'layouts/sidebar'
         
-        = yield
-        %footer
+        %footer.row
           %p &copy; 2011.
-      .sidebar
-        .well= render 'layouts/sidebar'
+        
     = render :partial => 'layouts/analytics'
