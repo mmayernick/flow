@@ -114,16 +114,11 @@ a.home { text-decoration: none; }
 .items { padding-top: 24px; }
 
 .post {
-  margin-left: 2em;
   margin-bottom: 1.4em;
-  border-top: 1px dotted #ccc;
-  border-bottom: 1px dotted #ddd;
-  padding-bottom: 5px;
 }
 
 .post a { font-weight: bold; }
 
-.post .entry { margin-left: 1em; }
 .post .entry a:visited { text-decoration: none; }
 body.inner .entry { line-height: 1.6em; }
 

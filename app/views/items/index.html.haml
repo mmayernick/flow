@@ -9,5 +9,6 @@
       %h2= item.created_at.strftime("%B %d, %Y")
       - @last_date = item.created_at
     = render :partial => "items/item", :locals => {:item => item}
+    %hr
 
 = will_paginate @items
