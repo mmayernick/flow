@@ -33,6 +33,7 @@ Flow::Application.routes.draw do
   match '/search/:id' => 'items#search', :as => :search
   match '/category/:id' => 'items#category', :as => :category
   match '/page/:page' => 'items#index'
+  match '/api' => 'pages#api', :as => :api_info
 
   root :to => 'items#index'
 end

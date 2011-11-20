@@ -4,8 +4,7 @@
       = link_to site_config.site_title, root_path, class: 'brand'
       %ul.nav
         %li.active= link_to 'Home', root_path
-        %li= link_to 'About'
-        %li= link_to 'Contact'
+        %li= link_to 'API', api_info_path
       %ul.secondary-nav
         %li= link_to 'Post Item', new_item_path
         - if logged_in?
