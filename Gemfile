@@ -12,6 +12,7 @@ gem "twitter", "~> 1.7.2"
 gem "acts_as_state_machine", "~>2.2.0"
 gem "acts_as_tree_rails3", "~> 0.1.0"
 gem "recaptcha", "~> 0.3.1", :require => "recaptcha/rails"
+gem "uuid", "~> 2.3.4"
 
 group :assets do
   gem 'sass-rails',   '~> 3.1.5.rc.2'
