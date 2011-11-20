@@ -29,11 +29,9 @@ class CommentsController < ApplicationController
       if @comment.save
         flash[:notice] = 'Comment was successfully created.'
         format.html { redirect_to(@comment.item) }
-        format.xml  { render :xml => @comment, :status => :created, :location => @comment }
       else
         flash.now[:notice] = "Your comment could not be posted. Scroll down, correct, and retry."
         format.html { render :template => 'items/show' }
-        format.xml  { render :xml => @comment.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -47,10 +45,8 @@ class CommentsController < ApplicationController
       if @comment.update_attributes(params[:comment])
         flash[:notice] = 'Comment was successfully updated.'
         format.html { redirect_to(@item) }
-        format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @comment.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -63,7 +59,6 @@ class CommentsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to(@item) }
-      format.xml  { head :ok }
     end
   end
   
