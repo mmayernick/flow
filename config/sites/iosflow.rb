@@ -1,10 +1,10 @@
-configatron.site_title     = 'iOSFlow'
-configatron.default_title  = 'iOSFlow : Community Filtered News'
+configatron.site_title     = 'iOS Dev Links'
+configatron.default_title  = 'iOS Dev Links : Community Filtered News'
 
 configatron.sub_title = 'Community-maintained news'
 
 configatron.meta.keywords = 'news, news site, ios, iPhone, iPad, development'
-configatron.meta.author = 'iOSFlow'
+configatron.meta.author = 'iOS Dev Links'
 
 configatron.language = 'en-us'
 
@@ -22,15 +22,15 @@ configatron.edit_expiration_in_minutes = 60
 
 configatron.sidebar_redcloth = <<END
 
-"Follow iOSFlow on **Twitter**":http://twitter.com/iosflow
+"Follow iOS Dev Links on **Twitter**":http://twitter.com/iosdevlinks
 
 h3. What?
 
-iOSFlow is a community driven iOS links site.
+iOS Dev Links is a community driven iOS links site.
 
 h3. How?
 
-Enjoy the links, comment or "make a post of your own":http://0.0.0.0:3000/items/new. You don't need to be signed in! Only posts made by users with a good track record make it into the feed though, so no spam.
+Enjoy the links, comment or "make a post of your own":http://iosdevlinks.com/items/new. You don't need to be signed in! Only posts made by users with a good track record make it into the feed though, so no spam.
 END
 
 configatron.sidebar = RedCloth.new(configatron.sidebar_redcloth).to_html
