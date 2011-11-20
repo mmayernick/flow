@@ -16,7 +16,7 @@ class Item < ActiveRecord::Base
 
   scope :front_page, order('created_at DESC').includes(:user)
   scope :search, lambda {|t|
-    where(["LOWER(title) LIKE ? OR LOWER(name) LIKE ? OR LOWER(url) LIKE ?", t.downcase, t.downcase, t.downcase])
+    where(["LOWER(title) LIKE ? OR LOWER(name) LIKE ? OR LOWER(url) LIKE ?", t.downcase.strip, t.downcase.strip, t.downcase.strip])
   }
 
   before_save :anonymize_byline, :if => :anonymous?

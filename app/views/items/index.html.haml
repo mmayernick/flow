@@ -1,4 +1,11 @@
-.items
+- unless params[:q].try(:strip).blank?
+  %h2
+    Search results for '#{params[:q]}'
+    .pull-right= link_to 'Clear Search', root_path, class: 'btn'
+    
+- if @items.blank?
+  %p No items found!
+- else
   - @items.each do |item|
     - if should_display_date? @last_date, item
       %h2= item.created_at.strftime("%B %d, %Y")
@@ -6,4 +13,4 @@
     = render :partial => "items/item", :locals => {:item => item}
     %hr
 
-= will_paginate @items
+  = will_paginate @items

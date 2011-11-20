@@ -44,7 +44,7 @@ class ItemsController < ApplicationController
   def new
     @item = Item.new
     @item.content = 'So I *just* released "this cool thing":http://cappuccinoflow.com and blah blah blah...'
-    
+        
     respond_to do |format|
       format.html # new.html.erb
     end
