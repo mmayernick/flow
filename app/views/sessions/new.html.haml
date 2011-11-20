@@ -1,0 +1,21 @@
+%h1 Log In
+
+= form_tag session_path do
+  .clearfix
+    = label_tag :login, "Login:"
+    .input
+      = text_field_tag :login, '', class: 'xlarge'
+      %span.help-block Note that logins are case sensitive. Use the same casing as displays on the site / you used at signup.
+  .clearfix
+    = label_tag :password, "Password:"
+    .input
+      = password_field_tag :password, '', class: 'xlarge'
+  .clearfix
+    %label &nbsp;
+    .input
+      %label
+        = check_box_tag 'remember_me'
+        %span Remember me
+  .actions
+    = button_tag 'Log In', class: 'btn primary'
+    = link_to "Sign Up for a New Account", signup_path, class: 'btn'
