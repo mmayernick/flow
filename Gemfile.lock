@@ -50,6 +50,7 @@ GEM
       main
       ruby_parser (~> 2.0.4)
       sexp_processor (~> 3.0.3)
+    cocaine (0.2.0)
     coffee-rails (3.1.1)
       coffee-script (>= 2.2.0)
       railties (~> 3.1.0)
@@ -123,6 +124,11 @@ GEM
     oauth2 (0.5.1)
       faraday (~> 0.7.4)
       multi_json (~> 1.0.3)
+    paperclip (2.4.5)
+      activerecord (>= 2.3.0)
+      activesupport (>= 2.3.2)
+      cocaine (>= 0.0.2)
+      mime-types
     pg (0.11.0)
     polyglot (0.3.3)
     progressbar (0.9.1)
@@ -241,6 +247,7 @@ DEPENDENCIES
   metric_fu (~> 2.1.1)
   mocha (= 0.10.0)
   no_peeping_toms (~> 2.1.2)
+  paperclip (~> 2.4.5)
   pg (~> 0.11.0)
   rails (= 3.1.2)
   recaptcha (~> 0.3.1)

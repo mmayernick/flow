@@ -2,7 +2,10 @@ class Item < ActiveRecord::Base
   belongs_to :user
   has_many :comments
 	has_many :stars, :dependent => :destroy
-
+  
+  has_one :image, :dependent => :destroy
+  accepts_nested_attributes_for :image
+  
   serialize :metadata
 
   attr_protected :user_id

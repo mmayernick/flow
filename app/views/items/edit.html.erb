@@ -1,8 +1,6 @@
 <h1>Editing item</h1>
 
-<%= form_for(@item) do |form| %>
-  <%= render :partial => 'items/form', :locals => { :f => form, :method => 'put' } %>
-<% end %>
+<%= render :partial => 'items/form', :locals => { :f => form, :method => 'put' } %>
 
 <%= link_to 'Show', @item %> |
 <%= link_to 'Back', items_path %>

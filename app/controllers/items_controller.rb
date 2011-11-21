@@ -78,13 +78,13 @@ class ItemsController < ApplicationController
       render :action => 'new'
       return
     end
-
+    
     respond_to do |format|
       if @item.save
         flash[:notice] = 'Item was successfully posted.'
         format.html { redirect_to(@item) }
       else
-        format.html { render :action => "new" }
+        format.html { render :action => "new" }        
       end
     end
   end

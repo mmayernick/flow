@@ -1,8 +1,8 @@
 require 'digest/sha1'
 class User < ActiveRecord::Base
-  has_many :items
-  has_many :comments
-  has_many :stars
+  has_many :items, :dependent => :nullify
+  has_many :comments, :dependent => :nullify
+  has_many :stars, :dependent => :destroy
   has_many :starred_items, :through => :stars, :source => :item
   # Virtual attribute for the unencrypted password
   attr_accessor :password
