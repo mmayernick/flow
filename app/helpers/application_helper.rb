@@ -5,7 +5,7 @@ module ApplicationHelper
   
   def title
     if @title
-      "#{@title} : #{site_config.site_title}"
+      "#{@title} | #{site_config.site_title}"
     else
       site_config.default_title
     end

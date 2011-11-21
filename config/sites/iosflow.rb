@@ -1,5 +1,5 @@
 configatron.site_title     = 'iOS Dev Links'
-configatron.default_title  = 'iOS Dev Links : Community Filtered News'
+configatron.default_title  = 'iOS Dev Links'
 
 configatron.sub_title = 'Community-maintained news'
 
