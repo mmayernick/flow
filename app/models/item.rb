@@ -2,10 +2,7 @@ class Item < ActiveRecord::Base
   belongs_to :user
   has_many :comments
 	has_many :stars, :dependent => :destroy
-  
-  has_one :image, :dependent => :destroy
-  accepts_nested_attributes_for :image
-  
+
   serialize :metadata
 
   attr_protected :user_id
@@ -21,6 +18,14 @@ class Item < ActiveRecord::Base
   scope :search, lambda {|t|
     where(["LOWER(title) LIKE ? OR LOWER(name) LIKE ? OR LOWER(url) LIKE ?", t.downcase.strip, t.downcase.strip, t.downcase.strip])
   }
+
+  has_attached_file :image,
+                    :styles => { :medium => "300x300>", :thumb => "100x100#" }
+                    # :storage => :s3,
+                    # :s3_credentials => "#{Rails.root}/config/amazon_s3.yml",
+                    # :path => ":attachment/:id/:style.:extension",
+                    # :bucket => "iosdev_#{Rails.env}"
+
 
   before_save :anonymize_byline, :if => :anonymous?
 

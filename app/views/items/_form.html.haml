@@ -1,4 +1,4 @@
-= form_for @item, multipart: true do |f|
+= form_for @item, :html => {:multipart => true} do |f|
   %fieldset
     - if logged_in?
       .clearfix
@@ -33,11 +33,10 @@
         %span.help-block
           (#{link_to('Textile Formatting', 'http://www.textism.com/tools/textile', target: '_blank')})
     .clearfix
-      = f.fields_for :image do |image_form|
-        = image_form.label :image, "Image:"
-        .input
-          = image_form.file_field :image
-          %span.help-block Optionally attach an image
+      = f.label :image, "Image:"
+      .input
+        = f.file_field :image
+        %span.help-block Optionally attach an image
     .clearfix
       %label Preview:
       .input

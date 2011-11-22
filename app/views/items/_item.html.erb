@@ -4,7 +4,7 @@
 
   <div class="entry">
     <% if item.image %>
-      <%= image_tag item.image.image.url(:thumbnail)%>
+      <%= image_tag item.image.url(:thumbnail)%>
     <% end %>
     <%= to_textile item.content %>
   </div>
