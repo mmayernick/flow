@@ -58,6 +58,7 @@ class Item < ActiveRecord::Base
     title.size > 119 ? title[0,116] + "..." : title
   end
 
+  # TODO: hoist this into a separate class somewhere.
   def tweet
     bitly  = Bitly.new(ENV['BITLY_USER'],ENV['BITLY_KEY'])
     url    = bitly.shorten("http://cappuccinoflow.com/items/#{id}", :history => 1)
