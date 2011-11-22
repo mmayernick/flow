@@ -1,10 +1,10 @@
-%h1 Log In
+%h2 Log In
 
 = form_tag session_path do
   .clearfix
     = label_tag :login, "Login:"
     .input
-      = text_field_tag :login, '', class: 'xlarge'
+      = text_field_tag :login, '', class: 'xlarge', autofocus: true
       %span.help-block Note that logins are case sensitive. Use the same casing as displays on the site / you used at signup.
   .clearfix
     = label_tag :password, "Password:"

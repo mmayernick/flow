@@ -1,0 +1,30 @@
+%h2 Sign Up
+
+= error_messages_for :user
+
+= form_for :user do |f|
+  %fieldset 
+    .clearfix
+      = f.label :login, "Login:"
+      .input
+        = f.text_field :login, class: 'xlarge', autofocus: true
+    .clearfix
+      = f.label :password, "Password:"
+      .input
+        = f.password_field :password, class: 'xlarge'
+    .clearfix
+      = f.label :password_confirmation, "Password confirmation:"
+      .input
+        = f.password_field :password_confirmation, class: 'xlarge'
+    .clearfix
+      = f.label :url, "Your website:"
+      .input
+        = f.text_field :url, class: 'xlarge'
+        
+    .clearfix
+      %label &nbsp;
+      .input
+        = render :partial => 'home/signup_captcha'
+  
+    .actions
+      = f.submit "Sign Up", class: 'btn primary'

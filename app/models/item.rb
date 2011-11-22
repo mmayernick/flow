@@ -19,6 +19,14 @@ class Item < ActiveRecord::Base
     where(["LOWER(title) LIKE ? OR LOWER(name) LIKE ? OR LOWER(url) LIKE ?", t.downcase.strip, t.downcase.strip, t.downcase.strip])
   }
 
+  has_attached_file :image,
+                    :styles => { :medium => "300x300>", :thumb => "100x100#" }
+                    # :storage => :s3,
+                    # :s3_credentials => "#{Rails.root}/config/amazon_s3.yml",
+                    # :path => ":attachment/:id/:style.:extension",
+                    # :bucket => "iosdev_#{Rails.env}"
+
+
   before_save :anonymize_byline, :if => :anonymous?
 
   def as_json(opts = {})

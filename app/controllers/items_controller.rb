@@ -3,8 +3,6 @@ class ItemsController < ApplicationController
   before_filter :admin_required, :only => [:destroy]
   before_filter :permission_required, :only => [:edit, :update]
 
-  # GET /items
-  # GET /items.xml
   def index
     @front_page = true
     @items_count = Item.count
@@ -22,8 +20,6 @@ class ItemsController < ApplicationController
     end
   end
 
-  # GET /items/1
-  # GET /items/1.xml
   def show
     @item = Item.find_by_id_or_name(params[:id])
 
@@ -39,24 +35,19 @@ class ItemsController < ApplicationController
     end
   end
 
-  # GET /items/new
-  # GET /items/new.xml
   def new
     @item = Item.new
     @item.content = 'So I *just* released "this cool thing":http://cappuccinoflow.com and blah blah blah...'
-        
+
     respond_to do |format|
       format.html # new.html.erb
     end
   end
 
-  # GET /items/1/edit
   def edit
     @item = Item.find_by_id_or_name(params[:id])
   end
 
-  # POST /items
-  # POST /items.xml
   def create
     @item = Item.new(params[:item])
 
@@ -73,7 +64,7 @@ class ItemsController < ApplicationController
       @item.title = @item.content.gsub(/\<[^\>]+\>/, '')[0...40] + "..."
     end
 
-    if ! logged_in? && ! passes_captcha?
+    if !logged_in? && !passes_captcha?
       flash.now[:notice] = "Your item could not be posted. Did you get the CAPTCHA right?"
       render :action => 'new'
       return
@@ -89,8 +80,6 @@ class ItemsController < ApplicationController
     end
   end
 
-  # PUT /items/1
-  # PUT /items/1.xml
   def update
     @item ||= Item.find_by_id_or_name(params[:id])
 
@@ -104,8 +93,6 @@ class ItemsController < ApplicationController
     end
   end
 
-  # DELETE /items/1
-  # DELETE /items/1.xml
   def destroy
     @item ||= Item.find_by_id_or_name(params[:id])
     @item.destroy
