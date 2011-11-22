@@ -41,6 +41,10 @@ class Item < ActiveRecord::Base
     }
   end
 
+  def to_param
+    "#{id}-#{title.downcase.gsub(/[^[:alnum:]]/,'-')}".gsub(/-{2,}/,'-')
+  end
+
   def anonymous?
     (self.user_id.nil? || self.user.nil?) && (self.byline.nil? || self.byline.blank? || self.byline == 'Anonymous')
   end
