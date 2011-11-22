@@ -46,10 +46,7 @@
             %p &nbsp;
   
     - unless logged_in?
-      .clearfix
-        %label &nbsp;
-        .input
-          = render :partial => 'home/signup_captcha'
+      = render :partial => 'home/signup_captcha'
   
     .actions
       = f.submit @item.new_record? ? "Post Item" : "Update Item", class: 'btn primary'

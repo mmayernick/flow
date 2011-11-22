@@ -1,0 +1,12 @@
+= render @item
+
+#comments
+  %h3 Comments  
+  - @item.comments.each do |c|
+    %blockquote.comment
+      = to_textile(c.content)
+      %cite
+        %strong= c.user ? link_to(c.user.login, c.user.url) : c.byline
+        |
+        = c.created_at.strftime("%B %d, %Y %R")
+  = render :partial => 'comments/edit_comment', :locals => {:comment => @comment, :item => @item}
