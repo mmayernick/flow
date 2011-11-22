@@ -19,9 +19,9 @@ class User < ActiveRecord::Base
   validates_format_of       :login, :with => /^\w+$/
   validates_format_of       :url, :with => /^(|http\:\/\/.*)$/
   before_save :encrypt_password
-  
+
   before_validation :ensure_api_key
-  
+
   # prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.
   attr_accessible :login, :email, :password, :password_confirmation, :identity_url, :url, :fullname
@@ -32,7 +32,7 @@ class User < ActiveRecord::Base
       star.destroy
     end
   end
-  
+
   def star(item)
     star = self.stars.find_by_item_id(item.id)
     unless star
@@ -41,15 +41,19 @@ class User < ActiveRecord::Base
       false
     end
   end
-  
+
   def reset_api_key
     self.api_key = nil
     self.save
   end
-  
+
+  def login=(val)
+    write_attribute(:login, val.downcase.strip)
+  end
+
   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
   def self.authenticate(login, password)
-    u = find_by_login(login) # need to get the salt
+    u = find_by_login(login.downcase.strip) # need to get the salt
     u && u.authenticated?(password) ? u : nil
   end
 
@@ -68,7 +72,7 @@ class User < ActiveRecord::Base
   end
 
   def remember_token?
-    remember_token_expires_at && Time.now.utc < remember_token_expires_at 
+    remember_token_expires_at && Time.now.utc < remember_token_expires_at
   end
 
   # These create and unset the fields required for remembering users between browser closes
@@ -93,17 +97,17 @@ class User < ActiveRecord::Base
   end
 
   protected
-    # before filter 
+    # before filter
     def encrypt_password
       return if password.blank?
-      self.salt = Digest::SHA1.hexdigest("--#{Time.now.to_s}--#{login}--") if new_record?
+      self.salt = Digest::SHA1.hexdigest("--#{Time.now.to_s}--#{login.downcase}--") if new_record?
       self.crypted_password = encrypt(password)
     end
-      
+
     def password_required?
       crypted_password.blank? || !password.blank?
     end
-    
+
     def ensure_api_key
       self.api_key = UUID.new.generate(:compact) if self.api_key.blank?
     end
