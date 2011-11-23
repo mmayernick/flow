@@ -10,6 +10,7 @@ class ApplicationController < ActionController::Base
   class FlowHelper
     include Singleton
     include ActionView::Helpers::TextHelper
+    include ActionView::Helpers::SanitizeHelper
   end
 
   rescue_from Recaptcha::RecaptchaError, :with => :recaptcha_error
@@ -26,7 +27,8 @@ class ApplicationController < ActionController::Base
 
   def tweet(item)
     return unless Rails.env.production? && @item.tweetable?
-    Twitter.update("#{help.truncate(item.title, :length => 100)} #{item_url(item)}")
+    text = strip_tags(to_textile("#{item.title} - #{item.content}"))
+    Twitter.update("#{help.truncate(text, :length => 100)} #{item_url(item)}")
   end
 
   def render_404
@@ -40,6 +42,11 @@ class ApplicationController < ActionController::Base
   def site_config
     configatron
   end
+  
+  def to_textile(contents)
+	  html = RedCloth.new(contents, [:filter_styles, :filter_classes, :filter_ids]).to_html()
+    sanitize(html, :tags => %w(a p code b strong i em blockquote ol ul li), :attributes => %w(href))
+	end
 
-  helper_method :site_config
+  helper_method :site_config, :to_textile
 end
