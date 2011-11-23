@@ -9,7 +9,6 @@ gem 'haml', '~>3.1.3'
 gem 'RedCloth', '~>4.2.2', :require => 'redcloth'
 gem 'will_paginate', '~>3.0.2'
 gem 'configatron', '~>2.8.4'
-gem 'bitly', '~>0.6.2'
 gem "twitter", "~> 1.7.2"
 gem "acts_as_state_machine", "~>2.2.0"
 gem "acts_as_tree_rails3", "~> 0.1.0"
