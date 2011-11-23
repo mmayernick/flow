@@ -23,11 +23,11 @@
       .input
         = f.text_field :title, class: 'xlarge', autofocus: logged_in?
     .clearfix
-      %label &nbsp;
+      = f.label :url, "URL:"
       .input
-        %p Be sure to include a link to the item you are posting about. Otherwise, nobody will click through!
+        = f.text_field :url, class: 'xlarge'
     .clearfix
-      = f.label :content, "Post content:"
+      = f.label :content, "Description:"
       .input
         = f.text_area :content, class: 'xxlarge', rows: 5
         %span.help-block
