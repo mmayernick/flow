@@ -2,6 +2,15 @@ require File.join(Rails.root, 'lib', 'authenticated_system')
 
 class ApplicationController < ActionController::Base
   protect_from_forgery
+  
+  def help
+    FlowHelper.instance
+  end
+
+  class FlowHelper
+    include Singleton
+    include ActionView::Helpers::TextHelper
+  end
 
   rescue_from Recaptcha::RecaptchaError, :with => :recaptcha_error
 
@@ -17,7 +26,7 @@ class ApplicationController < ActionController::Base
 
   def tweet(item)
     return unless Rails.env.production? && @item.tweetable?
-    Twitter.update("#{truncate(item.title, :length => 100)} #{item_url(item)}")
+    Twitter.update("#{help.truncate(item.title, :length => 100)} #{item_url(item)}")
   end
 
   def render_404
