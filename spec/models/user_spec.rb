@@ -40,6 +40,17 @@ describe User do
     end
   end
   
+  describe "logins" do
+    before(:each) do
+      @user = Factory.create(:user, :login => 'aaron')
+    end
+    
+    it "shouldn't be case sensitive" do
+      failed_user = Factory.build(:user, :login => @user.login)
+      failed_user.save.should be_false
+    end
+  end
+  
   describe 'A user' do
     before(:each) do
       @user = Factory(:user, :password => 'password', :password_confirmation => 'password')
