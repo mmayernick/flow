@@ -1,7 +1,8 @@
 .post{:id => "item_wrapper_for_#{item.id}"}
   %h3= link_to item.title, item.url || item
   .entry
-    = image_tag item.image.url(:thumb)
+    - if item.image.file?
+      = image_tag item.image.url(:thumb)
     = to_textile item.content
   .item.admin-actions{:id => "item_#{item.id}"}
     - if admin?

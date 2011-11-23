@@ -25,7 +25,8 @@ class Item < ActiveRecord::Base
                     :s3_credentials => {access_key_id: ENV['AMAZON_ACCESS_KEY_ID'], secret_access_key: ENV['AMAZON_SECRET_ACCESS_KEY']},
                     :s3_permissions => :public_read,
                     :path => ":attachment/:id/:style.:extension",
-                    :bucket => "iosdev_#{Rails.env}"
+                    :bucket => "iosdev_#{Rails.env}",
+                    :default_url => '/assets/images/missing.png',
 
 
   before_save :anonymize_byline, :if => :anonymous?
