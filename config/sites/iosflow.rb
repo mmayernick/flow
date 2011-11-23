@@ -27,6 +27,12 @@ configatron.sidebar_redcloth = <<END
 <p><a href="https://twitter.com/iosdevlinks" class="twitter-follow-button">Follow @iosdevlinks</a>
 <script src="//platform.twitter.com/widgets.js" type="text/javascript"></script></p>
 
+h3. Bookmarklet
+
+Drag this to your bookmarks bar to post links to this site from whatever page you're on.
+
+<a href="javascript:window.location=%22http://www.iosdevlinks.com/items/new?u=%22+encodeURIComponent(document.location)+%22&t=%22+encodeURIComponent(document.title)">Post to iOS Dev Links</a>
+
 h3. What?
 
 iOS Dev Links is a community driven iOS links site based on a "modernized version of the Cappuccino Flow codebase":https://github.com/aaronbrethorst/flow.
