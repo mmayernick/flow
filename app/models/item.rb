@@ -20,9 +20,10 @@ class Item < ActiveRecord::Base
   }
 
   has_attached_file :image,
-                    :styles => { :medium => "300x300>", :thumb => "100x100#" }
+                    :styles => { :medium => "300x300>", :thumb => "100x100#" },
                     :storage => :s3,
                     :s3_credentials => {access_key_id: ENV['AMAZON_ACCESS_KEY_ID'], secret_access_key: ENV['AMAZON_SECRET_ACCESS_KEY']},
+                    :s3_permissions => :public_read,
                     :path => ":attachment/:id/:style.:extension",
                     :bucket => "iosdev_#{Rails.env}"
 
