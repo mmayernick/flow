@@ -37,7 +37,9 @@ class ItemsController < ApplicationController
 
   def new
     @item = Item.new
-    @item.content = 'So I *just* released "this cool thing":http://cappuccinoflow.com and blah blah blah...'
+    @item.content = "So I *just* released this cool thing and blah blah blah..."
+    @item.title = params[:t] unless params[:t].blank?
+    @item.url = params[:u] unless params[:u].blank?
 
     respond_to do |format|
       format.html # new.html.erb
