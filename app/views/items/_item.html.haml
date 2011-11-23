@@ -1,0 +1,15 @@
+.post{:id => "item_wrapper_for_#{item.id}"}
+  %h3= link_to item.title, item
+  .entry
+    = image_tag item.image.url(:thumb)
+    = to_textile item.content
+  .item.admin-actions{:id => "item_#{item.id}"}
+    - if admin?
+      = link_to "Remove", item, confirm: "Are you sure?", method: :delete
+    - if can_edit?(item)
+      - time_left = edit_time_left(item)
+      = link_to 'Edit', edit_item_path(item), title: "Last chance of editing ends #{time_left.nil? ? 'never' : ('in ' + time_left.to_s + ' minutes')}."
+  .metadata
+    Posted by #{user_link(item)}
+    at #{item.created_at.strftime("%R")} &mdash;
+    = link_to pluralize(item.comments.size, 'comment'), "#{item_path(item)}/#comments", :class => 'comments_link', :title => "Read or write comments"

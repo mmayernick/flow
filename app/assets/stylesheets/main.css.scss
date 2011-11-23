@@ -1,7 +1,30 @@
+@mixin clearfix {
+  zoom: 1;
+  &:before,
+  &:after {
+    display: table;
+    content: "";
+    zoom: 1;
+  }
+  &:after {
+    clear: both;
+  }
+}
+
 body {
   padding-top: 60px!important;
 }
 
 .span11 .xxlarge {
   width: 490px!important;
+}
+
+.post {
+  .entry {
+    @include clearfix;
+     img {
+      float: left;
+      padding: 0 5px 5px 0;
+    }
+  }
 }
