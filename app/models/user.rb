@@ -48,7 +48,7 @@ class User < ActiveRecord::Base
   end
 
   def login=(val)
-    write_attribute(:login, val.downcase.strip)
+    write_attribute(:login, val.try(:downcase).try(:strip))
   end
 
   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
