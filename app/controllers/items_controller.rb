@@ -54,7 +54,7 @@ class ItemsController < ApplicationController
     @item = Item.new(params[:item])
 
     @item.url = URI::extract(@item.content).try(:first) if @item.url.blank?
-    
+
     if logged_in?
       @item.user = current_user
     else
@@ -74,6 +74,7 @@ class ItemsController < ApplicationController
 
     respond_to do |format|
       if @item.save
+        tweet(@item)
         flash[:notice] = 'Item was successfully posted.'
         format.html { redirect_to(@item) }
       else
