@@ -10,7 +10,7 @@ configatron.language = 'en-us'
 
 configatron.site_url = 'http://0.0.0.0:3000/'
 configatron.rss_url = 'http://feeds.feedburner.com/cappuccinoflow'
-configatron.twitter_url = '#'
+configatron.twitter_url = 'https://twitter.com/iosdevlinks'
 
 configatron.google_analytics.enabled = true
 configatron.google_analytics.account = 'UA-2237791-8'
@@ -22,11 +22,9 @@ configatron.edit_expiration_in_minutes = 60
 
 configatron.sidebar_redcloth = <<END
 
-"Follow iOS Dev Links on **Twitter**":http://twitter.com/iosdevlinks
-
 h3. What?
 
-iOS Dev Links is a community driven iOS links site.
+iOS Dev Links is a community driven iOS links site based on a "modernized version of the Cappuccino Flow codebase":https://github.com/aaronbrethorst/flow.
 
 h3. How?
 
