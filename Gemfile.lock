@@ -37,6 +37,10 @@ GEM
     addressable (2.2.6)
     ansi (1.4.1)
     arel (2.2.1)
+    aws-s3 (0.6.2)
+      builder
+      mime-types
+      xml-simple
     bitly (0.6.2)
       crack (>= 0.1.4)
       httparty (>= 0.7.6)
@@ -239,6 +243,7 @@ GEM
     uuid (2.3.4)
       macaddr (~> 1.0)
     will_paginate (3.0.2)
+    xml-simple (1.1.1)
     yamler (0.1.0)
 
 PLATFORMS
@@ -248,6 +253,7 @@ DEPENDENCIES
   RedCloth (~> 4.2.2)
   acts_as_state_machine (~> 2.2.0)
   acts_as_tree_rails3 (~> 0.1.0)
+  aws-s3 (~> 0.6.2)
   bitly (~> 0.6.2)
   coffee-rails (~> 3.1.1)
   configatron (~> 2.8.4)
