@@ -1,15 +1,15 @@
 configatron.site_title     = 'iOS Dev Links'
 configatron.default_title  = 'iOS Dev Links'
 
-configatron.sub_title = 'Community-maintained news'
+configatron.sub_title = 'Interesting links for iOS Developers'
 
 configatron.meta.keywords = 'news, news site, ios, iPhone, iPad, development'
 configatron.meta.author = 'iOS Dev Links'
 
 configatron.language = 'en-us'
 
-configatron.site_url = 'http://0.0.0.0:3000/'
-configatron.rss_url = 'http://feeds.feedburner.com/cappuccinoflow'
+configatron.site_url = 'http://www.iosdevlinks.com'
+configatron.rss_url = 'http://feeds.feedburner.com/iosdevlinks'
 configatron.twitter_url = 'https://twitter.com/iosdevlinks'
 
 configatron.google_analytics.enabled = true
@@ -21,6 +21,11 @@ configatron.javascript.enabled = true
 configatron.edit_expiration_in_minutes = 60
 
 configatron.sidebar_redcloth = <<END
+
+<p><a href="http://feeds.feedburner.com/iosdevlinks"><img src="http://feeds.feedburner.com/~fc/iosdevlinks?bg=99CCFF&amp;fg=444444&amp;anim=0" height="26" width="88" style="border:0" alt="" /></a></p>
+
+<p><a href="https://twitter.com/iosdevlinks" class="twitter-follow-button">Follow @iosdevlinks</a>
+<script src="//platform.twitter.com/widgets.js" type="text/javascript"></script></p>
 
 h3. What?
 
