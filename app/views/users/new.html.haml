@@ -1,8 +1,8 @@
 %h2 Sign Up
 
-= error_messages_for :user
+= error_messages_for @user
 
-= form_for :user do |f|
+= form_for @user do |f|
   %fieldset 
     .clearfix
       = f.label :login, "Login:"
