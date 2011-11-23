@@ -8,7 +8,7 @@ class ItemObserver < ActiveRecord::Observer
   end
   
   def call_rake(task, options = {})
-    exit unless Rails.env.production?
+    return unless Rails.env.production?
     args = options.map { |n, v| "#{n.to_s.upcase}='#{v}'" }
     system "rake #{task} RAILS_ENV=production #{args.join(' ')} &"
   end
