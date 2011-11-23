@@ -26,7 +26,7 @@ class Item < ActiveRecord::Base
                     :s3_permissions => :public_read,
                     :path => ":attachment/:id/:style.:extension",
                     :bucket => "iosdev_#{Rails.env}",
-                    :default_url => '/assets/images/missing.png',
+                    :default_url => '/assets/images/missing.png'
 
 
   before_save :anonymize_byline, :if => :anonymous?
