@@ -44,7 +44,13 @@ class UsersController < ApplicationController
   end
   
   def destroy
-    return unless request.post?
-    User.destroy(params[:id])
+    @user = User.find(params[:id])
+    
+    if @user.destroy
+      redirect_to users_path
+    else
+      flash[:notice] = "unable to delete user #{@user.login}"
+      redirect_to :back
+    end
   end
 end

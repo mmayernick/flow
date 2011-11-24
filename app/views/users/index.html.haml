@@ -21,4 +21,4 @@
           |
           = link_to 'disapprove', :action => 'disapprove', :id => u.id
         %td
-          = link_to 'delete', :action => 'destroy', :id => u.id, :method => :post, :confirm => "Delete?"
+          = link_to 'delete', u, :method => :delete, :confirm => "Delete?"
