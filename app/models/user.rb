@@ -24,7 +24,7 @@ class User < ActiveRecord::Base
 
   # prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.
-  attr_accessible :login, :email, :password, :password_confirmation, :identity_url, :url, :fullname
+  attr_accessible :login, :email, :password, :password_confirmation, :url, :fullname
 
   def unstar(item)
     star = self.stars.find_by_item_id(item.id)

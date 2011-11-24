@@ -4,11 +4,7 @@ class SessionsController < ApplicationController
   end
 
   def create
-    #if using_open_id?
-    #  open_id_authentication(params[:openid_url])
-    #else
     password_authentication(params[:login], params[:password])
-    #end
   end
   
   def destroy
@@ -20,23 +16,6 @@ class SessionsController < ApplicationController
   end
 
   protected
-
-  def open_id_authentication(openid_url)
-    authenticate_with_open_id(openid_url, :required => [:nickname, :email]) do |result, identity_url, registration|
-      if result.successful?
-        @user = User.find_or_initialize_by_identity_url(identity_url)
-        if @user.new_record?
-          @user.login = registration['nickname']
-          @user.email = registration['email']
-          @user.save(false)
-        end
-        self.current_user = @user
-        successful_login
-      else
-        failed_login result.message
-      end
-    end
-  end
 
   def password_authentication(login, password)
     self.current_user = User.authenticate(login, password)
