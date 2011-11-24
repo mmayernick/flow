@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
 
   def tweet(item)
     return unless Rails.env.production? && @item.tweetable?
-    text = strip_tags(to_textile("#{item.title} - #{item.content}"))
+    text = help.strip_tags(to_textile("#{item.title} - #{item.content}"))
     Twitter.update("#{help.truncate(text, :length => 100)} #{item_url(item)}")
   end
 
