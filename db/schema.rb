@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111124032424) do
+ActiveRecord::Schema.define(:version => 20111124032743) do
 
   create_table "comments", :force => true do |t|
     t.text     "content"
@@ -21,6 +21,9 @@ ActiveRecord::Schema.define(:version => 20111124032424) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "comments", ["item_id"], :name => "index_comments_on_item_id"
+  add_index "comments", ["user_id"], :name => "index_comments_on_user_id"
 
   create_table "items", :force => true do |t|
     t.string   "title"
@@ -39,6 +42,11 @@ ActiveRecord::Schema.define(:version => 20111124032424) do
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
   end
+
+  add_index "items", ["name"], :name => "index_items_on_name"
+  add_index "items", ["title"], :name => "index_items_on_title"
+  add_index "items", ["url"], :name => "index_items_on_url"
+  add_index "items", ["user_id"], :name => "index_items_on_user_id"
 
   create_table "stars", :force => true do |t|
     t.integer "user_id"
@@ -63,5 +71,6 @@ ActiveRecord::Schema.define(:version => 20111124032424) do
   end
 
   add_index "users", ["api_key"], :name => "index_users_on_api_key", :unique => true
+  add_index "users", ["login"], :name => "index_users_on_login"
 
 end
