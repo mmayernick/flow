@@ -45,7 +45,7 @@ class ApplicationController < ActionController::Base
   
   def to_textile(contents)
 	  html = RedCloth.new(contents, [:filter_styles, :filter_classes, :filter_ids]).to_html()
-    sanitize(html, :tags => %w(a p code b strong i em blockquote ol ul li), :attributes => %w(href))
+    help.sanitize(html, :tags => %w(a p code b strong i em blockquote ol ul li), :attributes => %w(href))
 	end
 
   helper_method :site_config, :to_textile
