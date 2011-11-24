@@ -8,9 +8,9 @@ class ItemsController < ApplicationController
     @items_count = Item.count
 
     if params[:q]
-      @items = Item.search(params[:q]).paginate :page => params[:page]
+      @items = Item.search(params[:q]).newest_first.includes(:user).paginate :page => params[:page]
     else
-      @items = Item.front_page.paginate :page => params[:page]
+      @items = Item.newest_first.includes(:user).paginate :page => params[:page]
     end
 
     respond_to do |format|

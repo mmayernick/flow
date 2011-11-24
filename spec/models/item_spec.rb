@@ -28,16 +28,6 @@ describe Item do
     it { should allow_value('name-1').for(:name) }
     it { should_not allow_value('name 1').for(:name) }
 
-    it 'should provide tweetable title' do
-      short_title = "".rjust(100,"words")
-      long_title  = "".rjust(140,"words")
-
-      @item.title = short_title
-      @item.tweetable_title.size.should == 100
-      @item.title = long_title
-      @item.tweetable_title.size.should == 119
-    end
-
     describe 'that has been starred by a user' do
       before(:each) do
         @user = Factory(:user)

@@ -11,7 +11,19 @@ describe ItemsController do
     end
   end
 
-  describe "searching"
+  describe "searching" do
+    before(:each) do
+      @big_title = Factory.create(:item, :title => "Big stuff")
+      @big_body = Factory.create(:item, :content => "stuff that is big or something")
+    end
+    
+    it "should return two items when I search for 'big'" do
+      get :index, :q => 'big'
+      
+      # TODO: search content at some point.
+      assigns[:items].count.should == 1
+    end
+  end
 
   describe 'anonymous users' do
     describe 'GET index' do

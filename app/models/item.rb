@@ -14,9 +14,9 @@ class Item < ActiveRecord::Base
   validates_length_of       :content, :within => 25..1200
   validates_length_of       :byline, :maximum => 50, :if => :byline?
 
-  scope :front_page, order('created_at DESC').includes(:user)
+  scope :newest_first, order('created_at DESC')
   scope :search, lambda {|t|
-    where(["LOWER(title) LIKE ? OR LOWER(name) LIKE ? OR LOWER(url) LIKE ?", t.downcase.strip, t.downcase.strip, t.downcase.strip])
+    where(["LOWER(title) LIKE ? OR LOWER(name) LIKE ? OR LOWER(url) LIKE ?", "%#{t.downcase.strip}%", "%#{t.downcase.strip}%", "%#{t.downcase.strip}%"])
   }
 
   has_attached_file :image,
