@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
 
   def tweet(item)
     return unless Rails.env.production? && @item.tweetable?
-    text = bare_content("#{item.title} - #{item.content}")
+    text = bare_content("#{item.title} - #{item.content}".gsub(/bq\. /, ''))
     Twitter.update("#{help.truncate(text, :length => 100)} #{item_url(item)}")
   end
 
