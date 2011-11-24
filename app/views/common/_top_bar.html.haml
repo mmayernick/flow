@@ -5,7 +5,7 @@
       %ul.nav
         %li.active= link_to 'Home', root_path
         %li= link_to 'Post Item', new_item_path
-        %li= link_to 'API', api_info_path
+        -#%li= link_to 'API', api_info_path
       .pull-right
         = form_tag items_path, method: 'get' do
           = text_field_tag :q, '', class: 'large', placeholder: 'Search'
