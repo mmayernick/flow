@@ -13,7 +13,7 @@ configatron.rss_url = 'http://feeds.feedburner.com/iosdevlinks'
 configatron.twitter_url = 'https://twitter.com/iosdevlinks'
 
 configatron.google_analytics.enabled = true
-configatron.google_analytics.account = 'UA-2237791-8'
+configatron.google_analytics.account = 'UA-27252129-1'
 
 # Set this to true for a more fancy interface, but for the cost of page load time
 configatron.javascript.enabled = true
