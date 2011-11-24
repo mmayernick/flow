@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
 
   def tweet(item)
     return unless Rails.env.production? && @item.tweetable?
-    text = help.strip_tags(to_textile("#{item.title} - #{item.content}"))
+    text = bare_content("#{item.title} - #{item.content}")
     Twitter.update("#{help.truncate(text, :length => 100)} #{item_url(item)}")
   end
 
@@ -41,6 +41,10 @@ class ApplicationController < ActionController::Base
 
   def site_config
     configatron
+  end
+  
+  def bare_content(contents)
+    help.strip_tags(RedCloth.new(contents, [:filter_styles, :filter_classes, :filter_ids]).to_html)
   end
   
   def to_textile(contents)
