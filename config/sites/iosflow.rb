@@ -35,7 +35,7 @@ Drag this to your bookmarks bar to post links to this site from whatever page yo
 
 h3. What?
 
-iOS Dev Links is a community driven iOS links site based on a "modernized version of the Cappuccino Flow codebase":https://github.com/aaronbrethorst/flow.
+iOS Dev Links is a community driven iOS links site based on a "modernized version of the RubyFlow codebase":https://github.com/aaronbrethorst/flow.
 
 h3. How?
 
