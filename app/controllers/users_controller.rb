@@ -17,6 +17,7 @@ class UsersController < ApplicationController
 
     if @user.save
       self.current_user = @user
+      Notifications.registration(@user).deliver
       redirect_to root_url
       flash[:notice] = "Thanks for signing up! You have been logged in automagically!"
     else
