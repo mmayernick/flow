@@ -24,6 +24,7 @@
       = javascript_include_tag "application"
     
     = csrf_meta_tag
+    = render :partial => 'layouts/analytics'
   %body{class: @body_class}
     = render partial: 'common/top_bar'
     
@@ -41,5 +42,3 @@
         
         %footer.row
           %p &copy; 2011.
-        
-    = render :partial => 'layouts/analytics'
