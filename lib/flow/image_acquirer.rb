@@ -9,6 +9,12 @@ class ImageAcquirer
   
   def get_images
     nok = Nokogiri::HTML(open(self.url).read)
-    nok.css('img').collect {|img| img.attr('src')}
+    nok.css('img').collect do |img|
+      if img.attr('src') =~ /^\/\//i
+        "http:#{img.attr('src')}"
+      else
+        img.attr('src')
+      end
+    end
   end
 end
