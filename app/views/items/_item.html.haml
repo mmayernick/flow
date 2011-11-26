@@ -1,4 +1,4 @@
-.post{:id => "item_wrapper_for_#{item.id}"}
+.post
   %h3= link_to item.title, item.url || item
   .entry
     - if item.image.file?
