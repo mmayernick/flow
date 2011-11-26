@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-  before_filter :login_required, :except => [:show, :index, :search, :category, :new, :create]
+  before_filter :login_required, :except => [:show, :index, :search, :category, :new, :create, :url_images]
   before_filter :admin_required, :only => [:destroy]
   before_filter :permission_required, :only => [:edit, :update]
 
@@ -32,6 +32,19 @@ class ItemsController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.json { render :json => @item }
+    end
+  end
+
+  def url_images
+    url = params[:url]
+    render :status => 404 and return if url.blank?
+
+    acquirer = ImageAcquirer.new(url)
+    @images = acquirer.get_images
+
+    respond_to do |format|
+      format.html
+      format.json
     end
   end
 
