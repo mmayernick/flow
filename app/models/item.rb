@@ -14,6 +14,8 @@ class Item < ActiveRecord::Base
   validates_length_of       :content, :within => 25..1200
   validates_length_of       :byline, :maximum => 50, :if => :byline?
 
+  validates :url, :presence => true, :uniqueness => true
+
   scope :newest_first, order('id DESC')
   scope :search, lambda {|t|
     where(["LOWER(title) LIKE ? OR LOWER(name) LIKE ? OR LOWER(url) LIKE ?", "%#{t.downcase.strip}%", "%#{t.downcase.strip}%", "%#{t.downcase.strip}%"])
@@ -22,7 +24,7 @@ class Item < ActiveRecord::Base
   has_attached_file :image,
                     :styles => { :medium => "300x300>", :thumb => "100x100#" },
                     :storage => :s3,
-                    :s3_credentials => {access_key_id: ENV['AMAZON_ACCESS_KEY_ID'], secret_access_key: ENV['AMAZON_SECRET_ACCESS_KEY']},
+                    :s3_credentials => {access_key_id: ENV['AMAZON_ACCESS_KEY_ID'] || "", secret_access_key: ENV['AMAZON_SECRET_ACCESS_KEY'] || ""},
                     :s3_permissions => :public_read,
                     :path => ":attachment/:id/:style.:extension",
                     :bucket => "iosdev_#{Rails.env}",

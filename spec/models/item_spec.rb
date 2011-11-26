@@ -27,6 +27,8 @@ describe Item do
     it { should allow_value('name_1').for(:name) }
     it { should allow_value('name-1').for(:name) }
     it { should_not allow_value('name 1').for(:name) }
+    it { should validate_presence_of :url }
+    it { should validate_uniqueness_of :url }
 
     describe 'that has been starred by a user' do
       before(:each) do
