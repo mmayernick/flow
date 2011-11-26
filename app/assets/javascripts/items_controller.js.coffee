@@ -1,5 +1,6 @@
 $ ->
   load_images()
+  $('#image_url').val($('#image_list li.current img').attr('src'))
   configure_buttons()
   $('#item_url').change ->
     load_images()
