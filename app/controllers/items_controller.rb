@@ -140,16 +140,6 @@ class ItemsController < ApplicationController
     end
   end
 
-  def search
-    @items_count = Item.count(:conditions => ['title LIKE ? OR tags LIKE ?', "%#{params[:id]}%", "%#{params[:id]}%"])
-    @items = Item.paginate(:all, {:conditions => ['title LIKE ? OR tags LIKE ?', "%#{params[:id]}%", "%#{params[:id]}%"]})
-    @noindex = true
-
-    respond_to do |format|
-      format.html
-    end
-  end
-
   def category
     @category = Category.find_by_name(params[:id])
     render_404 and return unless @category
@@ -160,7 +150,7 @@ class ItemsController < ApplicationController
     @last_checked_at = current_user.last_checked_at
     conditions   = ['items.updated_at > ? or comments.created_at > ?', @last_checked_at, @last_checked_at]
     @items_count = current_user.starred_items.count(:conditions => conditions, :include => :comments)
-    @items       = current_user.starred_items.paginate(:all, :conditions => conditions, :include => :comments, :page => params[:page])
+    @items       = current_user.starred_items.where(conditions).includes(:comments).paginate(:page => params[:page])
     current_user.update_attribute :last_checked_at, Time.now
   end
 

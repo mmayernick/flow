@@ -30,7 +30,6 @@ Flow::Application.routes.draw do
   match '/tag/:id' => 'items#list_for_tags', :as => :tag
   match '/tags/:id' => 'items#list_for_tags', :as => :tags
   match '/tags/*id' => 'items#list_for_tags', :as => :tags_by_folders
-  match '/search/:id' => 'items#search', :as => :search
   match '/category/:id' => 'items#category', :as => :category
   match '/page/:page' => 'items#index'
   match '/api' => 'pages#api', :as => :api_info
