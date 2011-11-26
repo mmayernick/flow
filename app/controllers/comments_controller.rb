@@ -2,13 +2,10 @@ class CommentsController < ApplicationController
   before_filter :admin_required, :except => [:create]
   before_filter :load_item
   
-  # GET /comments/1/edit
   def edit
     @comment = Comment.find(params[:id])
   end
 
-  # POST /comments
-  # POST /comments.xml
   def create
     @comment = Comment.new(params[:comment])
     @comment.item = @item
@@ -36,8 +33,6 @@ class CommentsController < ApplicationController
     end
   end
 
-  # PUT /comments/1
-  # PUT /comments/1.xml
   def update
     @comment = Comment.find(params[:id])
 
@@ -51,8 +46,6 @@ class CommentsController < ApplicationController
     end
   end
 
-  # DELETE /comments/1
-  # DELETE /comments/1.xml
   def destroy
     @comment = Comment.find(params[:id])
     @comment.destroy
