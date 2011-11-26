@@ -16,7 +16,7 @@ class Item < ActiveRecord::Base
 
   validates :url, :presence => true, :uniqueness => true
 
-  scope :newest_first, order('id DESC')
+  scope :newest_first, order('items.id DESC')
   scope :search, lambda {|t|
     where(["LOWER(items.title) LIKE ? OR LOWER(items.name) LIKE ? OR LOWER(items.url) LIKE ?", "%#{t.downcase.strip}%", "%#{t.downcase.strip}%", "%#{t.downcase.strip}%"])
   }
