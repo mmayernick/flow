@@ -44,7 +44,7 @@ class ItemsController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.json
+      format.json { render :json => @images}
     end
   end
 
