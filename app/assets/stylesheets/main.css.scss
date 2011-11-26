@@ -11,6 +11,18 @@
   }
 }
 
+@mixin fixed_height($hgt) {
+  min-height: $hgt;
+  height: $hgt;
+  max-height: $hgt;
+}
+
+@mixin fixed_width($wdt) {
+  min-width: $wdt;
+  width: $wdt;
+  max-width: $wdt;
+}
+
 body {
   padding-top: 60px!important;
 }
@@ -31,4 +43,29 @@ body {
 
 .brand img {
   vertical-align: top;
+}
+
+#image_list {
+  @include fixed_height(200px);
+  @include fixed_width(498px);
+  border: solid 1px #ccc;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  margin-bottom: 10px;
+  
+  li {
+    display: none;
+    @include fixed_height(200px);
+    @include fixed_width(498px);
+    text-align: center;
+    &.current {
+      display: block;
+    }
+  }
+  
+  img {
+    max-width: 400px;
+    height: auto;
+  }
 }

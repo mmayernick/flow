@@ -17,7 +17,7 @@
         = f.label :byline, "Your name:"
         .input
           = f.text_field :byline, class: 'xlarge', autofocus: true
-  
+
     .clearfix
       = f.label :title, "Title:"
       .input
@@ -33,10 +33,17 @@
         %span.help-block
           (#{link_to('Textile Formatting', 'http://www.textism.com/tools/textile', target: '_blank')})
     .clearfix
-      = f.label :image, "Image:"
+      %label Optional image:
+      %label
+        = check_box_tag :no_image
+        No image
       .input
-        = f.file_field :image
-        %span.help-block Optionally attach an image
+        = hidden_field_tag :image_url
+        %ul#image_list
+        .pull-left
+          = link_to 'Previous Image', '#', id: 'previous_image', class: 'btn'
+        .pull-right
+          = link_to 'Next Image', '#', id: 'next_image', class: 'btn'
     .clearfix
       %label Preview:
       .input
@@ -44,9 +51,9 @@
           %h2.title= link_to '', '#'
           .entry
             %p &nbsp;
-  
+
     - unless logged_in?
       = render :partial => 'home/signup_captcha'
-  
+
     .actions
       = f.submit @item.new_record? ? "Post Item" : "Update Item", class: 'btn primary'

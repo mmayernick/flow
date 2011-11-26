@@ -50,7 +50,6 @@ class ItemsController < ApplicationController
 
   def new
     @item = Item.new
-    @item.content = "So I *just* released this cool thing and blah blah blah..."
     @item.title = params[:t] unless params[:t].blank?
     @item.url = params[:u] unless params[:u].blank?
 
@@ -72,6 +71,10 @@ class ItemsController < ApplicationController
       @item.user = current_user
     else
       @item.content = @item.content.gsub(/((<a\s+.*?href.+?\".*?\")([^\>]*?)>)/, '\2 rel="nofollow" \3>')
+    end
+    
+    if params[:image_url] && params[:no_image].blank?
+      @item.image = open(params[:image_url])
     end
 
     # FIXME remove this, because title required
