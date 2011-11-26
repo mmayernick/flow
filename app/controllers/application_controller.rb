@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
   end
 
   def passes_captcha?
-    verify_recaptcha
+    !Rails.env.production? || verify_recaptcha
   end
 
   include AuthenticatedSystem
@@ -52,5 +52,9 @@ class ApplicationController < ActionController::Base
     help.sanitize(html, :tags => %w(a p code b strong i em blockquote ol ul li), :attributes => %w(href))
 	end
 
-  helper_method :site_config, :to_textile
+  def captcha_enabled?
+    !!ENV['RECAPTCHA_PUBLIC_KEY'] && !!ENV['RECAPTCHA_PRIVATE_KEY']
+  end
+
+  helper_method :site_config, :to_textile, :captcha_enabled?
 end

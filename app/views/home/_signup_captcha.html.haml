@@ -1,4 +1,8 @@
 .clearfix
-  %label &nbsp;
-  .input
-    = recaptcha_tags
+  - if captcha_enabled?
+    %label &nbsp;
+    .input
+      = recaptcha_tags
+  - else
+    .well
+      %p MAKE SURE YOU CONFIGURE YOUR CAPTCHA!
