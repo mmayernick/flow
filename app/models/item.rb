@@ -18,7 +18,7 @@ class Item < ActiveRecord::Base
 
   scope :newest_first, order('id DESC')
   scope :search, lambda {|t|
-    where(["LOWER(title) LIKE ? OR LOWER(name) LIKE ? OR LOWER(url) LIKE ?", "%#{t.downcase.strip}%", "%#{t.downcase.strip}%", "%#{t.downcase.strip}%"])
+    where(["LOWER(items.title) LIKE ? OR LOWER(items.name) LIKE ? OR LOWER(items.url) LIKE ?", "%#{t.downcase.strip}%", "%#{t.downcase.strip}%", "%#{t.downcase.strip}%"])
   }
 
   has_attached_file :image,
