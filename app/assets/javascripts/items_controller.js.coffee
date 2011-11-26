@@ -12,7 +12,13 @@ $ ->
     if $('#image_list li.current').length == 0
       $('#image_list li:first-child').addClass('current')
     $('#image_url').val($('#image_list li.current img').attr('src'))
+
   $('#item_url').change ->
+    load_images
+  
+  load_images
+  
+  load_images = ->
     if /https?:\/\/.+\..+/i.test $('#item_url').val()
       $('#item_url').parents('form').find('input.btn.primary').removeAttr('disabled')
       data = 
