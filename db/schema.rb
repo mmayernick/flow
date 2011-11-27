@@ -14,33 +14,45 @@
 ActiveRecord::Schema.define(:version => 20111124032743) do
 
   create_table "comments", :force => true do |t|
-    t.text     "content"
-    t.string   "byline"
-    t.integer  "user_id"
-    t.integer  "item_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.text      "content"
+    t.string    "byline"
+    t.integer   "user_id"
+    t.integer   "item_id"
+    t.timestamp "created_at"
+    t.timestamp "updated_at"
   end
 
   add_index "comments", ["item_id"], :name => "index_comments_on_item_id"
   add_index "comments", ["user_id"], :name => "index_comments_on_user_id"
 
-  create_table "items", :force => true do |t|
-    t.string   "title"
-    t.string   "url"
-    t.text     "content"
-    t.text     "metadata"
-    t.string   "name"
-    t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "byline"
-    t.integer  "comments_count",     :default => 0
-    t.integer  "stars_count",        :default => 0
+  create_table "images", :force => true do |t|
+    t.integer  "item_id"
     t.string   "image_content_type"
     t.string   "image_file_name"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "images", ["item_id"], :name => "index_images_on_item_id"
+
+  create_table "items", :force => true do |t|
+    t.string    "title"
+    t.string    "url"
+    t.text      "content"
+    t.text      "metadata"
+    t.string    "name"
+    t.integer   "user_id"
+    t.timestamp "created_at"
+    t.timestamp "updated_at"
+    t.string    "byline"
+    t.integer   "comments_count",     :default => 0
+    t.integer   "stars_count",        :default => 0
+    t.string    "image_content_type"
+    t.string    "image_file_name"
+    t.integer   "image_file_size"
+    t.timestamp "image_updated_at"
   end
 
   add_index "items", ["name"], :name => "index_items_on_name"
