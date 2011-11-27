@@ -65,8 +65,6 @@ class ItemsController < ApplicationController
   def create
     @item = Item.new(params[:item])
 
-    @item.url = URI::extract(@item.content).try(:first) if @item.url.blank?
-
     if logged_in?
       @item.user = current_user
     else
