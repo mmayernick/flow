@@ -3,7 +3,7 @@
     .container
       = link_to image_tag('top_bar_logo.png') + " " + site_config.site_title, root_path, class: 'brand'
       %ul.nav
-        %li.active= link_to 'Home', root_path
+        %li= link_to 'Home', root_path
         %li= link_to 'Post Item', new_item_path
         -#%li= link_to 'API', api_info_path
       .pull-right

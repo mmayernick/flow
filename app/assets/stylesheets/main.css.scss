@@ -31,6 +31,14 @@ body {
   width: 490px!important;
 }
 
+.topbar-inner, .topbar .fill {
+  background: -webkit-gradient(linear, 0 0, 0 100%, from(rgba(0, 0, 0, .2)), color-stop(0.02, transparent), color-stop(0.97, transparent), to(rgba(0, 0, 0, .45))), -webkit-gradient(linear, 0 0, 100% 0, from(rgba(0, 0, 0, .2)), color-stop(0.002, transparent), color-stop(0.998, transparent), to(rgba(0, 0, 0, .2))),-webkit-gradient(linear, 0 100%, 0 0, from(#666), color-stop(0.5, #5E5E5E), color-stop(0.51, #707070), to(gray)) !important;
+
+  li a {
+    color: white;
+  }
+}
+
 .post {
   .entry {
     @include clearfix;
