@@ -53,7 +53,7 @@
             %p &nbsp;
 
     - unless logged_in?
-      = render :partial => 'home/signup_captcha'
+      = render :partial => 'common/captcha'
 
     .actions
       = f.submit @item.new_record? ? "Post Item" : "Update Item", class: 'btn primary'
