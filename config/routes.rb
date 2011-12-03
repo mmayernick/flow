@@ -15,7 +15,6 @@ Flow::Application.routes.draw do
   
   resources :comments
 
-  resources :categories
   resources :users
   resource :session
   
