@@ -51,6 +51,12 @@ Flow::Application.configure do
   # Enable threaded mode
   # config.threadsafe!
   
+  config.middleware.insert_before(Rack::Lock, Rack::Rewrite) do
+    r301 %r{.*}, 'http://www.iosdevlinks.com$&', :if => Proc.new {|rack_env|
+      rack_env['SERVER_NAME'] != 'www.iosdevlinks.com'
+    }
+  end
+
   ActionMailer::Base.smtp_settings = {
     :address        => 'smtp.sendgrid.net',
     :port           => '587',
