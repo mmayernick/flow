@@ -10,7 +10,6 @@ describe Item do
   it { should ensure_length_of(:content).is_at_least(25).is_at_most(1200) }
   it { should ensure_length_of(:byline).is_at_least(0).is_at_most(50) }
 
-  describe "URL extraction from .content"
   describe "search scope"
   describe "as_json"
 
@@ -27,8 +26,13 @@ describe Item do
     it { should allow_value('name_1').for(:name) }
     it { should allow_value('name-1').for(:name) }
     it { should_not allow_value('name 1').for(:name) }
-    it { should validate_presence_of :url }
     it { should validate_uniqueness_of :url }
+    
+    describe "URLs" do
+      it "can be nil" do
+        Factory.create(:item, :url => nil).should_not be_new_record
+      end
+    end
 
     describe 'that has been starred by a user' do
       before(:each) do
