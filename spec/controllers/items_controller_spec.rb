@@ -95,7 +95,7 @@ describe ItemsController do
       end
 
       it "should redirect to login" do
-        response.should redirect_to login_path
+        response.should redirect_to new_session_path
       end
     end
 

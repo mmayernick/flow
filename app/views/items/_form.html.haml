@@ -11,7 +11,7 @@
       .clearfix
         %label &nbsp;
         .input
-          %p Registered users should #{link_to 'log in', login_url} to populate these fields automatically. Unregistered? #{link_to 'Sign up', new_user_path} so we can publish your post to the RSS &amp; Twitter feeds!
+          %p Registered users should #{link_to 'log in', new_session_path} to populate these fields automatically. Unregistered? #{link_to 'Sign up', new_user_path} so we can publish your post to the RSS &amp; Twitter feeds!
 
       .clearfix
         = f.label :byline, "Your name:"
