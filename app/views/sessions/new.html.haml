@@ -5,17 +5,13 @@
     = label_tag :login, "Login:"
     .input
       = text_field_tag :login, '', class: 'xlarge', autofocus: true
-      %span.help-block Note that logins are case sensitive. Use the same casing as displays on the site / you used at signup.
   .clearfix
     = label_tag :password, "Password:"
     .input
       = password_field_tag :password, '', class: 'xlarge'
-  .clearfix
-    %label &nbsp;
-    .input
-      %label
-        = check_box_tag 'remember_me'
-        %span Remember me
   .actions
     = button_tag 'Log In', class: 'btn primary'
-    = link_to "Sign Up for a New Account", new_user_path, class: 'btn'
+  %p
+    = link_to "Sign Up for a New Account", new_user_path
+    |
+    = link_to "Reset Password", reset_password_users_path

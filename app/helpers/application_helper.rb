@@ -1,11 +1,13 @@
 module ApplicationHelper
   def editable?(item)
-    admin? || item.user == current_user
+    is_admin? || item.user == current_user
   end
   
-  def title
-    if @title
+  def title(val = nil)
+    if @title && val.nil?
       "#{@title} | #{site_config.site_title}"
+    elsif !val.nil?
+      @title = val
     else
       site_config.default_title
     end

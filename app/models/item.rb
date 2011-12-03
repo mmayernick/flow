@@ -56,7 +56,7 @@ class Item < ActiveRecord::Base
   end
 
   def tweetable?
-    user && user.approved_for_feed == 1
+    !!user.try(:is_approved_for_feed?)
   end
 
   def self.find_by_id_or_name(id_or_name)

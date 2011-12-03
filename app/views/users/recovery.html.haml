@@ -1,0 +1,10 @@
+- title "Set a New Password"
+
+= form_tag set_new_password_users_path do
+  %fieldset
+    .clearfix
+      = label_tag :password, "Password:"
+      .input
+        = password_field_tag :password, '', class: 'xlarge', autofocus: true
+    .actions
+      %button.btn.primary Set New Password

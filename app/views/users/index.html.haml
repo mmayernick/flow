@@ -16,14 +16,14 @@
         %td= u.login
         %td= link_to_if u.url, u.url, u.url
         %td= u.created_at.strftime("%b %d, %Y")
-        %td= u.approved_for_feed
+        %td= u.is_approved_for_feed?
         %td
           = form_for u do |f|
-            = f.hidden_field :approved_for_feed, :value => 1
+            = f.hidden_field :is_approved_for_feed, :value => true
             %button.btn.small.primary Approve
         %td
           = form_for u do |f|
-            = f.hidden_field :approved_for_feed, :value => 0
+            = f.hidden_field :is_approved_for_feed, :value => false
             %button.btn.small Disapprove
         %td
           = link_to 'delete', u, :method => :delete, :confirm => "Delete?"

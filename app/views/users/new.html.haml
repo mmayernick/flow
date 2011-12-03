@@ -13,9 +13,9 @@
       .input
         = f.password_field :password, class: 'xlarge'
     .clearfix
-      = f.label :password_confirmation, "Password confirmation:"
+      = f.label :email, "Email:"
       .input
-        = f.password_field :password_confirmation, class: 'xlarge'
+        = f.text_field :email, class: 'xlarge'
     .clearfix
       = f.label :url, "Your website:"
       .input

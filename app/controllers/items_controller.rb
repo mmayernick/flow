@@ -120,7 +120,7 @@ class ItemsController < ApplicationController
   def permission_required
     @item = Item.find_by_id_or_name(params[:id])
     (render_404 and return) unless @item
-    (render_403 and return) unless @item.user_id == current_user.id || admin?
+    (render_403 and return) unless @item.user_id == current_user.id || is_admin?
   end
 
 end
