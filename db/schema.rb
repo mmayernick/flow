@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111203195624) do
+ActiveRecord::Schema.define(:version => 20111203202648) do
 
   create_table "comments", :force => true do |t|
     t.text      "content"
@@ -62,18 +62,14 @@ ActiveRecord::Schema.define(:version => 20111203195624) do
   create_table "users", :force => true do |t|
     t.string   "login"
     t.string   "email"
-    t.string   "fullname"
     t.string   "url"
-    t.string   "crypted_password",          :limit => 40
-    t.string   "salt",                      :limit => 40
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "remember_token"
-    t.datetime "remember_token_expires_at"
-    t.integer  "admin",                                   :default => 0
-    t.integer  "approved_for_feed",                       :default => 0
-    t.datetime "last_checked_at"
     t.string   "api_key"
+    t.boolean  "is_admin",             :default => false
+    t.boolean  "is_approved_for_feed", :default => false
+    t.string   "password_digest"
+    t.string   "password_reset_token"
   end
 
   add_index "users", ["api_key"], :name => "index_users_on_api_key", :unique => true

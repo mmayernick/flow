@@ -9,7 +9,13 @@ Flow::Application.routes.draw do
   
   resources :comments
 
-  resources :users
+  resources :users do
+    get :reset_password, :on => :collection
+    post :send_reset_password, :on => :collection
+    get :recovery, :on => :collection
+    post :set_new_password, :on => :collection
+  end
+  
   resource :session
   
   match '/logout' => 'sessions#destroy', :as => :logout

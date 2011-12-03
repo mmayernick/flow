@@ -13,12 +13,12 @@ module ItemsHelper
   def can_edit?(item)
     time_left = edit_time_left(item)
     
-    admin? || (item.user == current_user && (time_left.nil? || time_left > 0))
+    is_admin? || (item.user == current_user && (time_left.nil? || time_left > 0))
   end
   
   def user_link(item)
     if item.user
-      options = item.user.approved_for_feed == 1 ? {} : {:rel => 'nofollow'} 
+      options = item.user.is_approved_for_feed? ? {} : {:rel => 'nofollow'} 
       link_to(item.user.login, item.user.url, options) + " (#{item.user.items.count})"
     else
       item.byline

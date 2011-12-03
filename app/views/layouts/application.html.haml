@@ -32,6 +32,8 @@
           .span11
             - if flash[:notice]
               %p.message= flash[:notice]
+            - if flash[:error]
+              %p.message= flash[:error]
             = yield
           .span5
             .well= render 'layouts/sidebar'
