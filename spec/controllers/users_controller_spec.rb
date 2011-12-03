@@ -4,14 +4,14 @@ describe UsersController do
   render_views
   
   describe "admin actions are protected" do
-    [[:get, :approve], [:get, :disapprove], [:delete, :destroy]].each do |verb, action|
+    [[:put, :update], [:delete, :destroy]].each do |verb, action|
       it "should not #{verb} #{action}" do
         user = Factory.create(:user)
         login_as user
         send(verb, action, :id => 1)
         response.should be_redirect
       end
-    end  
+    end
     
     it "should not get index" do
       user = Factory.create(:user)

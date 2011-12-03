@@ -1,6 +1,10 @@
 class UsersController < ApplicationController
   before_filter :admin_required, :except => [:new, :create]
 
+  def index
+    @users = User.order('id DESC').limit(100)
+  end
+
   def new
     @user = User.new
   end
@@ -24,25 +28,18 @@ class UsersController < ApplicationController
       render :action => 'new'
     end
   end
-  
-  def index
-    @users = User.order('id DESC').limit(100)
+
+  def update
+    @user = User.find(params[:id])
+    @user.approved_for_feed = params[:user][:approved_for_feed] unless params[:user][:approved_for_feed].blank?
+    
+    if @user.save
+      redirect_to :back, :notice => "User successfully updated."
+    else
+      redirect_to :back, :error => "Unable to update user."
+    end
   end
 
-  def approve
-    user = User.find(params[:id])
-    user.approved_for_feed = 1
-    user.save
-    redirect_to :back
-  end
-
-  def disapprove
-    user = User.find(params[:id])
-    user.approved_for_feed = 0
-    user.save
-    redirect_to :back
-  end
-  
   def destroy
     @user = User.find(params[:id])
     

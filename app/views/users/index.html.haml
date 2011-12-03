@@ -4,8 +4,9 @@
       %th ID
       %th Login
       %th URL
-      %th Joined At
+      %th Joined
       %th Feed Approved
+      %th &nbsp;
       %th &nbsp;
       %th &nbsp; 
   %tbody
@@ -17,8 +18,12 @@
         %td= u.created_at.strftime("%b %d, %Y")
         %td= u.approved_for_feed
         %td
-          = link_to 'approve', :action => 'approve', :id => u.id
-          |
-          = link_to 'disapprove', :action => 'disapprove', :id => u.id
+          = form_for u do |f|
+            = f.hidden_field :approved_for_feed, :value => 1
+            %button.btn.small.primary Approve
+        %td
+          = form_for u do |f|
+            = f.hidden_field :approved_for_feed, :value => 0
+            %button.btn.small Disapprove
         %td
           = link_to 'delete', u, :method => :delete, :confirm => "Delete?"

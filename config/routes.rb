@@ -16,12 +16,7 @@ Flow::Application.routes.draw do
   resources :comments
 
   resources :categories
-  resources :users do
-    member do
-      get :approve
-      get :disapprove
-    end
-  end
+  resources :users
   resource :session
   
   match '/logout' => 'sessions#destroy', :as => :logout
