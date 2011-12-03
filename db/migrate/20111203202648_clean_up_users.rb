@@ -14,11 +14,16 @@ class CleanUpUsers < ActiveRecord::Migration
     
     User.reset_column_information
     
-    User.all.each do |u|
+    User.all do |u|
       u.is_admin = (u.admin == 1)
+      u.email = u.email || "uhohthiswasblank_#{u.id}@example.com"
       u.password = UUID.new.generate(:compact)
       u.is_approved_for_feed = (u.approved_for_feed == 1)
-      u.save!
+      begin
+        u.save!
+      rescue
+        puts "unable to update user #{u.login}: #{$!}"
+      end
     end
     
     remove_column :users, :admin
