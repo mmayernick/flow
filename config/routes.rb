@@ -27,9 +27,6 @@ Flow::Application.routes.draw do
   match '/signup' => 'users#new', :as => :signup
   match '/login' => 'sessions#new', :as => :login
   match '/logout' => 'sessions#destroy', :as => :logout
-  match '/tag/:id' => 'items#list_for_tags', :as => :tag
-  match '/tags/:id' => 'items#list_for_tags', :as => :tags
-  match '/tags/*id' => 'items#list_for_tags', :as => :tags_by_folders
   match '/page/:page' => 'items#index'
   match '/api' => 'pages#api', :as => :api_info
 
