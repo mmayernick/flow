@@ -6,11 +6,15 @@ class User < ActiveRecord::Base
   validates_presence_of :password, :on => :create 
   
   validates_presence_of     :login
-  validates_presence_of     :api_key
-  validates_length_of       :login,    :within => 3..40
-  #validates_length_of       :email,    :within => 3..100
   validates_uniqueness_of   :login, :case_sensitive => false
   validates_format_of       :login, :with => /^\w+$/
+  validates_length_of       :login,    :within => 3..40
+  
+  validates_presence_of     :api_key
+  
+  validates_presence_of     :email
+  validates_uniqueness_of   :email
+
   validates_format_of       :url, :with => /^(|http\:\/\/.*)$/
 
   before_validation :ensure_api_key
