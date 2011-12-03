@@ -25,7 +25,6 @@ Flow::Application.routes.draw do
   resource :session
   
   match '/logout' => 'sessions#destroy', :as => :logout
-  match '/page/:page' => 'items#index'
   match '/api' => 'pages#api', :as => :api_info
 
   root :to => 'items#index'
