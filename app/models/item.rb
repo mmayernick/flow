@@ -14,7 +14,7 @@ class Item < ActiveRecord::Base
   validates_length_of       :content, :within => 25..1200
   validates_length_of       :byline, :maximum => 50, :if => :byline?
 
-  validates :url, :presence => true, :uniqueness => true
+  validates_uniqueness_of :url, :unless => :nil?
 
   scope :newest_first, order('items.id DESC')
   scope :search, lambda {|t|

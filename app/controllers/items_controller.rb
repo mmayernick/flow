@@ -71,13 +71,8 @@ class ItemsController < ApplicationController
       @item.content = @item.content.gsub(/((<a\s+.*?href.+?\".*?\")([^\>]*?)>)/, '\2 rel="nofollow" \3>')
     end
     
-    if params[:image_url] && params[:no_image].blank?
+    if !params[:image_url].blank? && params[:no_image].blank?
       @item.image = open(params[:image_url])
-    end
-
-    # FIXME remove this, because title required
-    if @item.title.empty?
-      @item.title = @item.content.gsub(/\<[^\>]+\>/, '')[0...40] + "..."
     end
 
     if !logged_in? && !passes_captcha?
