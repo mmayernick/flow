@@ -1,7 +1,6 @@
 class Item < ActiveRecord::Base
   belongs_to :user
   has_many :comments
-	has_many :stars, :dependent => :destroy
 
   serialize :metadata
 
@@ -40,8 +39,7 @@ class Item < ActiveRecord::Base
       :title => title,
       :name => name,
       :byline => byline,
-      :comments_count => comments_count,
-      :stars_count => stars_count
+      :comments_count => comments_count
     }
   end
 
@@ -65,20 +63,7 @@ class Item < ActiveRecord::Base
     find(id_or_name) rescue find_by_name(id_or_name)
   end
 
-  def is_starred_by_user(user)
-    user.starred_items.include? self
-  end
-
   def self.per_page
     25
-  end
-
-  # TODO move to a helper
-  def starred_class(user)
-    if self.is_starred_by_user(user)
-      return "starred"
-    else
-      return ""
-    end
   end
 end

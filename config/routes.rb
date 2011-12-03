@@ -4,12 +4,6 @@ Flow::Application.routes.draw do
     collection do
       get :url_images
     end
-    
-    member do
-      get :star
-      get :unstar
-    end
-    
     resources :comments
   end
   

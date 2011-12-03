@@ -3,7 +3,6 @@ require 'spec_helper'
 describe Item do
   it { should belong_to :user }
   it { should have_many :comments }
-  it { should have_many :stars }
 
   it { should ensure_length_of(:title).is_at_least(4).is_at_most(255) }
   it { should ensure_length_of(:name).is_at_least(4).is_at_most(255) }
@@ -31,35 +30,6 @@ describe Item do
     describe "URLs" do
       it "can be nil" do
         Factory.create(:item, :url => nil).should_not be_new_record
-      end
-    end
-
-    describe 'that has been starred by a user' do
-      before(:each) do
-        @user = Factory(:user)
-        @user.stars.create(:item => @item)
-      end
-
-      it 'should be starred by user' do
-        @item.is_starred_by_user(@user).should be_true
-      end
-
-      it 'should generate starred css class' do
-        @item.starred_class(@user).should == 'starred'
-      end
-    end
-
-    describe 'that has not been starred by a user' do
-      before(:each) do
-        @user = Factory(:user)
-      end
-
-      it 'should be starred by user' do
-        @item.is_starred_by_user(@user).should be_false
-      end
-
-      it 'should generate empty css class' do
-        @item.starred_class(@user).should be_blank
       end
     end
   end

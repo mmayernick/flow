@@ -25,12 +25,6 @@ module ItemsHelper
     end
   end
   
-  def star_link(item)
-    if item.is_starred_by_user(current_user)
-      return " &ndash; " + content_tag(:span, link_to("unstar this post", unstar_item_path(item), :class => item.starred_class(current_user)), :class => "star")
-    end
-  end
-  
   # Shows the time left to edit the current item, or nil if it's always allowed
   def edit_time_left(item)
     diff = Time.now - item.updated_at

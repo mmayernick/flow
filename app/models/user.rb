@@ -2,8 +2,7 @@ require 'digest/sha1'
 class User < ActiveRecord::Base
   has_many :items, :dependent => :nullify
   has_many :comments, :dependent => :nullify
-  has_many :stars, :dependent => :destroy
-  has_many :starred_items, :through => :stars, :source => :item
+  
   # Virtual attribute for the unencrypted password
   attr_accessor :password
 
@@ -25,22 +24,6 @@ class User < ActiveRecord::Base
   # prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.
   attr_accessible :login, :email, :password, :password_confirmation, :url, :fullname
-
-  def unstar(item)
-    star = self.stars.find_by_item_id(item.id)
-    if star
-      star.destroy
-    end
-  end
-
-  def star(item)
-    star = self.stars.find_by_item_id(item.id)
-    unless star
-      self.stars.create(:item => item)
-    else
-      false
-    end
-  end
 
   def reset_api_key
     self.api_key = nil

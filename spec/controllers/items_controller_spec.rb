@@ -4,7 +4,7 @@ describe ItemsController do
   render_views
 
   describe "requires login" do
-    [[:put, :update], [:get, :edit], [:delete, :destroy], [:get, :star], [:get, :unstar]].each do |verb, action|
+    [[:put, :update], [:get, :edit], [:delete, :destroy]].each do |verb, action|
       it "should #{verb} #{action}" do
         send(verb, action, {:id => '1'})
       end

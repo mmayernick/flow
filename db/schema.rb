@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111124032743) do
+ActiveRecord::Schema.define(:version => 20111203195624) do
 
   create_table "comments", :force => true do |t|
     t.text      "content"
@@ -38,32 +38,26 @@ ActiveRecord::Schema.define(:version => 20111124032743) do
   add_index "images", ["item_id"], :name => "index_images_on_item_id"
 
   create_table "items", :force => true do |t|
-    t.string    "title"
-    t.string    "url"
-    t.text      "content"
-    t.text      "metadata"
-    t.string    "name"
-    t.integer   "user_id"
-    t.timestamp "created_at"
-    t.timestamp "updated_at"
-    t.string    "byline"
-    t.integer   "comments_count",     :default => 0
-    t.integer   "stars_count",        :default => 0
-    t.string    "image_content_type"
-    t.string    "image_file_name"
-    t.integer   "image_file_size"
-    t.timestamp "image_updated_at"
+    t.string   "title"
+    t.string   "url"
+    t.text     "content"
+    t.text     "metadata"
+    t.string   "name"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "byline"
+    t.integer  "comments_count",     :default => 0
+    t.string   "image_content_type"
+    t.string   "image_file_name"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
   end
 
   add_index "items", ["name"], :name => "index_items_on_name"
   add_index "items", ["title"], :name => "index_items_on_title"
   add_index "items", ["url"], :name => "index_items_on_url"
   add_index "items", ["user_id"], :name => "index_items_on_user_id"
-
-  create_table "stars", :force => true do |t|
-    t.integer "user_id"
-    t.integer "item_id"
-  end
 
   create_table "users", :force => true do |t|
     t.string   "login"

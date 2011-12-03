@@ -115,40 +115,6 @@ class ItemsController < ApplicationController
     end
   end
 
-  def star
-    @item = Item.find_by_id_or_name(params[:id])
-    was_starred = current_user.star(@item)
-
-    respond_to do |wants|
-      wants.html { redirect_to :back }
-      wants.js do
-        if was_starred
-          stars_count = @item.stars.size + 1
-          render(:text => "#{stars_count} #{stars_count == 1 ? "star" : "stars"}")
-        else
-          head(:unprocessable_entity)
-        end
-      end
-    end
-  end
-
-  def unstar
-    @item     = Item.find_by_id_or_name(params[:id])
-    was_unstarred = @star = current_user.unstar(@item)
-
-    respond_to do |wants|
-      wants.html { redirect_to :back }
-      wants.js do
-        if was_unstarred
-          stars_count = @item.stars.size - 1
-          render(:text => "#{stars_count} #{stars_count == 1 ? "star" : "stars"}")
-        else
-          head(:unprocessable_entity)
-        end
-      end
-    end
-  end
-
   protected
 
   def permission_required

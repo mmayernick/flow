@@ -3,8 +3,6 @@ require 'spec_helper'
 describe User do
   it { should have_many :items }
   it { should have_many :comments }
-  it { should have_many :stars }
-  it { should have_many :starred_items }
 
   it { should validate_presence_of :login }
   it { should validate_presence_of :password }
