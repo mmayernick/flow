@@ -8,7 +8,7 @@ configatron.meta.author = 'CappuccinoFlow'
 
 configatron.language = 'en-us'
 
-configatron.site_url = 'http://cappuccinoflow.com/'
+configatron.site_url = 'cappuccinoflow.com/'
 configatron.rss_url = 'http://feeds.feedburner.com/cappuccinoflow'
 
 configatron.google_analytics.enabled = true

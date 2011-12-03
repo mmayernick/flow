@@ -52,8 +52,8 @@ Flow::Application.configure do
   # config.threadsafe!
   
   config.middleware.insert_before(Rack::Lock, Rack::Rewrite) do
-    r301 %r{.*}, 'http://www.iosdevlinks.com$&', :if => Proc.new {|rack_env|
-      rack_env['SERVER_NAME'] != 'www.iosdevlinks.com'
+    r301 %r{.*}, "http://#{configatron.site_url}$&", :if => Proc.new {|rack_env|
+      rack_env['SERVER_NAME'] != configatron.site_url
     }
   end
 

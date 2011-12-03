@@ -8,7 +8,7 @@ configatron.meta.author = 'iOS Dev Links'
 
 configatron.language = 'en-us'
 
-configatron.site_url = 'http://www.iosdevlinks.com'
+configatron.site_url = 'www.iosdevlinks.com'
 configatron.rss_url = 'http://feeds.feedburner.com/iosdevlinks'
 configatron.twitter_url = 'https://twitter.com/iosdevlinks'
 
