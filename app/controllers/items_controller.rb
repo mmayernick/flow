@@ -155,14 +155,6 @@ class ItemsController < ApplicationController
     @items = Item.find_all_for_all_tags(@category.query.split(/\s/))
   end
 
-  def recently
-    @last_checked_at = current_user.last_checked_at
-    conditions   = ['items.updated_at > ? or comments.created_at > ?', @last_checked_at, @last_checked_at]
-    @items_count = current_user.starred_items.count(:conditions => conditions, :include => :comments)
-    @items       = current_user.starred_items.where(conditions).includes(:comments).paginate(:page => params[:page])
-    current_user.update_attribute :last_checked_at, Time.now
-  end
-
   protected
 
   def permission_required

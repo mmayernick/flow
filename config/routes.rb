@@ -2,7 +2,6 @@ Flow::Application.routes.draw do
 
   resources :items do
     collection do
-      get :recently
       get :url_images
     end
     
