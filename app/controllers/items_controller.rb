@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-  before_filter :login_required, :except => [:show, :index, :search, :category, :new, :create, :url_images]
+  before_filter :login_required, :except => [:show, :index, :search, :new, :create, :url_images]
   before_filter :admin_required, :only => [:destroy]
   before_filter :permission_required, :only => [:edit, :update]
 
@@ -147,12 +147,6 @@ class ItemsController < ApplicationController
         end
       end
     end
-  end
-
-  def category
-    @category = Category.find_by_name(params[:id])
-    render_404 and return unless @category
-    @items = Item.find_all_for_all_tags(@category.query.split(/\s/))
   end
 
   protected
