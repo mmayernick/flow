@@ -24,8 +24,6 @@ class User < ActiveRecord::Base
   def reset_password
     self.password_reset_token = UUID.new.generate(:compact)
     self.save!
-    
-    self.password_reset_token
   end
 
   def reset_api_key
