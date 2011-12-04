@@ -1,0 +1,3 @@
+- flash.each do |k,v|
+  .alert-message{:class => k == 'notice' ? 'success' : k}
+    %p= v
