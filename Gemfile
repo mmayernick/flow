@@ -22,6 +22,7 @@ gem 'aws-s3', '~>0.6.2', :require => 'aws/s3'
 
 group :assets do
   gem 'sass-rails',   '~> 3.1.5'
+  gem 'less-rails-bootstrap', '~>1.4.1'
   gem 'coffee-rails', '~> 3.1.1'
   gem 'uglifier', '>= 1.0.3'
 end
