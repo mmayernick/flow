@@ -10,7 +10,7 @@ class ItemsController < ApplicationController
     if params[:q]
       @items = Item.search(params[:q]).newest_first.includes(:user).paginate :page => params[:page]
     else
-      @items = Item.newest_first.includes(:user).paginate :page => params[:page]
+      @items = Item.newest_first.includes(:user).paginate(:per_page => params[:per_page], :page => params[:page])
     end
 
     respond_to do |format|
