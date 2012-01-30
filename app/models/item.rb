@@ -39,7 +39,8 @@ class Item < ActiveRecord::Base
       :title => title,
       :name => name,
       :byline => byline,
-      :comments_count => comments_count
+      :comments_count => comments_count,
+      :content => content
     }
   end
 
